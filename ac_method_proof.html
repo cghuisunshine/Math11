@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AC-Method Proof Using Substitution</title>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --border: #d1d5db;
+      --note-bg: #fffbeb;
+      --note-border: #f59e0b;
+      --success-bg: #ecfdf5;
+      --success-border: #22c55e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero,
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .hero {
+      padding: 30px;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+    }
+
+    .card {
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 0;
+      color: #111827;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      margin-bottom: 14px;
+      border-left: 5px solid var(--accent);
+      padding-left: 10px;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .math-inline,
+    .math-block {
+      font-family: "Times New Roman", Times, serif;
+      background: var(--accent-soft);
+      border-radius: 10px;
+    }
+
+    .math-inline {
+      display: inline-block;
+      padding: 2px 8px;
+      margin: 2px 0;
+    }
+
+    .math-block {
+      display: block;
+      padding: 12px 14px;
+      margin: 12px 0;
+      overflow-x: auto;
+    }
+
+    .step {
+      padding-top: 14px;
+      margin-top: 14px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .step:first-of-type {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: 0;
+    }
+
+    .label {
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .note,
+    .success {
+      border-left: 5px solid;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 16px 0;
+    }
+
+    .note {
+      background: var(--note-bg);
+      border-left-color: var(--note-border);
+    }
+
+    .success {
+      background: var(--success-bg);
+      border-left-color: var(--success-border);
+    }
+
+    .compact-list {
+      padding-left: 20px;
+      margin: 10px 0 0;
+    }
+
+    .compact-list li + li {
+      margin-top: 8px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 16px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      padding: 8px 0 20px;
+    }
+
+    code {
+      background: #eef2ff;
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        padding: 16px;
+      }
+
+      .hero,
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="content.html">&larr; Back to Math 11 page list</a>
+
+    <section class="hero">
+      <h1>AC-Method Proof Using Substitution</h1>
+      <p class="subtitle">A clean proof that explains why the AC-method works, followed by a shorter version and a full example.</p>
+    </section>
+
+    <section class="card">
+      <h2>Proof of the AC-Method Using Substitution</h2>
+
+      <div class="step">
+        <div class="label">Step 1</div>
+        <h3>Multiply by <span class="math-inline">a</span></h3>
+        <p>Start with</p>
+        <div class="math-block">ax<sup>2</sup> + bx + c</div>
+        <p>We want to factor it. Multiply the expression by <span class="math-inline">a</span>:</p>
+        <div class="math-block">a(ax<sup>2</sup> + bx + c) = a<sup>2</sup>x<sup>2</sup> + abx + ac</div>
+        <p>Now let</p>
+        <div class="math-block">y = ax</div>
+        <p>Then the right-hand side becomes</p>
+        <div class="math-block">y<sup>2</sup> + by + ac</div>
+        <p>So instead of factoring <span class="math-inline">ax<sup>2</sup> + bx + c</span>, we first factor the monic quadratic <span class="math-inline">y<sup>2</sup> + by + ac</span>.</p>
+      </div>
+
+      <div class="step">
+        <div class="label">Step 2</div>
+        <h3>Factor the monic quadratic</h3>
+        <p>Suppose we can find numbers <span class="math-inline">m</span> and <span class="math-inline">n</span> such that</p>
+        <div class="math-block">m + n = b, &nbsp;&nbsp;&nbsp; mn = ac</div>
+        <p>Then</p>
+        <div class="math-block">y<sup>2</sup> + by + ac = (y + m)(y + n)</div>
+        <p>because</p>
+        <div class="math-block">(y + m)(y + n) = y<sup>2</sup> + (m + n)y + mn = y<sup>2</sup> + by + ac</div>
+      </div>
+
+      <div class="step">
+        <div class="label">Step 3</div>
+        <h3>Substitute back <span class="math-inline">y = ax</span></h3>
+        <p>Since <span class="math-inline">y = ax</span>, we get</p>
+        <div class="math-block">a(ax<sup>2</sup> + bx + c) = (ax + m)(ax + n)</div>
+        <p>So</p>
+        <div class="math-block">ax<sup>2</sup> + bx + c = \frac{(ax + m)(ax + n)}{a}</div>
+        <p>This is the key identity behind the AC-method.</p>
+      </div>
+
+      <div class="step">
+        <div class="label">Step 4</div>
+        <h3>Why dividing by <span class="math-inline">a</span> gives the correct linear factors</h3>
+        <p>We now justify how the factor <span class="math-inline">a</span> is absorbed into the two binomials.</p>
+        <p>Let <span class="math-inline">d = gcd(a, m)</span>. Write</p>
+        <div class="math-block">a = de, &nbsp;&nbsp;&nbsp; m = dr</div>
+        <p>with <span class="math-inline">gcd(r, e) = 1</span>. Since <span class="math-inline">mn = ac = dec</span>, we have</p>
+        <div class="math-block">drn = dec</div>
+        <p>Cancel <span class="math-inline">d</span>:</p>
+        <div class="math-block">rn = ec</div>
+        <p>Because <span class="math-inline">gcd(r, e) = 1</span>, Euclid's lemma shows that <span class="math-inline">e</span> divides <span class="math-inline">n</span>. So write</p>
+        <div class="math-block">n = es</div>
+        <p>Then <span class="math-inline">rs = c</span>, and</p>
+        <div class="math-block">(ax + m)(ax + n) = (dex + dr)(dex + es)</div>
+        <p>Factor each bracket:</p>
+        <div class="math-block">(dex + dr)(dex + es) = d(ex + r)e(dx + s) = a(dx + s)(ex + r)</div>
+        <p>Substitute this into the identity from Step 3:</p>
+        <div class="math-block">a(ax<sup>2</sup> + bx + c) = a(dx + s)(ex + r)</div>
+        <p>Divide by <span class="math-inline">a</span>:</p>
+        <div class="math-block">ax<sup>2</sup> + bx + c = (dx + s)(ex + r)</div>
+        <p>Also, from <span class="math-inline">m = dr</span> and <span class="math-inline">n = es</span>, we get</p>
+        <div class="math-block">b = m + n = dr + es</div>
+        <p>and from <span class="math-inline">rs = c</span> with <span class="math-inline">de = a</span>, the expansion of <span class="math-inline">(dx + s)(ex + r)</span> is exactly</p>
+        <div class="math-block">dex<sup>2</sup> + (dr + es)x + rs = ax<sup>2</sup> + bx + c</div>
+        <p>Thus the AC-method produces the correct factorization.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Shorter Version of the Proof</h2>
+      <p>Given</p>
+      <div class="math-block">ax<sup>2</sup> + bx + c</div>
+      <p>multiply by <span class="math-inline">a</span>:</p>
+      <div class="math-block">a<sup>2</sup>x<sup>2</sup> + abx + ac</div>
+      <p>Let <span class="math-inline">y = ax</span>. Then we get</p>
+      <div class="math-block">y<sup>2</sup> + by + ac</div>
+      <p>If <span class="math-inline">m + n = b</span> and <span class="math-inline">mn = ac</span>, then</p>
+      <div class="math-block">y<sup>2</sup> + by + ac = (y + m)(y + n)</div>
+      <p>Substitute back <span class="math-inline">y = ax</span>:</p>
+      <div class="math-block">a(ax<sup>2</sup> + bx + c) = (ax + m)(ax + n)</div>
+      <p>So</p>
+      <div class="math-block">ax<sup>2</sup> + bx + c = \frac{(ax + m)(ax + n)}{a}</div>
+      <p>Since <span class="math-inline">mn = ac</span>, the factor <span class="math-inline">a</span> can be split between <span class="math-inline">m</span> and <span class="math-inline">n</span>, which simplifies the result into two linear factors. That is why the AC-method works.</p>
+    </section>
+
+    <section class="card">
+      <h2>Example in This Proof Style</h2>
+      <p>Factor</p>
+      <div class="math-block">12x<sup>2</sup> - 5x - 2</div>
+      <p>Multiply by <span class="math-inline">12</span>:</p>
+      <div class="math-block">144x<sup>2</sup> - 60x - 24</div>
+      <p>Let</p>
+      <div class="math-block">y = 12x</div>
+      <p>Then we get</p>
+      <div class="math-block">y<sup>2</sup> - 5y - 24</div>
+      <p>Factor:</p>
+      <div class="math-block">y<sup>2</sup> - 5y - 24 = (y - 8)(y + 3)</div>
+      <p>Substitute back:</p>
+      <div class="math-block">12(12x<sup>2</sup> - 5x - 2) = (12x - 8)(12x + 3)</div>
+      <p>So</p>
+      <div class="math-block">12x<sup>2</sup> - 5x - 2 = \frac{(12x - 8)(12x + 3)}{12}</div>
+      <p>Now simplify:</p>
+      <div class="math-block">\frac{(12x - 8)(12x + 3)}{12} = \frac{4(3x - 2) \cdot 3(4x + 1)}{12} = (3x - 2)(4x + 1)</div>
+      <div class="success">
+        <strong>Final factorization:</strong>
+        <div class="math-block">12x<sup>2</sup> - 5x - 2 = (3x - 2)(4x + 1)</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Final Polished Proof Statement</h2>
+      <p>For any quadratic <span class="math-inline">ax<sup>2</sup> + bx + c</span>, multiply by <span class="math-inline">a</span> and let <span class="math-inline">y = ax</span>. Then</p>
+      <div class="math-block">a(ax<sup>2</sup> + bx + c) = y<sup>2</sup> + by + ac</div>
+      <p>If</p>
+      <div class="math-block">y<sup>2</sup> + by + ac = (y + m)(y + n)</div>
+      <p>where <span class="math-inline">m + n = b</span> and <span class="math-inline">mn = ac</span>, then</p>
+      <div class="math-block">a(ax<sup>2</sup> + bx + c) = (ax + m)(ax + n)</div>
+      <p>Dividing by <span class="math-inline">a</span> and simplifying produces the factorization of <span class="math-inline">ax<sup>2</sup> + bx + c</span>. Therefore the AC-method is valid.</p>
+    </section>
+
+    <section class="card">
+      <h2>Important Correction</h2>
+      <div class="note">
+        <ul class="compact-list">
+          <li>It should be <code>a*x^2 + bx + c</code>, not <code>a*x^2 + bx + cx</code>.</li>
+          <li>After letting <code>y = ax</code>, the expression becomes <code>y^2 + by + ac</code>.</li>
+          <li>This follows exactly from <code>a(ax^2 + bx + c) = a^2x^2 + abx + ac = (ax)^2 + b(ax) + ac</code>.</li>
+        </ul>
+      </div>
+      <p>This proof can also be condensed into a one-paragraph homework version if needed.</p>
+    </section>
+
+    <div class="footer">
+      Math 11 proof page: AC-method using substitution.
+    </div>
+  </div>
+</body>
+</html>
