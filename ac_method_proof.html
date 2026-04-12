@@ -13,8 +13,6 @@
       --accent: #2563eb;
       --accent-soft: #dbeafe;
       --border: #d1d5db;
-      --note-bg: #fffbeb;
-      --note-border: #f59e0b;
       --success-bg: #ecfdf5;
       --success-border: #22c55e;
     }
@@ -54,6 +52,36 @@
     .card {
       padding: 24px;
       margin-bottom: 20px;
+    }
+
+    .hero-bar {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .language-control {
+      min-width: 200px;
+    }
+
+    .language-control label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .language-control select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font: inherit;
+      background: #fff;
+      color: var(--text);
     }
 
     h1,
@@ -131,31 +159,12 @@
       margin-bottom: 8px;
     }
 
-    .note,
     .success {
-      border-left: 5px solid;
+      border-left: 5px solid var(--success-border);
       border-radius: 12px;
       padding: 14px 16px;
       margin: 16px 0;
-    }
-
-    .note {
-      background: var(--note-bg);
-      border-left-color: var(--note-border);
-    }
-
-    .success {
       background: var(--success-bg);
-      border-left-color: var(--success-border);
-    }
-
-    .compact-list {
-      padding-left: 20px;
-      margin: 10px 0 0;
-    }
-
-    .compact-list li + li {
-      margin-top: 8px;
     }
 
     .back-link {
@@ -177,10 +186,28 @@
       padding: 8px 0 20px;
     }
 
-    code {
-      background: #eef2ff;
-      border-radius: 6px;
-      padding: 2px 6px;
+    .i18n-en.lang-block,
+    .i18n-zh.lang-block {
+      display: block;
+    }
+
+    .i18n-en.lang-inline,
+    .i18n-zh.lang-inline {
+      display: inline;
+    }
+
+    .i18n-zh {
+      color: #334155;
+    }
+
+    .i18n-en + .i18n-zh.lang-block {
+      margin-top: -6px;
+      margin-bottom: 14px;
+    }
+
+    body[data-lang="en"] .i18n-zh,
+    body[data-lang="zh"] .i18n-en {
+      display: none !important;
     }
 
     @media (max-width: 720px) {
@@ -195,136 +222,355 @@
     }
   </style>
 </head>
-<body>
+<body data-lang="en">
   <div class="container">
-    <a class="back-link" href="content.html">&larr; Back to Math 11 page list</a>
+    <a class="back-link" href="content.html">
+      <span class="i18n-en lang-inline">&larr; Back to Math 11 page list</span>
+      <span class="i18n-zh lang-inline">&larr; 返回 Math 11 页面目录</span>
+    </a>
 
     <section class="hero">
-      <h1>AC-Method Proof Using Substitution</h1>
-      <p class="subtitle">A clean proof that explains why the AC-method works, followed by a shorter version and a full example.</p>
+      <div class="hero-bar">
+        <div>
+          <h1>
+            <span class="i18n-en lang-block">AC-Method Proof Using Substitution</span>
+            <span class="i18n-zh lang-block">用代换法证明 AC 方法</span>
+          </h1>
+          <p class="subtitle">
+            <span class="i18n-en lang-block">A clean proof that explains why the AC-method works, followed by a shorter version and a full example.</span>
+            <span class="i18n-zh lang-block">下面给出一个较清楚的证明，说明为什么 AC 方法成立，并附上简短版证明和完整例题。</span>
+          </p>
+        </div>
+        <div class="language-control">
+          <label for="language-mode">
+            <span class="i18n-en lang-block">Language</span>
+            <span class="i18n-zh lang-block">语言</span>
+          </label>
+          <select id="language-mode" aria-label="Language mode">
+            <option value="en">English</option>
+            <option value="bi">EN + 中文</option>
+            <option value="zh">中文 only</option>
+          </select>
+        </div>
+      </div>
     </section>
 
     <section class="card">
-      <h2>Proof of the AC-Method Using Substitution</h2>
+      <h2>
+        <span class="i18n-en lang-block">Proof of the AC-Method Using Substitution</span>
+        <span class="i18n-zh lang-block">用代换法证明 AC 方法</span>
+      </h2>
 
       <div class="step">
-        <div class="label">Step 1</div>
-        <h3>Multiply by <span class="math-inline">a</span></h3>
-        <p>Start with</p>
+        <div class="label">
+          <span class="i18n-en lang-inline">Step 1</span>
+          <span class="i18n-zh lang-inline">第 1 步</span>
+        </div>
+        <h3>
+          <span class="i18n-en lang-block">Multiply by <span class="math-inline">a</span></span>
+          <span class="i18n-zh lang-block">先乘上 <span class="math-inline">a</span></span>
+        </h3>
+        <p>
+          <span class="i18n-en lang-block">Start with</span>
+          <span class="i18n-zh lang-block">从</span>
+        </p>
         <div class="math-block">ax<sup>2</sup> + bx + c</div>
-        <p>We want to factor it. Multiply the expression by <span class="math-inline">a</span>:</p>
+        <p>
+          <span class="i18n-en lang-block">We want to factor it. Multiply the expression by <span class="math-inline">a</span>:</span>
+          <span class="i18n-zh lang-block">我们想把它因式分解。先把整个式子乘上 <span class="math-inline">a</span>：</span>
+        </p>
         <div class="math-block">a(ax<sup>2</sup> + bx + c) = a<sup>2</sup>x<sup>2</sup> + abx + ac</div>
-        <p>Now let</p>
+        <p>
+          <span class="i18n-en lang-block">Now let</span>
+          <span class="i18n-zh lang-block">现在设</span>
+        </p>
         <div class="math-block">y = ax</div>
-        <p>Then the right-hand side becomes</p>
+        <p>
+          <span class="i18n-en lang-block">Then the right-hand side becomes</span>
+          <span class="i18n-zh lang-block">那么右边就变成</span>
+        </p>
         <div class="math-block">y<sup>2</sup> + by + ac</div>
-        <p>So instead of factoring <span class="math-inline">ax<sup>2</sup> + bx + c</span>, we first factor the monic quadratic <span class="math-inline">y<sup>2</sup> + by + ac</span>.</p>
+        <p>
+          <span class="i18n-en lang-block">So instead of factoring <span class="math-inline">ax<sup>2</sup> + bx + c</span>, we first factor the monic quadratic <span class="math-inline">y<sup>2</sup> + by + ac</span>.</span>
+          <span class="i18n-zh lang-block">所以，与其直接分解 <span class="math-inline">ax<sup>2</sup> + bx + c</span>，我们先去分解首项系数为 1 的二次式 <span class="math-inline">y<sup>2</sup> + by + ac</span>。</span>
+        </p>
       </div>
 
       <div class="step">
-        <div class="label">Step 2</div>
-        <h3>Factor the monic quadratic</h3>
-        <p>Suppose we can find numbers <span class="math-inline">m</span> and <span class="math-inline">n</span> such that</p>
+        <div class="label">
+          <span class="i18n-en lang-inline">Step 2</span>
+          <span class="i18n-zh lang-inline">第 2 步</span>
+        </div>
+        <h3>
+          <span class="i18n-en lang-block">Factor the monic quadratic</span>
+          <span class="i18n-zh lang-block">分解首项系数为 1 的二次式</span>
+        </h3>
+        <p>
+          <span class="i18n-en lang-block">Suppose we can find numbers <span class="math-inline">m</span> and <span class="math-inline">n</span> such that</span>
+          <span class="i18n-zh lang-block">假设我们能找到两个数 <span class="math-inline">m</span> 和 <span class="math-inline">n</span>，满足</span>
+        </p>
         <div class="math-block">m + n = b, &nbsp;&nbsp;&nbsp; mn = ac</div>
-        <p>Then</p>
+        <p>
+          <span class="i18n-en lang-block">Then</span>
+          <span class="i18n-zh lang-block">那么</span>
+        </p>
         <div class="math-block">y<sup>2</sup> + by + ac = (y + m)(y + n)</div>
-        <p>because</p>
+        <p>
+          <span class="i18n-en lang-block">because</span>
+          <span class="i18n-zh lang-block">因为</span>
+        </p>
         <div class="math-block">(y + m)(y + n) = y<sup>2</sup> + (m + n)y + mn = y<sup>2</sup> + by + ac</div>
       </div>
 
       <div class="step">
-        <div class="label">Step 3</div>
-        <h3>Substitute back <span class="math-inline">y = ax</span></h3>
-        <p>Since <span class="math-inline">y = ax</span>, we get</p>
+        <div class="label">
+          <span class="i18n-en lang-inline">Step 3</span>
+          <span class="i18n-zh lang-inline">第 3 步</span>
+        </div>
+        <h3>
+          <span class="i18n-en lang-block">Substitute back <span class="math-inline">y = ax</span></span>
+          <span class="i18n-zh lang-block">把 <span class="math-inline">y = ax</span> 代回去</span>
+        </h3>
+        <p>
+          <span class="i18n-en lang-block">Since <span class="math-inline">y = ax</span>, we get</span>
+          <span class="i18n-zh lang-block">由于 <span class="math-inline">y = ax</span>，可得</span>
+        </p>
         <div class="math-block">a(ax<sup>2</sup> + bx + c) = (ax + m)(ax + n)</div>
-        <p>So</p>
+        <p>
+          <span class="i18n-en lang-block">So</span>
+          <span class="i18n-zh lang-block">所以</span>
+        </p>
         <div class="math-block">ax<sup>2</sup> + bx + c = [(ax + m)(ax + n)] / a</div>
-        <p>This is the key identity behind the AC-method.</p>
+        <p>
+          <span class="i18n-en lang-block">This is the key identity behind the AC-method.</span>
+          <span class="i18n-zh lang-block">这就是 AC 方法背后的关键恒等式。</span>
+        </p>
       </div>
 
       <div class="step">
-        <div class="label">Step 4</div>
-        <h3>Why dividing by <span class="math-inline">a</span> gives the correct linear factors</h3>
-        <p>We now justify how the factor <span class="math-inline">a</span> is absorbed into the two binomials.</p>
-        <p>Let <span class="math-inline">d = gcd(a, m)</span>. Write</p>
+        <div class="label">
+          <span class="i18n-en lang-inline">Step 4</span>
+          <span class="i18n-zh lang-inline">第 4 步</span>
+        </div>
+        <h3>
+          <span class="i18n-en lang-block">Why dividing by <span class="math-inline">a</span> gives the correct linear factors</span>
+          <span class="i18n-zh lang-block">为什么除以 <span class="math-inline">a</span> 之后会得到正确的一次因式</span>
+        </h3>
+        <p>
+          <span class="i18n-en lang-block">We now justify how the factor <span class="math-inline">a</span> is absorbed into the two binomials.</span>
+          <span class="i18n-zh lang-block">现在说明为什么这个因子 <span class="math-inline">a</span> 可以分配到两个二项式中。</span>
+        </p>
+        <p>
+          <span class="i18n-en lang-block">Let <span class="math-inline">d = gcd(a, m)</span>. Write</span>
+          <span class="i18n-zh lang-block">设 <span class="math-inline">d = gcd(a, m)</span>。写成</span>
+        </p>
         <div class="math-block">a = de, &nbsp;&nbsp;&nbsp; m = dr</div>
-        <p>with <span class="math-inline">gcd(r, e) = 1</span>. Since <span class="math-inline">mn = ac = dec</span>, we have</p>
+        <p>
+          <span class="i18n-en lang-block">with <span class="math-inline">gcd(r, e) = 1</span>. Since <span class="math-inline">mn = ac = dec</span>, we have</span>
+          <span class="i18n-zh lang-block">其中 <span class="math-inline">gcd(r, e) = 1</span>。由于 <span class="math-inline">mn = ac = dec</span>，所以有</span>
+        </p>
         <div class="math-block">drn = dec</div>
-        <p>Cancel <span class="math-inline">d</span>:</p>
+        <p>
+          <span class="i18n-en lang-block">Cancel <span class="math-inline">d</span>:</span>
+          <span class="i18n-zh lang-block">约去 <span class="math-inline">d</span>：</span>
+        </p>
         <div class="math-block">rn = ec</div>
-        <p>Because <span class="math-inline">gcd(r, e) = 1</span>, Euclid's lemma shows that <span class="math-inline">e</span> divides <span class="math-inline">n</span>. So write</p>
+        <p>
+          <span class="i18n-en lang-block">Because <span class="math-inline">gcd(r, e) = 1</span>, Euclid's lemma shows that <span class="math-inline">e</span> divides <span class="math-inline">n</span>. So write</span>
+          <span class="i18n-zh lang-block">因为 <span class="math-inline">gcd(r, e) = 1</span>，由欧几里得引理可知 <span class="math-inline">e</span> 整除 <span class="math-inline">n</span>。因此可写成</span>
+        </p>
         <div class="math-block">n = es</div>
-        <p>Then <span class="math-inline">rs = c</span>, and</p>
+        <p>
+          <span class="i18n-en lang-block">Then <span class="math-inline">rs = c</span>, and</span>
+          <span class="i18n-zh lang-block">于是 <span class="math-inline">rs = c</span>，并且</span>
+        </p>
         <div class="math-block">(ax + m)(ax + n) = (dex + dr)(dex + es)</div>
-        <p>Factor each bracket:</p>
+        <p>
+          <span class="i18n-en lang-block">Factor each bracket:</span>
+          <span class="i18n-zh lang-block">对每个括号提公因式：</span>
+        </p>
         <div class="math-block">(dex + dr)(dex + es) = de(ex + r)(dx + s) = a(dx + s)(ex + r)</div>
-        <p>Substitute this into the identity from Step 3:</p>
+        <p>
+          <span class="i18n-en lang-block">Substitute this into the identity from Step 3:</span>
+          <span class="i18n-zh lang-block">把它代回第 3 步得到的恒等式：</span>
+        </p>
         <div class="math-block">a(ax<sup>2</sup> + bx + c) = a(dx + s)(ex + r)</div>
-        <p>Divide by <span class="math-inline">a</span>:</p>
+        <p>
+          <span class="i18n-en lang-block">Divide by <span class="math-inline">a</span>:</span>
+          <span class="i18n-zh lang-block">再除以 <span class="math-inline">a</span>：</span>
+        </p>
         <div class="math-block">ax<sup>2</sup> + bx + c = (dx + s)(ex + r)</div>
-        <p>Also, from <span class="math-inline">m = dr</span> and <span class="math-inline">n = es</span>, we get</p>
+        <p>
+          <span class="i18n-en lang-block">Also, from <span class="math-inline">m = dr</span> and <span class="math-inline">n = es</span>, we get</span>
+          <span class="i18n-zh lang-block">另外，由 <span class="math-inline">m = dr</span> 和 <span class="math-inline">n = es</span>，可得</span>
+        </p>
         <div class="math-block">b = m + n = dr + es</div>
-        <p>and from <span class="math-inline">rs = c</span> with <span class="math-inline">de = a</span>, the expansion of <span class="math-inline">(dx + s)(ex + r)</span> is exactly</p>
+        <p>
+          <span class="i18n-en lang-block">and from <span class="math-inline">rs = c</span> with <span class="math-inline">de = a</span>, the expansion of <span class="math-inline">(dx + s)(ex + r)</span> is exactly</span>
+          <span class="i18n-zh lang-block">并且由 <span class="math-inline">rs = c</span> 与 <span class="math-inline">de = a</span>，展开 <span class="math-inline">(dx + s)(ex + r)</span> 正好得到</span>
+        </p>
         <div class="math-block">dex<sup>2</sup> + (dr + es)x + rs = ax<sup>2</sup> + bx + c</div>
-        <p>Thus the AC-method produces the correct factorization.</p>
+        <p>
+          <span class="i18n-en lang-block">Thus the AC-method produces the correct factorization.</span>
+          <span class="i18n-zh lang-block">因此，AC 方法确实给出了正确的因式分解。</span>
+        </p>
       </div>
     </section>
 
     <section class="card">
-      <h2>Shorter Version of the Proof</h2>
-      <p>Given</p>
+      <h2>
+        <span class="i18n-en lang-block">Shorter Version of the Proof</span>
+        <span class="i18n-zh lang-block">简短版证明</span>
+      </h2>
+      <p>
+        <span class="i18n-en lang-block">Given</span>
+        <span class="i18n-zh lang-block">给定</span>
+      </p>
       <div class="math-block">ax<sup>2</sup> + bx + c</div>
-      <p>multiply by <span class="math-inline">a</span>:</p>
+      <p>
+        <span class="i18n-en lang-block">multiply by <span class="math-inline">a</span>:</span>
+        <span class="i18n-zh lang-block">先乘以 <span class="math-inline">a</span>：</span>
+      </p>
       <div class="math-block">a<sup>2</sup>x<sup>2</sup> + abx + ac</div>
-      <p>Let <span class="math-inline">y = ax</span>. Then we get</p>
+      <p>
+        <span class="i18n-en lang-block">Let <span class="math-inline">y = ax</span>. Then we get</span>
+        <span class="i18n-zh lang-block">设 <span class="math-inline">y = ax</span>。则得到</span>
+      </p>
       <div class="math-block">y<sup>2</sup> + by + ac</div>
-      <p>If <span class="math-inline">m + n = b</span> and <span class="math-inline">mn = ac</span>, then</p>
+      <p>
+        <span class="i18n-en lang-block">If <span class="math-inline">m + n = b</span> and <span class="math-inline">mn = ac</span>, then</span>
+        <span class="i18n-zh lang-block">如果 <span class="math-inline">m + n = b</span> 且 <span class="math-inline">mn = ac</span>，那么</span>
+      </p>
       <div class="math-block">y<sup>2</sup> + by + ac = (y + m)(y + n)</div>
-      <p>Substitute back <span class="math-inline">y = ax</span>:</p>
+      <p>
+        <span class="i18n-en lang-block">Substitute back <span class="math-inline">y = ax</span>:</span>
+        <span class="i18n-zh lang-block">把 <span class="math-inline">y = ax</span> 代回去：</span>
+      </p>
       <div class="math-block">a(ax<sup>2</sup> + bx + c) = (ax + m)(ax + n)</div>
-      <p>So</p>
+      <p>
+        <span class="i18n-en lang-block">So</span>
+        <span class="i18n-zh lang-block">所以</span>
+      </p>
       <div class="math-block">ax<sup>2</sup> + bx + c = [(ax + m)(ax + n)] / a</div>
-      <p>Since <span class="math-inline">mn = ac</span>, the factor <span class="math-inline">a</span> can be split between <span class="math-inline">m</span> and <span class="math-inline">n</span>, which simplifies the result into two linear factors. That is why the AC-method works.</p>
+      <p>
+        <span class="i18n-en lang-block">Since <span class="math-inline">mn = ac</span>, the factor <span class="math-inline">a</span> can be split between <span class="math-inline">m</span> and <span class="math-inline">n</span>, which simplifies the result into two linear factors. That is why the AC-method works.</span>
+        <span class="i18n-zh lang-block">由于 <span class="math-inline">mn = ac</span>，因子 <span class="math-inline">a</span> 可以分配到 <span class="math-inline">m</span> 和 <span class="math-inline">n</span> 中，从而化成两个一次因式。这就是 AC 方法成立的原因。</span>
+      </p>
     </section>
 
     <section class="card">
-      <h2>Example in This Proof Style</h2>
-      <p>Factor</p>
+      <h2>
+        <span class="i18n-en lang-block">Example in This Proof Style</span>
+        <span class="i18n-zh lang-block">按这种证明风格写的例子</span>
+      </h2>
+      <p>
+        <span class="i18n-en lang-block">Factor</span>
+        <span class="i18n-zh lang-block">分解</span>
+      </p>
       <div class="math-block">12x<sup>2</sup> - 5x - 2</div>
-      <p>Multiply by <span class="math-inline">12</span>:</p>
+      <p>
+        <span class="i18n-en lang-block">Multiply by <span class="math-inline">12</span>:</span>
+        <span class="i18n-zh lang-block">先乘以 <span class="math-inline">12</span>：</span>
+      </p>
       <div class="math-block">144x<sup>2</sup> - 60x - 24</div>
-      <p>Let</p>
+      <p>
+        <span class="i18n-en lang-block">Let</span>
+        <span class="i18n-zh lang-block">设</span>
+      </p>
       <div class="math-block">y = 12x</div>
-      <p>Then we get</p>
+      <p>
+        <span class="i18n-en lang-block">Then we get</span>
+        <span class="i18n-zh lang-block">则得到</span>
+      </p>
       <div class="math-block">y<sup>2</sup> - 5y - 24</div>
-      <p>Factor:</p>
+      <p>
+        <span class="i18n-en lang-block">Factor:</span>
+        <span class="i18n-zh lang-block">因式分解：</span>
+      </p>
       <div class="math-block">y<sup>2</sup> - 5y - 24 = (y - 8)(y + 3)</div>
-      <p>Substitute back:</p>
+      <p>
+        <span class="i18n-en lang-block">Substitute back:</span>
+        <span class="i18n-zh lang-block">代回去：</span>
+      </p>
       <div class="math-block">12(12x<sup>2</sup> - 5x - 2) = (12x - 8)(12x + 3)</div>
-      <p>So</p>
+      <p>
+        <span class="i18n-en lang-block">So</span>
+        <span class="i18n-zh lang-block">所以</span>
+      </p>
       <div class="math-block">12x<sup>2</sup> - 5x - 2 = [(12x - 8)(12x + 3)] / 12</div>
-      <p>Now simplify:</p>
+      <p>
+        <span class="i18n-en lang-block">Now simplify:</span>
+        <span class="i18n-zh lang-block">现在化简：</span>
+      </p>
       <div class="math-block">[(12x - 8)(12x + 3)] / 12 = [4(3x - 2) x 3(4x + 1)] / 12 = (3x - 2)(4x + 1)</div>
       <div class="success">
-        <strong>Final factorization:</strong>
+        <strong>
+          <span class="i18n-en lang-block">Final factorization:</span>
+          <span class="i18n-zh lang-block">最终分解结果：</span>
+        </strong>
         <div class="math-block">12x<sup>2</sup> - 5x - 2 = (3x - 2)(4x + 1)</div>
       </div>
     </section>
 
     <section class="card">
-      <h2>Final Polished Proof Statement</h2>
-      <p>For any quadratic <span class="math-inline">ax<sup>2</sup> + bx + c</span>, multiply by <span class="math-inline">a</span> and let <span class="math-inline">y = ax</span>. Then</p>
+      <h2>
+        <span class="i18n-en lang-block">Final Polished Proof Statement</span>
+        <span class="i18n-zh lang-block">最终整理后的证明结论</span>
+      </h2>
+      <p>
+        <span class="i18n-en lang-block">For any quadratic <span class="math-inline">ax<sup>2</sup> + bx + c</span>, multiply by <span class="math-inline">a</span> and let <span class="math-inline">y = ax</span>. Then</span>
+        <span class="i18n-zh lang-block">对于任意二次式 <span class="math-inline">ax<sup>2</sup> + bx + c</span>，先乘以 <span class="math-inline">a</span>，再设 <span class="math-inline">y = ax</span>。则</span>
+      </p>
       <div class="math-block">a(ax<sup>2</sup> + bx + c) = y<sup>2</sup> + by + ac</div>
-      <p>If</p>
+      <p>
+        <span class="i18n-en lang-block">If</span>
+        <span class="i18n-zh lang-block">如果</span>
+      </p>
       <div class="math-block">y<sup>2</sup> + by + ac = (y + m)(y + n)</div>
-      <p>where <span class="math-inline">m + n = b</span> and <span class="math-inline">mn = ac</span>, then</p>
+      <p>
+        <span class="i18n-en lang-block">where <span class="math-inline">m + n = b</span> and <span class="math-inline">mn = ac</span>, then</span>
+        <span class="i18n-zh lang-block">其中 <span class="math-inline">m + n = b</span> 且 <span class="math-inline">mn = ac</span>，那么</span>
+      </p>
       <div class="math-block">a(ax<sup>2</sup> + bx + c) = (ax + m)(ax + n)</div>
-      <p>Dividing by <span class="math-inline">a</span> and simplifying produces the factorization of <span class="math-inline">ax<sup>2</sup> + bx + c</span>. Therefore the AC-method is valid.</p>
+      <p>
+        <span class="i18n-en lang-block">Dividing by <span class="math-inline">a</span> and simplifying produces the factorization of <span class="math-inline">ax<sup>2</sup> + bx + c</span>. Therefore the AC-method is valid.</span>
+        <span class="i18n-zh lang-block">再除以 <span class="math-inline">a</span> 并化简，就得到 <span class="math-inline">ax<sup>2</sup> + bx + c</span> 的因式分解。因此，AC 方法是成立的。</span>
+      </p>
     </section>
 
     <div class="footer">
-      Math 11 proof page: AC-method using substitution.
+      <span class="i18n-en lang-block">Math 11 proof page: AC-method using substitution.</span>
+      <span class="i18n-zh lang-block">Math 11 证明页面：用代换法说明 AC 方法。</span>
     </div>
   </div>
+
+  <script>
+    const STORAGE_KEY = "math11-ac-method-language-mode";
+    const selectEl = document.getElementById("language-mode");
+
+    function setLanguageMode(mode) {
+      const normalized = mode === "zh" ? "zh" : mode === "bi" ? "bi" : "en";
+      document.body.dataset.lang = normalized;
+      document.documentElement.lang = normalized === "zh" ? "zh-CN" : "en";
+      selectEl.value = normalized;
+      try {
+        localStorage.setItem(STORAGE_KEY, normalized);
+      } catch {
+        // Ignore storage failures.
+      }
+    }
+
+    let initialMode = "en";
+    try {
+      initialMode = localStorage.getItem(STORAGE_KEY) || "en";
+    } catch {
+      initialMode = "en";
+    }
+
+    setLanguageMode(initialMode);
+    selectEl.addEventListener("change", (event) => {
+      setLanguageMode(event.target.value);
+    });
+  </script>
 </body>
 </html>
