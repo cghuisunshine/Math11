@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quadratic Functions Assignment with Answers</title>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --border: #d1d5db;
+      --answer: #14532d;
+      --answer-bg: #ecfdf5;
+      --warn: #9a6700;
+      --bad: #991b1b;
+      --modal-backdrop: rgba(15, 23, 42, 0.6);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      color: #111827;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .hero-bar {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .language-control {
+      min-width: 190px;
+    }
+
+    .language-control label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      border-left: 5px solid var(--accent);
+      padding-left: 10px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    .note {
+      background: #fffbeb;
+      border-left: 5px solid #f59e0b;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin: 12px 0;
+    }
+
+    .question {
+      border-top: 1px dashed var(--border);
+      padding-top: 16px;
+      margin-top: 16px;
+    }
+
+    .question:first-child {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .prompt {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px;
+      margin: 10px 0 14px;
+    }
+
+    .answer {
+      background: var(--answer-bg);
+      border: 1px solid #bbf7d0;
+      border-left: 5px solid #22c55e;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 12px;
+    }
+
+    .math {
+      font-family: "Times New Roman", serif;
+      background: var(--accent-soft);
+      padding: 2px 8px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 4px 0;
+    }
+
+    .steps {
+      margin-top: 8px;
+      padding-left: 18px;
+    }
+
+    .question .answer {
+      display: none;
+    }
+
+    details.settings {
+      margin: 18px 0 22px;
+      background: #f8fbff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    details.settings summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .settings-row {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .settings-row label {
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .settings-row input {
+      flex: 1 1 260px;
+      min-width: 220px;
+    }
+
+    .settings-hint {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 12px;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 112px;
+      resize: vertical;
+    }
+
+    .practice-area {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .practice-area label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .card-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .action-button {
+      border: 1px solid #93c5fd;
+      border-radius: 12px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 10px 14px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .action-button:hover {
+      background: #dbeafe;
+      transform: translateY(-1px);
+    }
+
+    .action-button:disabled {
+      cursor: wait;
+      opacity: 0.72;
+      transform: none;
+    }
+
+    .feedback {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .feedback.ok {
+      color: var(--answer);
+    }
+
+    .feedback.warn {
+      color: var(--warn);
+    }
+
+    .feedback.bad {
+      color: var(--bad);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: var(--modal-backdrop);
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      z-index: 50;
+    }
+
+    .modal-backdrop[hidden] {
+      display: none;
+    }
+
+    .modal {
+      width: min(840px, 100%);
+      max-height: min(88vh, 920px);
+      overflow: auto;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+    }
+
+    .modal-head,
+    .modal-body,
+    .modal-foot {
+      padding: 20px 22px;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .modal-body {
+      display: grid;
+      gap: 18px;
+    }
+
+    .modal-foot {
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .modal-panel {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      background: #f8fafc;
+    }
+
+    .modal-panel h4 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .modal-answer-block + .modal-answer-block {
+      margin-top: 12px;
+    }
+
+    .modal-status {
+      border-left: 5px solid #93c5fd;
+      background: #eff6ff;
+    }
+
+    .modal-status.ok {
+      border-left-color: #22c55e;
+      background: #ecfdf5;
+    }
+
+    .modal-status.warn {
+      border-left-color: #f59e0b;
+      background: #fffbeb;
+    }
+
+    .modal-status.bad {
+      border-left-color: #ef4444;
+      background: #fef2f2;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eff6ff;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 24px 0 10px;
+      font-size: 0.95rem;
+    }
+
+    code {
+      background: #eef2ff;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .i18n-en.lang-block,
+    .i18n-zh.lang-block {
+      display: block;
+    }
+
+    .i18n-en.lang-inline,
+    .i18n-zh.lang-inline {
+      display: inline;
+    }
+
+    body[data-lang="en"] .i18n-zh,
+    body[data-lang="zh"] .i18n-en {
+      display: none !important;
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        padding: 16px;
+      }
+
+      .hero,
+      .card {
+        padding: 18px;
+      }
+
+      .modal-head,
+      .modal-body,
+      .modal-foot {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body data-lang="en">
+  <div class="container">
+    <section class="hero">
+      <div class="hero-bar">
+        <div>
+          <h1>CH. 2 – Quadratic Functions Assignment</h1>
+          <p class="subtitle">Combined worksheet content and full answer key in one HTML page.</p>
+        </div>
+        <div class="language-control">
+          <label for="language-mode">Language</label>
+          <select id="language-mode" aria-label="Language mode">
+            <option value="en">English</option>
+            <option value="bi">EN + 中文</option>
+            <option value="zh">中文 only</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Goals</h2>
+      <ul>
+        <li>Identify characteristics of parabolas, including domain, range, intercepts, vertex, axis of symmetry, and direction of opening.</li>
+        <li>Graph parabolas by hand using vertex form / standard form: <span class="math">y = a(x - p)<sup>2</sup> + q</span></li>
+        <li>Apply completing the square by converting from general form <span class="math">y = ax<sup>2</sup> + bx + c</span> to vertex form.</li>
+        <li>Find equations of quadratic functions when certain characteristics are given.</li>
+        <li>Complete all steps for maximum/minimum word problems.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Special Notes:</strong><br>
+        1. A coordinate should be written with brackets, such as <code>(-100, 100)</code>.<br>
+        2. Axis of symmetry must be written as <code>x = ...</code>.<br>
+        3. When the question asks for an equation, write the answer in the form <code>y = ...</code>.<br>
+        4. Solving max/min word problems is extremely important.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Questions and Answers</h2>
+      <details class="settings">
+        <summary>AI grading (optional)</summary>
+        <div class="settings-row">
+          <label for="grade-api-url">Grade API URL</label>
+          <input id="grade-api-url" type="text" placeholder="https://example.com/grade" />
+          <button class="action-button" id="btn-test-api" type="button">Test</button>
+          <span id="api-status" class="feedback" aria-live="polite"></span>
+        </div>
+        <div class="settings-hint">
+          Each question now has its own answer box. <code>Check my answer</code> uses AI grading when available and falls back to a local overlap check, then opens a modal with the model answer.
+        </div>
+      </details>
+
+      <div class="question">
+        <h3>1. State the key features of the quadratic function</h3>
+        <div class="prompt">
+          <span class="math">y = (x - 6)<sup>2</sup> - 4</span><br>
+          a) Vertex<br>
+          b) Domain<br>
+          c) Range<br>
+          d) x-intercepts<br>
+          e) y-intercept<br>
+          f) Axis of Symmetry<br>
+          g) Congruent equation (parent function)<br>
+          h) Graph the quadratic function with at least 5 points
+        </div>
+        <div class="answer">
+          <strong>Answer:</strong>
+          <ul>
+            <li>Vertex: <code>(6, -4)</code></li>
+            <li>Domain: <code>(-∞, ∞)</code></li>
+            <li>Range: <code>y ≥ -4</code></li>
+            <li>x-intercepts: <code>(4, 0)</code> and <code>(8, 0)</code></li>
+            <li>y-intercept: <code>(0, 32)</code></li>
+            <li>Axis of Symmetry: <code>x = 6</code></li>
+            <li>Parent function: <code>y = x²</code></li>
+            <li>Five points: <code>(4,0), (5,-3), (6,-4), (7,-3), (8,0)</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>2. State the key features of the quadratic function</h3>
+        <div class="prompt">
+          <span class="math">y = -4x<sup>2</sup> + 16x - 12</span><br>
+          a) Vertex<br>
+          b) Domain<br>
+          c) Range<br>
+          d) x-intercepts<br>
+          e) y-intercept<br>
+          f) Axis of Symmetry<br>
+          g) Congruent equation (parent function)<br>
+          h) Graph the quadratic function
+        </div>
+        <div class="answer">
+          <strong>Answer:</strong>
+          <ul>
+            <li>Rewrite in vertex form: <code>y = -4(x - 2)² + 4</code></li>
+            <li>Vertex: <code>(2, 4)</code></li>
+            <li>Domain: <code>(-∞, ∞)</code></li>
+            <li>Range: <code>y ≤ 4</code></li>
+            <li>x-intercepts: <code>(1, 0)</code> and <code>(3, 0)</code></li>
+            <li>y-intercept: <code>(0, -12)</code></li>
+            <li>Axis of Symmetry: <code>x = 2</code></li>
+            <li>Parent function: <code>y = x²</code></li>
+            <li>Sample graph points: <code>(1,0), (1.5,3), (2,4), (2.5,3), (3,0)</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>3. Find the x- and y-intercepts of</h3>
+        <div class="prompt">
+          <span class="math">y = 3(x - 11)<sup>2</sup> + 5</span><br>
+          Be sure to justify your answers.
+        </div>
+        <div class="answer">
+          <strong>Answer:</strong>
+          <ul>
+            <li>x-intercepts: none, because solving <code>0 = 3(x - 11)² + 5</code> gives <code>(x - 11)² = -5/3</code>, which has no real solution.</li>
+            <li>y-intercept: set <code>x = 0</code><br>
+              <code>y = 3(0 - 11)² + 5 = 3(121) + 5 = 368</code><br>
+              So the y-intercept is <code>(0, 368)</code>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>4. Determine the equation of each parabola in the form</h3>
+        <div class="prompt">
+          <span class="math">y = a(x - p)<sup>2</sup> + q</span><br>
+          Use the coordinates shown on the graphs.
+        </div>
+        <div class="grid">
+          <div class="answer">
+            <strong>4(a) Answer:</strong><br>
+            From the graph, the vertex is <code>(-5, 4)</code> and x-intercepts are <code>(-9, 0)</code> and <code>(-1, 0)</code>.<br><br>
+            Start with:<br>
+            <code>y = a(x + 5)² + 4</code><br><br>
+            Substitute <code>(-1, 0)</code>:<br>
+            <code>0 = a(4)² + 4</code><br>
+            <code>0 = 16a + 4</code><br>
+            <code>a = -1/4</code><br><br>
+            Final equation:<br>
+            <strong><code>y = -1/4(x + 5)² + 4</code></strong>
+          </div>
+          <div class="answer">
+            <strong>4(b) Answer:</strong><br>
+            From the graph, the vertex is <code>(6, -10)</code> and points include <code>(5, -7)</code> and <code>(7, -7)</code>.<br><br>
+            Start with:<br>
+            <code>y = a(x - 6)² - 10</code><br><br>
+            Substitute <code>(5, -7)</code>:<br>
+            <code>-7 = a(5 - 6)² - 10</code><br>
+            <code>-7 = a - 10</code><br>
+            <code>a = 3</code><br><br>
+            Final equation:<br>
+            <strong><code>y = 3(x - 6)² - 10</code></strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>5. Transformation question</h3>
+        <div class="prompt">
+          If the parabola <span class="math">y = x<sup>2</sup></span> undergoes the following transformations:<br>
+          reflected over the x-axis, compressed vertically by a factor of 1/3, translated 6 units left and 2 units up, what is its new equation?
+        </div>
+        <div class="answer">
+          <strong>Answer:</strong><br>
+          Reflect over x-axis: <code>y = -x²</code><br>
+          Vertical compression by factor <code>1/3</code>: <code>y = -(1/3)x²</code><br>
+          Translate 6 left: <code>y = -(1/3)(x + 6)²</code><br>
+          Translate 2 up: <code>y = -(1/3)(x + 6)² + 2</code><br><br>
+          Final equation:<br>
+          <strong><code>y = -(1/3)(x + 6)² + 2</code></strong>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>6. Find the equation of the parabola</h3>
+        <div class="prompt">
+          Vertex <code>(9, -3)</code> and an x-intercept of <code>x = 10</code>
+        </div>
+        <div class="answer">
+          <strong>Answer:</strong><br>
+          Use vertex form:<br>
+          <code>y = a(x - 9)² - 3</code><br><br>
+          Since <code>x = 10</code> is an x-intercept, the point <code>(10, 0)</code> is on the parabola.<br>
+          Substitute:<br>
+          <code>0 = a(10 - 9)² - 3</code><br>
+          <code>0 = a - 3</code><br>
+          <code>a = 3</code><br><br>
+          Final equation:<br>
+          <strong><code>y = 3(x - 9)² - 3</code></strong>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>7. Complete the square</h3>
+        <div class="prompt">
+          <span class="math">y = -5x<sup>2</sup> + 35x + 8</span>
+        </div>
+        <div class="answer">
+          <strong>Answer:</strong>
+          <div class="steps">
+            <div><code>y = -5x² + 35x + 8</code></div>
+            <div><code>y = -5(x² - 7x) + 8</code></div>
+            <div><code>x² - 7x = (x - 7/2)² - 49/4</code></div>
+            <div><code>y = -5[(x - 7/2)² - 49/4] + 8</code></div>
+            <div><code>y = -5(x - 7/2)² + 245/4 + 8</code></div>
+            <div><code>y = -5(x - 7/2)² + 245/4 + 32/4</code></div>
+            <div><code>y = -5(x - 7/2)² + 277/4</code></div>
+          </div>
+          <br>
+          Final answer:<br>
+          <strong><code>y = -5(x - 7/2)² + 277/4</code></strong>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>8. Donut shop revenue problem</h3>
+        <div class="prompt">
+          Present price: <code>$3.00</code><br>
+          Daily sales: <code>500 donuts</code><br>
+          For every <code>$0.20</code> increase, sales drop by <code>10 donuts</code>.<br>
+          What price gives the most revenue?
+        </div>
+        <div class="answer">
+          <strong>Answer:</strong><br>
+          Let <code>x</code> = number of price increases.<br><br>
+          Price: <code>3 + 0.20x</code><br>
+          Number sold: <code>500 - 10x</code><br><br>
+          Revenue function:<br>
+          <code>R(x) = (3 + 0.20x)(500 - 10x)</code><br>
+          <code>R(x) = -2x² + 70x + 1500</code><br><br>
+          Vertex:<br>
+          <code>x = -b / 2a = -70 / (2 × -2) = 17.5</code><br><br>
+          Best price:<br>
+          <code>3 + 0.20(17.5) = 6.50</code><br><br>
+          <strong>Price for maximum revenue: <code>$6.50</code></strong><br>
+          Maximum revenue:<br>
+          <code>R(17.5) = 2112.50</code><br>
+          <strong><code>$2112.50</code></strong><br><br>
+          Note: If only exact <code>$0.20</code> steps are allowed, then <code>$6.40</code> and <code>$6.60</code> tie for the highest step-based revenue.
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>9. Maximum area of a rectangle</h3>
+        <div class="prompt">
+          Determine the maximum area of a rectangle with perimeter <code>108 m</code>. Also find the length and width.
+        </div>
+        <div class="answer">
+          <strong>Answer:</strong><br>
+          Let length = <code>x</code>, width = <code>w</code>.<br><br>
+          Perimeter:<br>
+          <code>2x + 2w = 108</code><br>
+          <code>x + w = 54</code><br>
+          <code>w = 54 - x</code><br><br>
+          Area:<br>
+          <code>A = xw = x(54 - x)</code><br>
+          <code>A = -x² + 54x</code><br><br>
+          Vertex:<br>
+          <code>x = -b / 2a = -54 / (2 × -1) = 27</code><br>
+          <code>w = 54 - 27 = 27</code><br><br>
+          Maximum area:<br>
+          <code>A = 27 × 27 = 729</code><br><br>
+          <strong>Maximum area: <code>729 m²</code></strong><br>
+          <strong>Length: <code>27 m</code></strong><br>
+          <strong>Width: <code>27 m</code></strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Self Assessment Section from the Assignment</h2>
+      <p>How well do you think you did on this assignment?</p>
+      <table>
+        <tr>
+          <th>Level</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>Emerging</td>
+          <td>Student demonstrates a limited understanding of the concepts and competencies relevant to the expected learning.</td>
+        </tr>
+        <tr>
+          <td>Developing</td>
+          <td>Student demonstrates a basic understanding of the concepts and competencies relevant to the expected learning.</td>
+        </tr>
+        <tr>
+          <td>Proficient</td>
+          <td>Student demonstrates a strong understanding of the concepts and competencies relevant to the expected learning.</td>
+        </tr>
+        <tr>
+          <td>Extending</td>
+          <td>Student demonstrates an extensive understanding of concepts and competencies relevant to the expected learning.</td>
+        </tr>
+      </table>
+
+      <p style="margin-top:16px;">Areas needing more practice:</p>
+      <ul>
+        <li>Identify characteristics of parabolas</li>
+        <li>Graph parabolas by hand with vertex form / standard form</li>
+        <li>Apply completing the square</li>
+        <li>Find equations of quadratic functions from given characteristics</li>
+        <li>Solve max/min word problems</li>
+        <li>Additional point #1</li>
+        <li>Additional point #2</li>
+        <li>Additional point #3</li>
+      </ul>
+    </section>
+
+    <div class="footer">
+      End of combined assignment and answer key HTML page.
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="answer-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="answer-modal-title">
+      <div class="modal-head">
+        <div>
+          <h3 id="answer-modal-title">Question Review</h3>
+          <p class="subtitle">Compare your response with the model answer.</p>
+        </div>
+        <button class="action-button" id="close-answer-modal" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-panel modal-status" id="modal-status-panel">
+          <h4>Check result</h4>
+          <div id="modal-feedback">No feedback yet.</div>
+        </div>
+        <div class="modal-panel">
+          <h4>Question</h4>
+          <div id="modal-question"></div>
+        </div>
+        <div class="modal-panel" id="modal-user-panel" hidden>
+          <h4>Your answer</h4>
+          <div id="modal-user-answer"></div>
+        </div>
+        <div class="modal-panel">
+          <h4>Model answer</h4>
+          <div id="modal-answer"></div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="action-button" id="close-answer-modal-foot" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DEFAULT_GRADE_API_URL = "https://lakesideart.gochatus.org/grade-service/grade";
+    const GRADE_API_STORAGE_KEY = "quadratic-assignment-grade-api-url";
+    const RESPONSE_STORAGE_KEY = "quadratic-assignment-responses";
+    const LANGUAGE_STORAGE_KEY = "quadratic-assignment-language-mode";
+
+    const languageModeEl = document.getElementById("language-mode");
+
+    const gradeApiUrlEl = document.getElementById("grade-api-url");
+    const apiStatusEl = document.getElementById("api-status");
+    const modalEl = document.getElementById("answer-modal");
+    const modalQuestionEl = document.getElementById("modal-question");
+    const modalAnswerEl = document.getElementById("modal-answer");
+    const modalFeedbackEl = document.getElementById("modal-feedback");
+    const modalStatusPanelEl = document.getElementById("modal-status-panel");
+    const modalUserPanelEl = document.getElementById("modal-user-panel");
+    const modalUserAnswerEl = document.getElementById("modal-user-answer");
+    const responses = loadStoredJson(RESPONSE_STORAGE_KEY, {});
+
+    const ZH_TRANSLATIONS = {
+      heroTitle: "第 2 章：二次函数作业",
+      heroSubtitle: "把练习单内容和完整答案整合在同一个 HTML 页面中。",
+      goalsTitle: "学习目标",
+      goalsItems: [
+        "识别抛物线的各项特征，包括定义域、值域、截距、顶点、对称轴以及开口方向。",
+        "用顶点式 / 标准式手工作图：<span class=\"math\">y = a(x - p)<sup>2</sup> + q</span>",
+        "通过把一般式 <span class=\"math\">y = ax<sup>2</sup> + bx + c</span> 转化为顶点式，应用配方法。",
+        "在已知某些特征时，求二次函数的方程。",
+        "完整写出最大值/最小值应用题的所有步骤。"
+      ],
+      noteHtml: `
+        <strong>特别说明：</strong><br>
+        1. 坐标要用括号表示，例如 <code>(-100, 100)</code>。<br>
+        2. 对称轴必须写成 <code>x = ...</code> 的形式。<br>
+        3. 如果题目要求写方程，答案必须写成 <code>y = ...</code> 的形式。<br>
+        4. 最大值/最小值应用题非常重要。
+      `,
+      qaTitle: "题目与答案",
+      aiSummary: "AI 评分（可选）",
+      gradeApiLabel: "评分 API 地址",
+      settingsHint: "现在每道题都有自己的作答框。<code>检查答案</code> 会在可用时使用 AI 评分；如果不可用，则退回到本地重叠比对，然后弹出一个模态窗口显示参考答案。",
+      selfTitle: "作业中的自我评估部分",
+      selfPrompt: "你觉得自己这次作业完成得怎么样？",
+      tableHeaders: ["等级", "描述"],
+      levelRows: [
+        ["起步中", "学生对预期学习相关的概念和能力表现出有限的理解。"],
+        ["发展中", "学生对预期学习相关的概念和能力表现出基本的理解。"],
+        ["熟练", "学生对预期学习相关的概念和能力表现出较强的理解。"],
+        ["拓展", "学生对预期学习相关的概念和能力表现出广泛而深入的理解。"]
+      ],
+      areasTitle: "还需要更多练习的内容：",
+      areaItems: [
+        "识别抛物线的特征",
+        "用顶点式 / 标准式手工作二次函数图像",
+        "应用配方法",
+        "根据已知特征求二次函数方程",
+        "解决最大值/最小值应用题",
+        "附加内容 #1",
+        "附加内容 #2",
+        "附加内容 #3"
+      ],
+      footer: "作业与答案合并 HTML 页面结束。",
+      modalTitle: "题目回顾",
+      modalSubtitle: "将你的作答与参考答案进行比较。",
+      modalCheckResult: "检查结果",
+      modalQuestion: "题目",
+      modalYourAnswer: "你的答案",
+      modalModelAnswer: "参考答案",
+      ui: {
+        language: "语言",
+        test: "测试",
+        close: "关闭",
+        yourAnswer: "你的答案",
+        textareaPlaceholder: "在这里输入你的解答，然后点击“检查答案”。",
+        checkAnswer: "检查答案",
+        showModelAnswer: "显示参考答案"
+      },
+      questions: [
+        {
+          title: "1. 写出这个二次函数的关键特征",
+          prompt: `
+            <span class="math">y = (x - 6)<sup>2</sup> - 4</span><br>
+            a) 顶点<br>
+            b) 定义域<br>
+            c) 值域<br>
+            d) x 轴截距<br>
+            e) y 轴截距<br>
+            f) 对称轴<br>
+            g) 对应的母函数<br>
+            h) 画出这个二次函数的图像，至少标出 5 个点
+          `,
+          answers: [`
+            <strong>答案：</strong>
+            <ul>
+              <li>顶点：<code>(6, -4)</code></li>
+              <li>定义域：<code>(-∞, ∞)</code></li>
+              <li>值域：<code>y ≥ -4</code></li>
+              <li>x 轴截距：<code>(4, 0)</code> 和 <code>(8, 0)</code></li>
+              <li>y 轴截距：<code>(0, 32)</code></li>
+              <li>对称轴：<code>x = 6</code></li>
+              <li>母函数：<code>y = x²</code></li>
+              <li>五个点：<code>(4,0), (5,-3), (6,-4), (7,-3), (8,0)</code></li>
+            </ul>
+          `]
+        },
+        {
+          title: "2. 写出这个二次函数的关键特征",
+          prompt: `
+            <span class="math">y = -4x<sup>2</sup> + 16x - 12</span><br>
+            a) 顶点<br>
+            b) 定义域<br>
+            c) 值域<br>
+            d) x 轴截距<br>
+            e) y 轴截距<br>
+            f) 对称轴<br>
+            g) 对应的母函数<br>
+            h) 画出这个二次函数的图像
+          `,
+          answers: [`
+            <strong>答案：</strong>
+            <ul>
+              <li>改写为顶点式：<code>y = -4(x - 2)² + 4</code></li>
+              <li>顶点：<code>(2, 4)</code></li>
+              <li>定义域：<code>(-∞, ∞)</code></li>
+              <li>值域：<code>y ≤ 4</code></li>
+              <li>x 轴截距：<code>(1, 0)</code> 和 <code>(3, 0)</code></li>
+              <li>y 轴截距：<code>(0, -12)</code></li>
+              <li>对称轴：<code>x = 2</code></li>
+              <li>母函数：<code>y = x²</code></li>
+              <li>图像示例点：<code>(1,0), (1.5,3), (2,4), (2.5,3), (3,0)</code></li>
+            </ul>
+          `]
+        },
+        {
+          title: "3. 求下面函数的 x 轴截距和 y 轴截距",
+          prompt: `
+            <span class="math">y = 3(x - 11)<sup>2</sup> + 5</span><br>
+            请务必说明你的理由。
+          `,
+          answers: [`
+            <strong>答案：</strong>
+            <ul>
+              <li>x 轴截距：没有，因为解 <code>0 = 3(x - 11)² + 5</code> 可得 <code>(x - 11)² = -5/3</code>，这在实数范围内没有解。</li>
+              <li>y 轴截距：令 <code>x = 0</code><br>
+                <code>y = 3(0 - 11)² + 5 = 3(121) + 5 = 368</code><br>
+                所以 y 轴截距是 <code>(0, 368)</code>。</li>
+            </ul>
+          `]
+        },
+        {
+          title: "4. 用下面的形式写出每个抛物线的方程",
+          prompt: `
+            <span class="math">y = a(x - p)<sup>2</sup> + q</span><br>
+            使用图上给出的坐标。
+          `,
+          answers: [
+            `
+              <strong>4(a) 答案：</strong><br>
+              从图像可知，顶点是 <code>(-5, 4)</code>，x 轴截距是 <code>(-9, 0)</code> 和 <code>(-1, 0)</code>。<br><br>
+              先设：<br>
+              <code>y = a(x + 5)² + 4</code><br><br>
+              代入 <code>(-1, 0)</code>：<br>
+              <code>0 = a(4)² + 4</code><br>
+              <code>0 = 16a + 4</code><br>
+              <code>a = -1/4</code><br><br>
+              最终方程：<br>
+              <strong><code>y = -1/4(x + 5)² + 4</code></strong>
+            `,
+            `
+              <strong>4(b) 答案：</strong><br>
+              从图像可知，顶点是 <code>(6, -10)</code>，并且图上还有点 <code>(5, -7)</code> 和 <code>(7, -7)</code>。<br><br>
+              先设：<br>
+              <code>y = a(x - 6)² - 10</code><br><br>
+              代入 <code>(5, -7)</code>：<br>
+              <code>-7 = a(5 - 6)² - 10</code><br>
+              <code>-7 = a - 10</code><br>
+              <code>a = 3</code><br><br>
+              最终方程：<br>
+              <strong><code>y = 3(x - 6)² - 10</code></strong>
+            `
+          ]
+        },
+        {
+          title: "5. 变换题",
+          prompt: `
+            如果抛物线 <span class="math">y = x<sup>2</sup></span> 经过以下变换：<br>
+            先关于 x 轴对称，再做 <code>1/3</code> 倍的竖直压缩，再向左平移 6 个单位，最后向上平移 2 个单位，它的新方程是什么？
+          `,
+          answers: [`
+            <strong>答案：</strong><br>
+            关于 x 轴对称：<code>y = -x²</code><br>
+            竖直方向压缩为原来的 <code>1/3</code>：<code>y = -(1/3)x²</code><br>
+            向左平移 6 个单位：<code>y = -(1/3)(x + 6)²</code><br>
+            向上平移 2 个单位：<code>y = -(1/3)(x + 6)² + 2</code><br><br>
+            最终方程：<br>
+            <strong><code>y = -(1/3)(x + 6)² + 2</code></strong>
+          `]
+        },
+        {
+          title: "6. 求这个抛物线的方程",
+          prompt: `
+            顶点为 <code>(9, -3)</code>，并且有一个 x 轴截距 <code>x = 10</code>
+          `,
+          answers: [`
+            <strong>答案：</strong><br>
+            使用顶点式：<br>
+            <code>y = a(x - 9)² - 3</code><br><br>
+            因为 <code>x = 10</code> 是一个 x 轴截距，所以点 <code>(10, 0)</code> 在抛物线上。<br>
+            代入：<br>
+            <code>0 = a(10 - 9)² - 3</code><br>
+            <code>0 = a - 3</code><br>
+            <code>a = 3</code><br><br>
+            最终方程：<br>
+            <strong><code>y = 3(x - 9)² - 3</code></strong>
+          `]
+        },
+        {
+          title: "7. 配方法",
+          prompt: `
+            <span class="math">y = -5x<sup>2</sup> + 35x + 8</span>
+          `,
+          answers: [`
+            <strong>答案：</strong>
+            <div class="steps">
+              <div><code>y = -5x² + 35x + 8</code></div>
+              <div><code>y = -5(x² - 7x) + 8</code></div>
+              <div><code>x² - 7x = (x - 7/2)² - 49/4</code></div>
+              <div><code>y = -5[(x - 7/2)² - 49/4] + 8</code></div>
+              <div><code>y = -5(x - 7/2)² + 245/4 + 8</code></div>
+              <div><code>y = -5(x - 7/2)² + 245/4 + 32/4</code></div>
+              <div><code>y = -5(x - 7/2)² + 277/4</code></div>
+            </div>
+            <br>
+            最终答案：<br>
+            <strong><code>y = -5(x - 7/2)² + 277/4</code></strong>
+          `]
+        },
+        {
+          title: "8. 甜甜圈店收入问题",
+          prompt: `
+            当前价格：<code>$3.00</code><br>
+            每日销量：<code>500 donuts</code><br>
+            每涨价 <code>$0.20</code>，销量减少 <code>10 donuts</code>。<br>
+            什么价格能得到最高收入？
+          `,
+          answers: [`
+            <strong>答案：</strong><br>
+            设 <code>x</code> = 涨价的次数。<br><br>
+            价格：<code>3 + 0.20x</code><br>
+            销量：<code>500 - 10x</code><br><br>
+            收入函数：<br>
+            <code>R(x) = (3 + 0.20x)(500 - 10x)</code><br>
+            <code>R(x) = -2x² + 70x + 1500</code><br><br>
+            顶点：<br>
+            <code>x = -b / 2a = -70 / (2 × -2) = 17.5</code><br><br>
+            最佳价格：<br>
+            <code>3 + 0.20(17.5) = 6.50</code><br><br>
+            <strong>最高收入对应的价格：<code>$6.50</code></strong><br>
+            最高收入：<br>
+            <code>R(17.5) = 2112.50</code><br>
+            <strong><code>$2112.50</code></strong><br><br>
+            注意：如果只允许按 <code>$0.20</code> 的整数步长涨价，那么 <code>$6.40</code> 和 <code>$6.60</code> 的分步收入并列最高。
+          `]
+        },
+        {
+          title: "9. 长方形的最大面积",
+          prompt: `
+            求周长为 <code>108 m</code> 的长方形的最大面积，并求出它的长和宽。
+          `,
+          answers: [`
+            <strong>答案：</strong><br>
+            设长 = <code>x</code>，宽 = <code>w</code>。<br><br>
+            周长：<br>
+            <code>2x + 2w = 108</code><br>
+            <code>x + w = 54</code><br>
+            <code>w = 54 - x</code><br><br>
+            面积：<br>
+            <code>A = xw = x(54 - x)</code><br>
+            <code>A = -x² + 54x</code><br><br>
+            顶点：<br>
+            <code>x = -b / 2a = -54 / (2 × -1) = 27</code><br>
+            <code>w = 54 - 27 = 27</code><br><br>
+            最大面积：<br>
+            <code>A = 27 × 27 = 729</code><br><br>
+            <strong>最大面积：<code>729 m²</code></strong><br>
+            <strong>长：<code>27 m</code></strong><br>
+            <strong>宽：<code>27 m</code></strong>
+          `]
+        }
+      ]
+    };
+
+    function getCurrentLanguageMode() {
+      return document.body.dataset.lang || "en";
+    }
+
+    function bilingualMarkup(enHtml, zhHtml, display = "block") {
+      return `<span class="i18n-en lang-${display}">${enHtml}</span><span class="i18n-zh lang-${display}" lang="zh-Hans">${zhHtml}</span>`;
+    }
+
+    function applyBilingualHtml(element, zhHtml, display = "block") {
+      if (!element) {
+        return;
+      }
+
+      const enHtml = element.innerHTML;
+      element.innerHTML = bilingualMarkup(enHtml, zhHtml, display);
+    }
+
+    function setBilingualUi(element, enHtml, zhHtml, display = "inline") {
+      if (!element) {
+        return;
+      }
+
+      element.innerHTML = bilingualMarkup(enHtml, zhHtml, display);
+    }
+
+    function uiText(enText, zhText) {
+      const mode = getCurrentLanguageMode();
+      if (mode === "zh") {
+        return zhText;
+      }
+      if (mode === "bi") {
+        return `${enText} / ${zhText}`;
+      }
+      return enText;
+    }
+
+    function localizedTextFromElement(element, modeOverride = null) {
+      const clone = element.cloneNode(true);
+      const mode = modeOverride || getCurrentLanguageMode();
+
+      if (mode === "en") {
+        clone.querySelectorAll(".i18n-zh").forEach(node => node.remove());
+      } else if (mode === "zh") {
+        clone.querySelectorAll(".i18n-en").forEach(node => node.remove());
+      }
+
+      return clone.textContent.trim();
+    }
+
+    function detectResponseLanguage(text) {
+      return /[\u3400-\u9fff]/.test(String(text || "")) ? "zh" : "en";
+    }
+
+    function applyStaticTranslations() {
+      if (document.body.dataset.i18nReady === "true") {
+        return;
+      }
+
+      document.body.dataset.i18nReady = "true";
+
+      const cards = document.querySelectorAll(".card");
+      const goalsCard = cards[0];
+      const questionsCard = cards[1];
+      const selfCard = cards[2];
+
+      applyBilingualHtml(document.querySelector(".hero h1"), ZH_TRANSLATIONS.heroTitle, "block");
+      applyBilingualHtml(document.querySelector(".hero .subtitle"), ZH_TRANSLATIONS.heroSubtitle, "block");
+      applyBilingualHtml(goalsCard.querySelector("h2"), ZH_TRANSLATIONS.goalsTitle, "block");
+
+      goalsCard.querySelectorAll("ul li").forEach((item, index) => {
+        applyBilingualHtml(item, ZH_TRANSLATIONS.goalsItems[index], "block");
+      });
+
+      applyBilingualHtml(goalsCard.querySelector(".note"), ZH_TRANSLATIONS.noteHtml, "block");
+      applyBilingualHtml(questionsCard.querySelector("h2"), ZH_TRANSLATIONS.qaTitle, "block");
+      applyBilingualHtml(questionsCard.querySelector("details.settings summary"), ZH_TRANSLATIONS.aiSummary, "inline");
+      applyBilingualHtml(questionsCard.querySelector('label[for="grade-api-url"]'), ZH_TRANSLATIONS.gradeApiLabel, "block");
+      applyBilingualHtml(questionsCard.querySelector(".settings-hint"), ZH_TRANSLATIONS.settingsHint, "block");
+
+      const questionEls = document.querySelectorAll(".question");
+      questionEls.forEach((questionEl, index) => {
+        const translation = ZH_TRANSLATIONS.questions[index];
+        if (!translation) {
+          return;
+        }
+
+        applyBilingualHtml(questionEl.querySelector("h3"), translation.title, "block");
+        applyBilingualHtml(questionEl.querySelector(".prompt"), translation.prompt, "block");
+
+        questionEl.querySelectorAll(".answer").forEach((answerEl, answerIndex) => {
+          applyBilingualHtml(answerEl, translation.answers[answerIndex], "block");
+        });
+      });
+
+      applyBilingualHtml(selfCard.querySelector("h2"), ZH_TRANSLATIONS.selfTitle, "block");
+      applyBilingualHtml(selfCard.querySelector("p"), ZH_TRANSLATIONS.selfPrompt, "block");
+
+      const tableRows = selfCard.querySelectorAll("table tr");
+      const headerCells = tableRows[0].querySelectorAll("th");
+      applyBilingualHtml(headerCells[0], ZH_TRANSLATIONS.tableHeaders[0], "block");
+      applyBilingualHtml(headerCells[1], ZH_TRANSLATIONS.tableHeaders[1], "block");
+
+      ZH_TRANSLATIONS.levelRows.forEach((row, index) => {
+        const cells = tableRows[index + 1].querySelectorAll("td");
+        applyBilingualHtml(cells[0], row[0], "block");
+        applyBilingualHtml(cells[1], row[1], "block");
+      });
+
+      const selfParagraphs = selfCard.querySelectorAll("p");
+      applyBilingualHtml(selfParagraphs[1], ZH_TRANSLATIONS.areasTitle, "block");
+      selfCard.querySelectorAll("ul li").forEach((item, index) => {
+        applyBilingualHtml(item, ZH_TRANSLATIONS.areaItems[index], "block");
+      });
+
+      applyBilingualHtml(document.querySelector(".footer"), ZH_TRANSLATIONS.footer, "block");
+    }
+
+    function updateUiLanguage() {
+      setBilingualUi(document.querySelector('label[for="language-mode"]'), "Language", ZH_TRANSLATIONS.ui.language, "block");
+      setBilingualUi(document.getElementById("btn-test-api"), "Test", ZH_TRANSLATIONS.ui.test, "inline");
+      setBilingualUi(document.getElementById("answer-modal-title"), "Question Review", ZH_TRANSLATIONS.modalTitle, "block");
+      setBilingualUi(document.querySelector(".modal-head .subtitle"), "Compare your response with the model answer.", ZH_TRANSLATIONS.modalSubtitle, "block");
+      setBilingualUi(modalStatusPanelEl.querySelector("h4"), "Check result", ZH_TRANSLATIONS.modalCheckResult, "block");
+      setBilingualUi(modalEl.querySelector(".modal-panel:nth-of-type(2) h4"), "Question", ZH_TRANSLATIONS.modalQuestion, "block");
+      setBilingualUi(modalUserPanelEl.querySelector("h4"), "Your answer", ZH_TRANSLATIONS.modalYourAnswer, "block");
+      setBilingualUi(modalEl.querySelector(".modal-panel:nth-of-type(4) h4"), "Model answer", ZH_TRANSLATIONS.modalModelAnswer, "block");
+      setBilingualUi(document.getElementById("close-answer-modal"), "Close", ZH_TRANSLATIONS.ui.close, "inline");
+      setBilingualUi(document.getElementById("close-answer-modal-foot"), "Close", ZH_TRANSLATIONS.ui.close, "inline");
+
+      document.querySelectorAll(".practice-area label").forEach(labelEl => {
+        setBilingualUi(labelEl, "Your answer", ZH_TRANSLATIONS.ui.yourAnswer, "block");
+      });
+
+      document.querySelectorAll(".response-box").forEach(textarea => {
+        textarea.placeholder = uiText("Type your solution here, then click Check my answer.", ZH_TRANSLATIONS.ui.textareaPlaceholder);
+      });
+
+      document.querySelectorAll(".check-answer").forEach(button => {
+        setBilingualUi(button, "Check my answer", ZH_TRANSLATIONS.ui.checkAnswer, "inline");
+      });
+
+      document.querySelectorAll(".show-answer").forEach(button => {
+        setBilingualUi(button, "Show model answer", ZH_TRANSLATIONS.ui.showModelAnswer, "inline");
+      });
+    }
+
+    function setLanguageMode(mode) {
+      const normalized = mode === "zh" ? "zh" : mode === "bi" ? "bi" : "en";
+      document.body.dataset.lang = normalized;
+      document.documentElement.lang = normalized === "zh" ? "zh-CN" : "en";
+
+      if (languageModeEl) {
+        languageModeEl.value = normalized;
+      }
+
+      try {
+        localStorage.setItem(LANGUAGE_STORAGE_KEY, normalized);
+      } catch {
+        // Ignore storage failures.
+      }
+
+      updateUiLanguage();
+    }
+
+    function loadStoredJson(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function storeJson(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch {
+        // Ignore storage failures for static local-file use.
+      }
+    }
+
+    function saveResponse(questionId, value) {
+      responses[questionId] = value;
+      storeJson(RESPONSE_STORAGE_KEY, responses);
+    }
+
+    function saveGradeApiUrl() {
+      if (!gradeApiUrlEl) {
+        return;
+      }
+
+      try {
+        localStorage.setItem(GRADE_API_STORAGE_KEY, gradeApiUrlEl.value.trim());
+      } catch {
+        // Ignore storage failures.
+      }
+    }
+
+    function getGradeApiUrl() {
+      return gradeApiUrlEl ? gradeApiUrlEl.value.trim() : "";
+    }
+
+    function setApiStatus(message, kind = "") {
+      if (!apiStatusEl) {
+        return;
+      }
+
+      apiStatusEl.textContent = message;
+      apiStatusEl.className = `feedback${kind ? ` ${kind}` : ""}`;
+    }
+
+    function deriveHealthUrl(gradeUrl) {
+      try {
+        const url = new URL(gradeUrl);
+        url.search = "";
+        url.hash = "";
+
+        if (url.pathname.endsWith("/grade")) {
+          url.pathname = url.pathname.replace(/\/grade$/, "/health");
+        } else {
+          url.pathname = url.pathname.replace(/\/+$/, "") + "/health";
+        }
+
+        return url.toString();
+      } catch {
+        return null;
+      }
+    }
+
+    async function fetchJsonWithTimeout(url, options, timeoutMs) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+      try {
+        const response = await fetch(url, { ...options, signal: controller.signal });
+        const text = await response.text();
+        let data = null;
+
+        try {
+          data = text ? JSON.parse(text) : null;
+        } catch {
+          data = null;
+        }
+
+        return { ok: response.ok, status: response.status, text, data, aborted: false };
+      } catch (error) {
+        if (error && error.name === "AbortError") {
+          return { ok: false, status: 0, text: "", data: null, aborted: true };
+        }
+        throw error;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    function extractFirstGradeResult(data) {
+      if (!data) {
+        return null;
+      }
+
+      if (Array.isArray(data.results) && data.results[0]) {
+        return data.results[0];
+      }
+      if (data.result && Array.isArray(data.result.results) && data.result.results[0]) {
+        return data.result.results[0];
+      }
+      if (data.model_result && Array.isArray(data.model_result.results) && data.model_result.results[0]) {
+        return data.model_result.results[0];
+      }
+      return null;
+    }
+
+    async function testApi() {
+      const gradeUrl = getGradeApiUrl();
+      if (!gradeUrl) {
+        setApiStatus(uiText("Set a URL first.", "请先填写 URL。"), "bad");
+        return;
+      }
+
+      setApiStatus(uiText("Testing...", "正在测试..."));
+
+      try {
+        const healthUrl = deriveHealthUrl(gradeUrl);
+        if (!healthUrl) {
+          setApiStatus(uiText("Invalid URL.", "无效的 URL。"), "bad");
+          return;
+        }
+
+        const { ok, status, data, aborted } = await fetchJsonWithTimeout(healthUrl, { method: "GET" }, 4000);
+        if (aborted) {
+          setApiStatus(uiText("Health check timed out.", "健康检查超时。"), "bad");
+          return;
+        }
+
+        if (!ok) {
+          setApiStatus(uiText(`Health check failed (${status}).`, `健康检查失败（${status}）。`), "bad");
+          return;
+        }
+
+        const looksHealthy = !!(data && (data.status === "ok" || data.ok === true));
+        setApiStatus(
+          looksHealthy ? uiText("OK", "正常") : uiText("OK (nonstandard response)", "正常（返回格式不是标准格式）"),
+          looksHealthy ? "ok" : "warn"
+        );
+      } catch {
+        setApiStatus(uiText("Health check failed.", "健康检查失败。"), "bad");
+      }
+    }
+
+    function normalizeTokens(text) {
+      return String(text || "")
+        .toLowerCase()
+        .replace(/[−–]/g, "-")
+        .replace(/[^a-z0-9./+\-\s]/g, " ")
+        .split(/\s+/)
+        .filter(Boolean);
+    }
+
+    function compactText(text) {
+      return normalizeTokens(text).join("");
+    }
+
+    function keywordTokens(text) {
+      const stopwords = new Set([
+        "a", "an", "and", "answer", "as", "at", "be", "because", "by", "domain",
+        "equation", "find", "for", "form", "function", "if", "in", "intercept", "is",
+        "it", "of", "or", "point", "range", "show", "solve", "so", "state", "the",
+        "then", "to", "use", "value", "vertex", "with", "write", "x", "y"
+      ]);
+
+      return normalizeTokens(text).filter(token => /\d/.test(token) || (token.length > 2 && !stopwords.has(token)));
+    }
+
+    function evaluateAnswer(userText, correctText) {
+      const compactUser = compactText(userText);
+      const compactCorrect = compactText(correctText);
+
+      if (!compactCorrect) {
+        return {
+          kind: "warn",
+          message: uiText("No model answer text is available for checking on this question.", "这道题没有可用于比对的参考答案文本。")
+        };
+      }
+
+      if (compactUser && compactUser === compactCorrect) {
+        return {
+          kind: "ok",
+          message: uiText("Likely correct. Your answer matches the model answer very closely.", "很可能正确。你的答案和参考答案非常接近。")
+        };
+      }
+
+      const userTokens = keywordTokens(userText);
+      const correctTokens = keywordTokens(correctText);
+
+      if (!userTokens.length || !correctTokens.length) {
+        return {
+          kind: "warn",
+          message: uiText("The automatic check needs a little more text or math content to compare.", "自动检查需要更多一些文字或数学内容才能进行比较。")
+        };
+      }
+
+      const correctSet = new Set(correctTokens);
+      const matchedCount = userTokens.filter(token => correctSet.has(token)).length;
+      const precision = matchedCount / userTokens.length;
+      const recall = matchedCount / correctTokens.length;
+      const score = precision + recall === 0 ? 0 : (2 * precision * recall) / (precision + recall);
+      const percent = Math.round(score * 100);
+
+      if (precision === 1 && recall >= 0.45) {
+        return {
+          kind: "ok",
+          message: uiText(
+            `Likely correct. Strong token match with the model answer (${percent}%).`,
+            `很可能正确。与参考答案的关键词匹配度很高（${percent}%）。`
+          )
+        };
+      }
+
+      if (score >= 0.55) {
+        return {
+          kind: "ok",
+          message: uiText(
+            `Likely correct. Strong overlap with the model answer (${percent}%).`,
+            `很可能正确。与参考答案的重合度较高（${percent}%）。`
+          )
+        };
+      }
+
+      if (score >= 0.25 || matchedCount >= 3) {
+        return {
+          kind: "warn",
+          message: uiText(
+            `Partial match (${percent}%). Compare your work with the model answer below.`,
+            `部分匹配（${percent}%）。请对照下面的参考答案检查你的过程。`
+          )
+        };
+      }
+
+      return {
+        kind: "bad",
+        message: uiText(
+          `Low match (${percent}%). Check the model answer and try again.`,
+          `匹配度较低（${percent}%）。请查看参考答案后再试一次。`
+        )
+      };
+    }
+
+    async function gradeOne({ questionText, userText, correctText }) {
+      const gradeUrl = getGradeApiUrl();
+      const aiTimeoutMs = 60000;
+
+      if (gradeUrl) {
+        const pair = {
+          question: questionText,
+          answer: userText
+        };
+
+        if (correctText) {
+          pair.reference_answer = correctText;
+        }
+
+        const { ok, status, data, text, aborted } = await fetchJsonWithTimeout(
+          gradeUrl,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ pairs: [pair] })
+          },
+          aiTimeoutMs
+        );
+
+        if (aborted) {
+          throw new Error(`timeout_after_${Math.round(aiTimeoutMs / 1000)}s`);
+        }
+
+        const first = extractFirstGradeResult(data);
+        if (!ok || !first) {
+          const reason = data && data.error ? data.error : `bad_response_${status}`;
+          const detail = text ? ` (${text.slice(0, 160)})` : "";
+          throw new Error(reason + detail);
+        }
+
+        return {
+          kind: first.verdict === "correct" ? "ok" : "bad",
+          message: (first.explanation || "").trim() || (first.verdict === "correct" ? "Correct." : "Try again."),
+          mode: "ai"
+        };
+      }
+
+      return {
+        ...evaluateAnswer(userText, correctText),
+        mode: "local"
+      };
+    }
+
+    function setFeedback(questionEl, message, kind = "") {
+      const feedbackEl = questionEl.querySelector(".feedback");
+      if (!feedbackEl) {
+        return;
+      }
+
+      feedbackEl.textContent = message;
+      feedbackEl.className = `feedback${kind ? ` ${kind}` : ""}`;
+    }
+
+    function getAnswerHtml(questionEl) {
+      return Array.from(questionEl.querySelectorAll(".answer"))
+        .map(answerEl => `<div class="modal-answer-block">${answerEl.innerHTML}</div>`)
+        .join("");
+    }
+
+    function getAnswerText(questionEl, modeOverride = null) {
+      return Array.from(questionEl.querySelectorAll(".answer"))
+        .map(answerEl => localizedTextFromElement(answerEl, modeOverride))
+        .join("\n\n");
+    }
+
+    function getQuestionHtml(questionEl) {
+      const clone = questionEl.cloneNode(true);
+      clone.querySelectorAll(".answer, .practice-area").forEach(node => node.remove());
+      clone.querySelectorAll(".grid").forEach(gridEl => {
+        if (!gridEl.children.length) {
+          gridEl.remove();
+        }
+      });
+      return clone.innerHTML;
+    }
+
+    function openAnswerModal({ feedbackText, feedbackKind, questionHtml, answerHtml, userText }) {
+      modalFeedbackEl.textContent = feedbackText || uiText("Model answer opened.", "参考答案已打开。");
+      modalStatusPanelEl.className = `modal-panel modal-status${feedbackKind ? ` ${feedbackKind}` : ""}`;
+      modalQuestionEl.innerHTML = questionHtml || "";
+      modalAnswerEl.innerHTML = answerHtml || `<p>${uiText("No model answer available.", "没有可显示的参考答案。")}</p>`;
+
+      if (userText) {
+        modalUserAnswerEl.textContent = userText;
+        modalUserPanelEl.hidden = false;
+      } else {
+        modalUserPanelEl.hidden = true;
+        modalUserAnswerEl.textContent = "";
+      }
+
+      modalEl.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeAnswerModal() {
+      modalEl.hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    async function checkMyAnswer(questionEl) {
+      const textarea = questionEl.querySelector(".response-box");
+      const checkBtn = questionEl.querySelector(".check-answer");
+      const userText = textarea ? textarea.value.trim() : "";
+      const referenceMode = getCurrentLanguageMode() === "bi" ? detectResponseLanguage(userText) : getCurrentLanguageMode();
+      const correctText = getAnswerText(questionEl, referenceMode);
+      const questionClone = questionEl.cloneNode(true);
+      questionClone.querySelectorAll(".answer, .practice-area").forEach(node => node.remove());
+      const questionText = localizedTextFromElement(questionClone, referenceMode);
+      const questionHtml = getQuestionHtml(questionEl);
+      const answerHtml = getAnswerHtml(questionEl);
+
+      if (!userText) {
+        const message = uiText(
+          "No answer entered yet. Review the model answer and then try the question.",
+          "你还没有输入答案。先查看参考答案，然后再试一次。"
+        );
+        setFeedback(questionEl, message, "warn");
+        openAnswerModal({
+          feedbackText: message,
+          feedbackKind: "warn",
+          questionHtml,
+          answerHtml,
+          userText: ""
+        });
+        return;
+      }
+
+      if (checkBtn) {
+        checkBtn.disabled = true;
+      }
+
+      setFeedback(
+        questionEl,
+        getGradeApiUrl()
+          ? uiText("Checking with AI grader...", "正在使用 AI 评分...")
+          : uiText("Checking...", "正在检查..."),
+        ""
+      );
+
+      try {
+        const result = await gradeOne({ questionText, userText, correctText });
+        const prefix = result.kind === "ok"
+          ? uiText("Correct. ", "正确。")
+          : result.kind === "warn"
+            ? uiText("Partial match. ", "部分匹配。")
+            : uiText("Wrong. ", "不正确。");
+        const message = prefix + result.message;
+        setFeedback(questionEl, message, result.kind);
+        openAnswerModal({
+          feedbackText: `${message}${result.mode === "ai"
+            ? uiText(" Checked with AI grading.", " 已使用 AI 评分。")
+            : uiText(" Checked with local overlap.", " 已使用本地重叠比对。")}`,
+          feedbackKind: result.kind,
+          questionHtml,
+          answerHtml,
+          userText
+        });
+      } catch (error) {
+        const local = evaluateAnswer(userText, correctText);
+        const message = `${uiText("AI grading unavailable; using overlap check.", "AI 评分不可用；改用重叠比对。")} ${
+          local.kind === "ok"
+            ? uiText("Correct.", "正确。")
+            : local.kind === "warn"
+              ? uiText("Partial match.", "部分匹配。")
+              : uiText("Wrong.", "不正确。")
+        } ${local.message}`;
+        setFeedback(questionEl, message, local.kind);
+        openAnswerModal({
+          feedbackText: message,
+          feedbackKind: local.kind,
+          questionHtml,
+          answerHtml,
+          userText
+        });
+        console.warn("Grading failed:", error);
+      } finally {
+        if (checkBtn) {
+          checkBtn.disabled = false;
+        }
+      }
+    }
+
+    function addPracticeArea(questionEl, questionId) {
+      const practiceArea = document.createElement("div");
+      practiceArea.className = "practice-area";
+      practiceArea.innerHTML = `
+        <label for="response-${questionId}">Your answer</label>
+        <textarea
+          class="response-box"
+          id="response-${questionId}"
+          placeholder="Type your solution here, then click Check my answer."
+        ></textarea>
+        <div class="card-actions">
+          <button class="action-button check-answer" type="button">Check my answer</button>
+          <button class="action-button show-answer" type="button">Show model answer</button>
+          <span class="feedback" aria-live="polite"></span>
+        </div>
+      `;
+
+      questionEl.appendChild(practiceArea);
+
+      const textarea = practiceArea.querySelector(".response-box");
+      const savedValue = responses[questionId];
+      if (textarea && typeof savedValue === "string") {
+        textarea.value = savedValue;
+      }
+
+      if (textarea) {
+        textarea.addEventListener("input", event => {
+          saveResponse(questionId, event.target.value);
+        });
+      }
+
+      practiceArea.querySelector(".check-answer").addEventListener("click", () => checkMyAnswer(questionEl));
+      practiceArea.querySelector(".show-answer").addEventListener("click", () => {
+        openAnswerModal({
+          feedbackText: uiText("Model answer opened for review.", "参考答案已打开，供你查看。"),
+          feedbackKind: "",
+          questionHtml: getQuestionHtml(questionEl),
+          answerHtml: getAnswerHtml(questionEl),
+          userText: textarea ? textarea.value.trim() : ""
+        });
+      });
+    }
+
+    function initializeQuestionPractice() {
+      document.querySelectorAll(".question").forEach((questionEl, index) => {
+        const questionId = String(index + 1);
+        questionEl.dataset.questionId = questionId;
+        addPracticeArea(questionEl, questionId);
+      });
+    }
+
+    document.getElementById("btn-test-api").addEventListener("click", testApi);
+    gradeApiUrlEl.value = localStorage.getItem(GRADE_API_STORAGE_KEY) || DEFAULT_GRADE_API_URL;
+    gradeApiUrlEl.addEventListener("change", saveGradeApiUrl);
+    gradeApiUrlEl.addEventListener("blur", saveGradeApiUrl);
+    languageModeEl.addEventListener("change", event => {
+      setLanguageMode(event.target.value);
+    });
+
+    document.getElementById("close-answer-modal").addEventListener("click", closeAnswerModal);
+    document.getElementById("close-answer-modal-foot").addEventListener("click", closeAnswerModal);
+    modalEl.addEventListener("click", event => {
+      if (event.target === modalEl) {
+        closeAnswerModal();
+      }
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !modalEl.hidden) {
+        closeAnswerModal();
+      }
+    });
+
+    applyStaticTranslations();
+    initializeQuestionPractice();
+    setLanguageMode(localStorage.getItem(LANGUAGE_STORAGE_KEY) || "en");
+  </script>
+</body>
+</html>
