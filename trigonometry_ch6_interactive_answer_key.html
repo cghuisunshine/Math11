@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ch. 6 Trigonometry Assignment - Interactive Practice</title>
+<style>
+  :root{--bg:#f6f7fb;--card:#fff;--ink:#172033;--muted:#5b667a;--brand:#2563eb;--ok:#15803d;--warn:#b45309;--line:#d8deea;--soft:#eef4ff;}
+  *{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+  header{background:linear-gradient(135deg,#1d4ed8,#0f766e);color:#fff;padding:28px 18px;text-align:center}
+  header h1{margin:0;font-size:clamp(1.5rem,4vw,2.3rem)} header p{margin:8px auto 0;max-width:900px;opacity:.95}
+  main{max-width:1050px;margin:0 auto;padding:20px 14px 60px}.toolbar{position:sticky;top:0;z-index:5;background:rgba(246,247,251,.96);border-bottom:1px solid var(--line);padding:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center}
+  .language-controls{display:inline-flex;border:1px solid #cbd5e1;border-radius:10px;overflow:hidden;background:#fff}.language-controls button{border-radius:0;background:#fff;color:#0f172a;border-left:1px solid #e2e8f0}.language-controls button:first-child{border-left:0}.language-controls button[aria-pressed="true"]{background:#0f172a;color:#fff}.zh{display:block;margin-top:4px;color:inherit;opacity:.9}
+  button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--brand);color:#fff}button.secondary{background:#334155}button.ghost{background:#e2e8f0;color:#0f172a}button:hover{filter:brightness(.95)}
+  .score{font-weight:800;color:#0f172a}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:18px 0;box-shadow:0 8px 24px rgba(15,23,42,.06)}
+  .qhead{display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:14px}.num{background:var(--brand);color:#fff;min-width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:800}.qtitle{font-weight:800;font-size:1.12rem}.note{color:var(--muted);font-size:.95rem}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.full{grid-column:1/-1}
+  textarea,input[type=text]{width:100%;border:1px solid #cbd5e1;border-radius:12px;padding:12px;font-size:1rem;background:#fff;min-height:74px}input[type=text]{min-height:auto}.mini-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:12px 0}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.feedback{margin-top:10px;padding:10px;border-radius:10px;display:none}.feedback.ok{display:block;background:#dcfce7;color:#14532d}.feedback.try{display:block;background:#fef3c7;color:#78350f}.answer{display:none;margin-top:12px;background:#f8fafc;border-left:5px solid var(--brand);padding:14px;border-radius:10px}.answer.show{display:block}.steps{white-space:pre-wrap;font-family:Georgia,serif}.formula{font-family:"Times New Roman",serif;background:#f1f5f9;padding:2px 6px;border-radius:6px}.diagram{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}.diagram svg{max-width:100%;height:auto}.rubric{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #a8a29e}.rubric div{padding:10px;border-right:1px solid #a8a29e;background:#fff7dc}.rubric div:last-child{border-right:0}.checklist label{display:block;margin:8px 0}.small{font-size:.9rem;color:var(--muted)}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}.rubric{grid-template-columns:1fr}.toolbar{position:static}.card{padding:14px}}
+  @media print{body{background:#fff}.toolbar,button,.controls,.feedback{display:none!important}.card{break-inside:avoid;box-shadow:none;border:1px solid #aaa}.answer{display:block!important}.answer:not(.show){display:block!important}header{color:#000;background:#fff;border-bottom:2px solid #000}}
+</style>
+</head>
+<body>
+<header>
+  <h1 data-i18n="title">Ch. 6 - Trigonometry Assignment</h1>
+  <p data-i18n="subtitle">Interactive practice page with extracted questions, student answer boxes, checking tools, and full answer key.</p>
+</header>
+<div class="toolbar">
+  <div class="language-controls" aria-label="Language mode">
+    <button type="button" data-mode="en" aria-pressed="true">En</button>
+    <button type="button" data-mode="both" aria-pressed="false">En + Zh</button>
+    <button type="button" data-mode="zh" aria-pressed="false">Zh</button>
+  </div>
+  <button onclick="checkAll()" data-i18n="checkAll">Check All Typed Answers</button>
+  <button class="secondary" onclick="showAllAnswers()" data-i18n="showAll">Show All Answer Keys</button>
+  <button class="ghost" onclick="hideAllAnswers()" data-i18n="hideAll">Hide Answers</button>
+  <button class="ghost" onclick="window.print()" data-i18n="print">Print / Save as PDF</button>
+  <span class="score" id="score">Score: 0 / 0</span>
+</div>
+<main>
+  <section class="card">
+    <h2>Instructions</h2>
+    <p><strong>Please answer all questions and remember to show all your work.</strong> Keep as many decimal places as possible during the steps and round only at the very end. Unless specified, answers are rounded to <strong>two decimal places</strong>.</p>
+    <p class="note">For longer explanation questions, use <strong>Show Answer Key</strong> to compare your work with the model solution.</p>
+  </section>
+
+  <section class="card question" data-q="1">
+    <div class="qhead"><div class="num">1</div><div><div class="qtitle">Solve the following triangle.</div><div class="note">Find every missing side and angle.</div></div></div>
+    <div class="grid">
+      <div>
+        <p>Given right triangle ABC with ∠C = 90°, BC = 54, and CA = 36. Find AB, ∠A, and ∠B.</p>
+        <div class="mini-inputs">
+          <input type="text" data-answer="64.90" data-label="AB" placeholder="AB = ?">
+          <input type="text" data-answer="56.31" data-label="Angle A" placeholder="∠A = ? degrees">
+          <input type="text" data-answer="33.69" data-label="Angle B" placeholder="∠B = ? degrees">
+        </div>
+        <textarea placeholder="Show your work here..."></textarea>
+        <div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div>
+      </div>
+      <div class="diagram">
+        <svg viewBox="0 0 420 260" role="img" aria-label="Right triangle ABC">
+          <line x1="70" y1="205" x2="320" y2="190" stroke="#4c9a2a" stroke-width="3"/>
+          <line x1="70" y1="205" x2="210" y2="55" stroke="#4c9a2a" stroke-width="3"/>
+          <line x1="210" y1="55" x2="320" y2="190" stroke="#4c9a2a" stroke-width="3"/>
+          <path d="M205 72 L220 88 L236 72" fill="none" stroke="red" stroke-width="3"/>
+          <text x="48" y="230" fill="crimson" font-size="28">B</text><text x="322" y="210" fill="crimson" font-size="28">A</text><text x="200" y="42" fill="crimson" font-size="28">C</text>
+          <text x="105" y="145" font-size="26" transform="rotate(-35 105 145)">54</text><text x="282" y="126" font-size="26" transform="rotate(52 282 126)">36</text>
+        </svg>
+      </div>
+    </div>
+    <div class="answer"><div class="steps">AB = √(36² + 54²) = √4212 = 64.90
+
+tan A = 54/36, so A = tan⁻¹(54/36) = 56.31°
+
+B = 90° − 56.31° = 33.69°
+
+Answer: AB = 64.90, ∠A = 56.31°, ∠B = 33.69°, ∠C = 90°.</div></div>
+  </section>
+
+  <section class="card question" data-q="2a">
+    <div class="qhead"><div class="num">2a</div><div><div class="qtitle">Solve triangle ABC using the Sine Law and Cosine Law.</div></div></div>
+    <p>∆ABC, where ∠B = 50°, AC = 45, and AB = 38.9.</p>
+    <div class="mini-inputs"><input data-answer="88.53" data-label="Angle A" placeholder="∠A = ?"><input data-answer="41.47" data-label="Angle C" placeholder="∠C = ?"><input data-answer="58.72" data-label="BC" placeholder="BC = ?"></div>
+    <textarea placeholder="Show your work here..."></textarea><div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div>
+    <div class="answer"><div class="steps">Use the Sine Law.
+
+sin C / 38.9 = sin 50° / 45
+sin C = (38.9 sin 50°) / 45
+C = 41.47°
+
+A = 180° − 50° − 41.47° = 88.53°
+
+BC / sin 88.53° = 45 / sin 50°
+BC = 58.72
+
+Answer: ∠A = 88.53°, ∠B = 50.00°, ∠C = 41.47°, BC = 58.72.</div></div>
+  </section>
+
+  <section class="card question" data-q="2b">
+    <div class="qhead"><div class="num">2b</div><div><div class="qtitle">Solve triangle ABC using side lengths.</div></div></div>
+    <p>∆ABC, AB = 27.4, BC = 19.8, and AC = 11.4.</p>
+    <div class="mini-inputs"><input data-answer="38.53" data-label="Angle A" placeholder="∠A = ?"><input data-answer="21.02" data-label="Angle B" placeholder="∠B = ?"><input data-answer="120.45" data-label="Angle C" placeholder="∠C = ?"></div>
+    <textarea placeholder="Show your work here..."></textarea><div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div>
+    <div class="answer"><div class="steps">Let a = BC = 19.8, b = AC = 11.4, c = AB = 27.4.
+
+cos A = (b² + c² − a²) / (2bc)
+A = 38.53°
+
+cos B = (a² + c² − b²) / (2ac)
+B = 21.02°
+
+C = 180° − 38.53° − 21.02° = 120.45°
+
+Answer: ∠A = 38.53°, ∠B = 21.02°, ∠C = 120.45°.</div></div>
+  </section>
+
+  <section class="card question" data-q="3a">
+    <div class="qhead"><div class="num">3a</div><div><div class="qtitle">Determine the number of unique triangles.</div></div></div>
+    <p>For ∆DEF, ∠F = 55°, DE = 66, and DF = 78.</p>
+    <input data-answer="2" data-label="number of triangles" placeholder="Number of unique triangles = ?"><textarea placeholder="Explain your reasoning..."></textarea><div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div>
+    <div class="answer"><div class="steps">This is an SSA ambiguous case.
+
+sin E / 78 = sin 55° / 66
+sin E = (78 sin 55°) / 66
+E ≈ 75.49°
+
+A second possible angle is 180° − 75.49° = 104.51°.
+Both possibilities leave a positive third angle, so both triangles are possible.
+
+Answer: 2 unique triangles.</div></div>
+  </section>
+
+  <section class="card question" data-q="3b">
+    <div class="qhead"><div class="num">3b</div><div><div class="qtitle">Determine the number of unique triangles.</div></div></div>
+    <p>For ∆LMN, ∠L = 41°, LM = 7.2 cm, and MN = 2.9 cm.</p>
+    <input data-answer="0" data-label="number of triangles" placeholder="Number of unique triangles = ?"><textarea placeholder="Explain your reasoning..."></textarea><div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div>
+    <div class="answer"><div class="steps">Check the height:
+
+h = 7.2 sin 41° = 4.72
+
+The opposite side MN is only 2.9 cm.
+Since 2.9 < 4.72, the side is too short to form a triangle.
+
+Answer: 0 unique triangles.</div></div>
+  </section>
+
+  <section class="card question" data-q="4">
+    <div class="qhead"><div class="num">4</div><div><div class="qtitle">Hot air balloon word problem.</div></div></div>
+    <div class="grid"><div><p>Three people are watching a hot air balloon travel over their town. A, B, and C are people, and D is the balloon. Person C is 392 m directly below the balloon. Person B is 225 m away from Person C. The angle between Person A, the balloon, and Person B is 26°. How far is Person A from the hot air balloon?</p>
+    <input data-answer="698.39" data-label="AD" placeholder="AD = ? metres"><textarea placeholder="Show your work here..."></textarea><div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div></div>
+    <div class="diagram"><svg viewBox="0 0 460 300"><line x1="45" y1="245" x2="400" y2="245" stroke="#555" stroke-width="3"/><line x1="400" y1="245" x2="400" y2="45" stroke="#555" stroke-width="3"/><line x1="230" y1="245" x2="400" y2="45" stroke="#555" stroke-width="3"/><line x1="45" y1="245" x2="400" y2="45" stroke="#555" stroke-width="3"/><text x="35" y="270" fill="#6b5bd6" font-size="24">A</text><text x="220" y="270" fill="#2b6cb0" font-size="24">B</text><text x="407" y="252" fill="#31a24c" font-size="24">C</text><text x="407" y="45" fill="#e05252" font-size="24">D</text><text x="300" y="265" font-size="18">225 m</text><text x="408" y="150" font-size="18">392 m</text><path d="M372 61 Q360 78 354 99" fill="none" stroke="crimson" stroke-width="3"/><text x="326" y="85" font-size="20">26°</text></svg></div></div>
+    <div class="answer"><div class="steps">First find BD:
+
+BD = √(225² + 392²) = 451.98 m
+
+Find angle CBD:
+∠CBD = tan⁻¹(392/225) = 60.15°
+
+Since A, B, and C are on a straight line:
+∠ABD = 180° − 60.15° = 119.85°
+
+∠DAB = 180° − 119.85° − 26° = 34.15°
+
+Use the Sine Law:
+AD / sin 119.85° = BD / sin 34.15°
+AD = (451.98 sin 119.85°) / sin 34.15° = 698.39
+
+Answer: Person A is 698.39 m from the hot air balloon.</div></div>
+  </section>
+
+  <section class="card question" data-q="5a">
+    <div class="qhead"><div class="num">5a</div><div><div class="qtitle">Terminal arm.</div><div class="note">Determine: angle in standard position, quadrant, reference angle, and coterminal angle.</div></div></div>
+    <p>The diagram shows a coterminal angle of −292.4°.</p>
+    <div class="mini-inputs"><input data-answer="67.60" data-label="standard angle" placeholder="Standard angle = ?"><input data-answer="I" data-label="quadrant" placeholder="Quadrant = ?"><input data-answer="67.60" data-label="reference angle" placeholder="Reference angle = ?"><input data-answer="-292.40" data-label="coterminal angle" placeholder="Coterminal angle = ?"></div>
+    <textarea placeholder="Show your work here..."></textarea><div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div>
+    <div class="answer"><div class="steps">−292.4° + 360° = 67.6°
+
+67.6° is in Quadrant I.
+The reference angle is also 67.6°.
+
+Answer: standard angle = 67.60°, quadrant = I, reference angle = 67.60°, coterminal angle = −292.40°.</div></div>
+  </section>
+
+  <section class="card question" data-q="5b">
+    <div class="qhead"><div class="num">5b</div><div><div class="qtitle">Terminal arm.</div><div class="note">Determine: angle in standard position, quadrant, reference angle, and coterminal angle.</div></div></div>
+    <p>The diagram shows a coterminal angle of −133.2°.</p>
+    <div class="mini-inputs"><input data-answer="226.80" data-label="standard angle" placeholder="Standard angle = ?"><input data-answer="III" data-label="quadrant" placeholder="Quadrant = ?"><input data-answer="46.80" data-label="reference angle" placeholder="Reference angle = ?"><input data-answer="-133.20" data-label="coterminal angle" placeholder="Coterminal angle = ?"></div>
+    <textarea placeholder="Show your work here..."></textarea><div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div>
+    <div class="answer"><div class="steps">−133.2° + 360° = 226.8°
+
+226.8° is in Quadrant III.
+Reference angle = 226.8° − 180° = 46.8°.
+
+Answer: standard angle = 226.80°, quadrant = III, reference angle = 46.80°, coterminal angle = −133.20°.</div></div>
+  </section>
+
+  <section class="card question" data-q="6">
+    <div class="qhead"><div class="num">6</div><div><div class="qtitle">Exact value of sin 300°.</div></div></div>
+    <p>Explain with words and math symbols how you can use a special triangle or the unit circle to solve for the exact value of sin 300° in standard position. Find the exact value of sin 300°.</p>
+    <input data-answer="-sqrt3/2" data-label="sin 300" placeholder="sin 300° = ?"><textarea placeholder="Explain your thinking here..."></textarea><div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div>
+    <div class="answer"><div class="steps">300° is in Quadrant IV.
+Reference angle = 360° − 300° = 60°.
+
+In Quadrant IV, sine is negative.
+sin 300° = −sin 60° = −√3/2
+
+Answer: sin 300° = −√3/2.</div></div>
+  </section>
+
+  <section class="card question" data-q="7">
+    <div class="qhead"><div class="num">7</div><div><div class="qtitle">Exact trigonometric ratios from a point.</div></div></div>
+    <p>Suppose there is a coordinate (−1, √5) at the end of a terminal arm and θ represents the angle in standard position. Determine the exact values of sin θ, cos θ, and tan θ.</p>
+    <div class="mini-inputs"><input data-answer="sqrt30/6" data-label="sin theta" placeholder="sin θ = ?"><input data-answer="-sqrt6/6" data-label="cos theta" placeholder="cos θ = ?"><input data-answer="-sqrt5" data-label="tan theta" placeholder="tan θ = ?"></div>
+    <textarea placeholder="Show your work here..."></textarea><div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div>
+    <div class="answer"><div class="steps">x = −1, y = √5
+
+r = √(x² + y²) = √((-1)² + (√5)²) = √6
+
+sin θ = y/r = √5/√6 = √30/6
+cos θ = x/r = −1/√6 = −√6/6
+tan θ = y/x = √5/(−1) = −√5
+
+Answer: sin θ = √30/6, cos θ = −√6/6, tan θ = −√5.</div></div>
+  </section>
+
+  <section class="card question" data-q="8a">
+    <div class="qhead"><div class="num">8a</div><div><div class="qtitle">Solve for θ, where 0° &lt; θ &lt; 360°.</div></div></div>
+    <p>If tan θ = 5/4 and sin θ &lt; 0, find θ.</p>
+    <input data-answer="231.34" data-label="theta" placeholder="θ = ? degrees"><textarea placeholder="Show your work here..."></textarea><div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div>
+    <div class="answer"><div class="steps">tan θ = 5/4 is positive in Quadrants I and III.
+Since sin θ < 0, θ must be in Quadrant III.
+
+Reference angle = tan⁻¹(5/4) = 51.34°
+θ = 180° + 51.34° = 231.34°
+
+Answer: θ = 231.34°.</div></div>
+  </section>
+
+  <section class="card question" data-q="8b">
+    <div class="qhead"><div class="num">8b</div><div><div class="qtitle">Solve for θ, where 0° &lt; θ &lt; 360°.</div></div></div>
+    <p>If (8/3)cos θ + 7 = 5, find θ.</p>
+    <div class="mini-inputs"><input data-answer="138.59" data-label="theta 1" placeholder="θ₁ = ?"><input data-answer="221.41" data-label="theta 2" placeholder="θ₂ = ?"></div>
+    <textarea placeholder="Show your work here..."></textarea><div class="controls"><button onclick="checkQuestion(this)">Check This Question</button><button class="secondary" onclick="toggleAnswer(this)">Show Answer Key</button></div><div class="feedback"></div>
+    <div class="answer"><div class="steps">(8/3)cos θ + 7 = 5
+(8/3)cos θ = −2
+cos θ = −2 × 3/8 = −3/4
+
+Cosine is negative in Quadrants II and III.
+Reference angle = cos⁻¹(3/4) = 41.41°
+
+Quadrant II: θ = 180° − 41.41° = 138.59°
+Quadrant III: θ = 180° + 41.41° = 221.41°
+
+Answer: θ = 138.59° or 221.41°.</div></div>
+  </section>
+
+  <section class="card">
+    <h2>Self Assessment</h2>
+    <p>How well do you think you did on this assignment?</p>
+    <div class="rubric"><div><strong>Emerging</strong><br><span class="small">Limited understanding of the concepts and competencies.</span></div><div><strong>Developing</strong><br><span class="small">Basic understanding of the concepts and competencies.</span></div><div><strong>Proficient</strong><br><span class="small">Strong understanding of the concepts and competencies.</span></div><div><strong>Extending</strong><br><span class="small">Extensive understanding of concepts and competencies.</span></div></div>
+    <h3>Areas I need more practice on</h3>
+    <div class="checklist">
+      <label><input type="checkbox"> Angles in standard position, reference angles, coterminal angles, terminal arms, and special triangles</label>
+      <label><input type="checkbox"> Ambiguous sine law cases: 0, 1, or 2 possible triangles</label>
+      <label><input type="checkbox"> Sine Law and Cosine Law for non-right triangles</label>
+      <label><input type="checkbox"> Exact values of trigonometric ratios</label>
+      <label><input type="checkbox"> Angles from trigonometric ratios in different quadrants</label>
+      <label><input type="checkbox"> Solving trigonometric equations</label>
+    </div>
+  </section>
+</main>
+<script>
+const uiText = {
+  title: { en: 'Ch. 6 - Trigonometry Assignment', zh: '第 6 章 - 三角函数作业' },
+  subtitle: { en: 'Interactive practice page with extracted questions, student answer boxes, checking tools, and full answer key.', zh: '互动练习页面，包含提取的问题、学生答题框、检查工具和完整答案。' },
+  checkAll: { en: 'Check All Typed Answers', zh: '检查所有填写的答案' },
+  showAll: { en: 'Show All Answer Keys', zh: '显示所有答案' },
+  hideAll: { en: 'Hide Answers', zh: '隐藏答案' },
+  print: { en: 'Print / Save as PDF', zh: '打印 / 另存为 PDF' }
+};
+
+const zhText = new Map([
+  ['Instructions', '说明'],
+  ['Please answer all questions and remember to show all your work.', '请回答所有问题，并记得写出完整过程。'],
+  ['Keep as many decimal places as possible during the steps and round only at the very end. Unless specified, answers are rounded to', '在计算过程中尽量保留更多小数位，只在最后一步四舍五入。除非另有说明，答案四舍五入到'],
+  ['two decimal places', '两位小数'],
+  ['.', '。'],
+  ['For longer explanation questions, use', '对于需要较长解释的问题，请使用'],
+  ['Show Answer Key', '显示答案'],
+  ['to compare your work with the model solution.', '将你的过程与参考解答进行比较。'],
+  ['Solve the following triangle.', '解下面的三角形。'],
+  ['Find every missing side and angle.', '求出所有缺失的边和角。'],
+  ['Given right triangle ABC with ∠C = 90°, BC = 54, and CA = 36. Find AB, ∠A, and ∠B.', '已知直角三角形 ABC，其中 ∠C = 90°，BC = 54，CA = 36。求 AB、∠A 和 ∠B。'],
+  ['Solve triangle ABC using the Sine Law and Cosine Law.', '使用正弦定理和余弦定理解三角形 ABC。'],
+  ['∆ABC, where ∠B = 50°, AC = 45, and AB = 38.9.', '∆ABC 中，∠B = 50°，AC = 45，AB = 38.9。'],
+  ['Solve triangle ABC using side lengths.', '使用边长解三角形 ABC。'],
+  ['∆ABC, AB = 27.4, BC = 19.8, and AC = 11.4.', '∆ABC 中，AB = 27.4，BC = 19.8，AC = 11.4。'],
+  ['Determine the number of unique triangles.', '判断可以形成多少个不同的三角形。'],
+  ['For ∆DEF, ∠F = 55°, DE = 66, and DF = 78.', '对于 ∆DEF，∠F = 55°，DE = 66，DF = 78。'],
+  ['For ∆LMN, ∠L = 41°, LM = 7.2 cm, and MN = 2.9 cm.', '对于 ∆LMN，∠L = 41°，LM = 7.2 cm，MN = 2.9 cm。'],
+  ['Hot air balloon word problem.', '热气球应用题。'],
+  ['Three people are watching a hot air balloon travel over their town. A, B, and C are people, and D is the balloon. Person C is 392 m directly below the balloon. Person B is 225 m away from Person C. The angle between Person A, the balloon, and Person B is 26°. How far is Person A from the hot air balloon?', '三个人正在观看一个热气球飞过小镇。A、B、C 是人，D 是热气球。C 在热气球正下方 392 m 处。B 距离 C 为 225 m。A、热气球 D 和 B 形成的角为 26°。A 距离热气球多远？'],
+  ['Terminal arm.', '终边。'],
+  ['Determine: angle in standard position, quadrant, reference angle, and coterminal angle.', '求：标准位置角、象限、参考角和同终边角。'],
+  ['The diagram shows a coterminal angle of −292.4°.', '图中显示的一个同终边角是 −292.4°。'],
+  ['The diagram shows a coterminal angle of −133.2°.', '图中显示的一个同终边角是 −133.2°。'],
+  ['Exact value of sin 300°.', 'sin 300° 的精确值。'],
+  ['Explain with words and math symbols how you can use a special triangle or the unit circle to solve for the exact value of sin 300° in standard position. Find the exact value of sin 300°.', '用文字和数学符号说明如何使用特殊三角形或单位圆求标准位置中 sin 300° 的精确值，并求出 sin 300°。'],
+  ['Exact trigonometric ratios from a point.', '由点求三角函数的精确值。'],
+  ['Suppose there is a coordinate (−1, √5) at the end of a terminal arm and θ represents the angle in standard position. Determine the exact values of sin θ, cos θ, and tan θ.', '假设终边端点坐标为 (−1, √5)，θ 表示标准位置角。求 sin θ、cos θ 和 tan θ 的精确值。'],
+  ['Solve for θ, where 0° < θ < 360°.', '在 0° < θ < 360° 内解 θ。'],
+  ['If tan θ = 5/4 and sin θ < 0, find θ.', '若 tan θ = 5/4 且 sin θ < 0，求 θ。'],
+  ['If (8/3)cos θ + 7 = 5, find θ.', '若 (8/3)cos θ + 7 = 5，求 θ。'],
+  ['Self Assessment', '自我评估'],
+  ['How well do you think you did on this assignment?', '你认为自己这次作业完成得怎么样？'],
+  ['Emerging', '起步'],
+  ['Limited understanding of the concepts and competencies.', '对相关概念和能力的理解有限。'],
+  ['Developing', '发展中'],
+  ['Basic understanding of the concepts and competencies.', '对相关概念和能力有基本理解。'],
+  ['Proficient', '熟练'],
+  ['Strong understanding of the concepts and competencies.', '对相关概念和能力有较强理解。'],
+  ['Extending', '拓展'],
+  ['Extensive understanding of concepts and competencies.', '对相关概念和能力有深入理解。'],
+  ['Areas I need more practice on', '我需要更多练习的内容'],
+  ['Angles in standard position, reference angles, coterminal angles, terminal arms, and special triangles', '标准位置角、参考角、同终边角、终边和特殊三角形'],
+  ['Ambiguous sine law cases: 0, 1, or 2 possible triangles', '正弦定理歧义情况：可能有 0、1 或 2 个三角形'],
+  ['Sine Law and Cosine Law for non-right triangles', '非直角三角形中的正弦定理和余弦定理'],
+  ['Exact values of trigonometric ratios', '三角函数比值的精确值'],
+  ['Angles from trigonometric ratios in different quadrants', '由三角函数比值在不同象限中求角'],
+  ['Solving trigonometric equations', '解三角方程'],
+  [`AB = √(36² + 54²) = √4212 = 64.90 tan A = 54/36, so A = tan⁻¹(54/36) = 56.31° B = 90° − 56.31° = 33.69° Answer: AB = 64.90, ∠A = 56.31°, ∠B = 33.69°, ∠C = 90°.`, `AB = √(36² + 54²) = √4212 = 64.90 tan A = 54/36，所以 A = tan⁻¹(54/36) = 56.31° B = 90° − 56.31° = 33.69° 答案：AB = 64.90，∠A = 56.31°，∠B = 33.69°，∠C = 90°。`],
+  [`Use the Sine Law. sin C / 38.9 = sin 50° / 45 sin C = (38.9 sin 50°) / 45 C = 41.47° A = 180° − 50° − 41.47° = 88.53° BC / sin 88.53° = 45 / sin 50° BC = 58.72 Answer: ∠A = 88.53°, ∠B = 50.00°, ∠C = 41.47°, BC = 58.72.`, `使用正弦定理。 sin C / 38.9 = sin 50° / 45 sin C = (38.9 sin 50°) / 45 C = 41.47° A = 180° − 50° − 41.47° = 88.53° BC / sin 88.53° = 45 / sin 50° BC = 58.72 答案：∠A = 88.53°，∠B = 50.00°，∠C = 41.47°，BC = 58.72。`],
+  [`Let a = BC = 19.8, b = AC = 11.4, c = AB = 27.4. cos A = (b² + c² − a²) / (2bc) A = 38.53° cos B = (a² + c² − b²) / (2ac) B = 21.02° C = 180° − 38.53° − 21.02° = 120.45° Answer: ∠A = 38.53°, ∠B = 21.02°, ∠C = 120.45°.`, `令 a = BC = 19.8，b = AC = 11.4，c = AB = 27.4。 cos A = (b² + c² − a²) / (2bc) A = 38.53° cos B = (a² + c² − b²) / (2ac) B = 21.02° C = 180° − 38.53° − 21.02° = 120.45° 答案：∠A = 38.53°，∠B = 21.02°，∠C = 120.45°。`],
+  [`This is an SSA ambiguous case. sin E / 78 = sin 55° / 66 sin E = (78 sin 55°) / 66 E ≈ 75.49° A second possible angle is 180° − 75.49° = 104.51°. Both possibilities leave a positive third angle, so both triangles are possible. Answer: 2 unique triangles.`, `这是 SSA 歧义情况。 sin E / 78 = sin 55° / 66 sin E = (78 sin 55°) / 66 E ≈ 75.49° 第二个可能的角为 180° − 75.49° = 104.51°。 两种情况都会留下一个正的第三角，所以两个三角形都可能。 答案：2 个不同的三角形。`],
+  [`Check the height: h = 7.2 sin 41° = 4.72 The opposite side MN is only 2.9 cm. Since 2.9 < 4.72, the side is too short to form a triangle. Answer: 0 unique triangles.`, `检查高度： h = 7.2 sin 41° = 4.72 对边 MN 只有 2.9 cm。 因为 2.9 < 4.72，这条边太短，无法形成三角形。 答案：0 个不同的三角形。`],
+  [`First find BD: BD = √(225² + 392²) = 451.98 m Find angle CBD: ∠CBD = tan⁻¹(392/225) = 60.15° Since A, B, and C are on a straight line: ∠ABD = 180° − 60.15° = 119.85° ∠DAB = 180° − 119.85° − 26° = 34.15° Use the Sine Law: AD / sin 119.85° = BD / sin 34.15° AD = (451.98 sin 119.85°) / sin 34.15° = 698.39 Answer: Person A is 698.39 m from the hot air balloon.`, `先求 BD： BD = √(225² + 392²) = 451.98 m 求角 CBD： ∠CBD = tan⁻¹(392/225) = 60.15° 因为 A、B、C 在同一直线上： ∠ABD = 180° − 60.15° = 119.85° ∠DAB = 180° − 119.85° − 26° = 34.15° 使用正弦定理： AD / sin 119.85° = BD / sin 34.15° AD = (451.98 sin 119.85°) / sin 34.15° = 698.39 答案：A 距离热气球 698.39 m。`],
+  [`−292.4° + 360° = 67.6° 67.6° is in Quadrant I. The reference angle is also 67.6°. Answer: standard angle = 67.60°, quadrant = I, reference angle = 67.60°, coterminal angle = −292.40°.`, `−292.4° + 360° = 67.6° 67.6° 在第一象限。 参考角也是 67.6°。 答案：标准角 = 67.60°，象限 = I，参考角 = 67.60°，同终边角 = −292.40°。`],
+  [`−133.2° + 360° = 226.8° 226.8° is in Quadrant III. Reference angle = 226.8° − 180° = 46.8°. Answer: standard angle = 226.80°, quadrant = III, reference angle = 46.80°, coterminal angle = −133.20°.`, `−133.2° + 360° = 226.8° 226.8° 在第三象限。 参考角 = 226.8° − 180° = 46.8°。 答案：标准角 = 226.80°，象限 = III，参考角 = 46.80°，同终边角 = −133.20°。`],
+  [`300° is in Quadrant IV. Reference angle = 360° − 300° = 60°. In Quadrant IV, sine is negative. sin 300° = −sin 60° = −√3/2 Answer: sin 300° = −√3/2.`, `300° 在第四象限。 参考角 = 360° − 300° = 60°。 在第四象限，正弦为负。 sin 300° = −sin 60° = −√3/2 答案：sin 300° = −√3/2。`],
+  [`x = −1, y = √5 r = √(x² + y²) = √((-1)² + (√5)²) = √6 sin θ = y/r = √5/√6 = √30/6 cos θ = x/r = −1/√6 = −√6/6 tan θ = y/x = √5/(−1) = −√5 Answer: sin θ = √30/6, cos θ = −√6/6, tan θ = −√5.`, `x = −1，y = √5 r = √(x² + y²) = √((-1)² + (√5)²) = √6 sin θ = y/r = √5/√6 = √30/6 cos θ = x/r = −1/√6 = −√6/6 tan θ = y/x = √5/(−1) = −√5 答案：sin θ = √30/6，cos θ = −√6/6，tan θ = −√5。`],
+  [`tan θ = 5/4 is positive in Quadrants I and III. Since sin θ < 0, θ must be in Quadrant III. Reference angle = tan⁻¹(5/4) = 51.34° θ = 180° + 51.34° = 231.34° Answer: θ = 231.34°.`, `tan θ = 5/4 为正，可能在第一或第三象限。 因为 sin θ < 0，所以 θ 必须在第三象限。 参考角 = tan⁻¹(5/4) = 51.34° θ = 180° + 51.34° = 231.34° 答案：θ = 231.34°。`],
+  [`(8/3)cos θ + 7 = 5 (8/3)cos θ = −2 cos θ = −2 × 3/8 = −3/4 Cosine is negative in Quadrants II and III. Reference angle = cos⁻¹(3/4) = 41.41° Quadrant II: θ = 180° − 41.41° = 138.59° Quadrant III: θ = 180° + 41.41° = 221.41° Answer: θ = 138.59° or 221.41°.`, `(8/3)cos θ + 7 = 5 (8/3)cos θ = −2 cos θ = −2 × 3/8 = −3/4 余弦在第二、第三象限为负。 参考角 = cos⁻¹(3/4) = 41.41° 第二象限：θ = 180° − 41.41° = 138.59° 第三象限：θ = 180° + 41.41° = 221.41° 答案：θ = 138.59° 或 221.41°。`]
+]);
+
+const placeholderText = new Map([
+  ['Show your work here...', '在这里写出过程...'],
+  ['Explain your reasoning...', '解释你的理由...'],
+  ['Explain your thinking here...', '在这里解释你的思路...'],
+  ['Number of unique triangles = ?', '不同三角形个数 = ?'],
+  ['AB = ?', 'AB = ?'],
+  ['∠A = ? degrees', '∠A = ? 度'],
+  ['∠B = ? degrees', '∠B = ? 度'],
+  ['∠A = ?', '∠A = ?'],
+  ['∠C = ?', '∠C = ?'],
+  ['BC = ?', 'BC = ?'],
+  ['AD = ? metres', 'AD = ? 米'],
+  ['Standard angle = ?', '标准角 = ?'],
+  ['Quadrant = ?', '象限 = ?'],
+  ['Reference angle = ?', '参考角 = ?'],
+  ['Coterminal angle = ?', '同终边角 = ?'],
+  ['sin 300° = ?', 'sin 300° = ?'],
+  ['sin θ = ?', 'sin θ = ?'],
+  ['cos θ = ?', 'cos θ = ?'],
+  ['tan θ = ?', 'tan θ = ?'],
+  ['θ = ? degrees', 'θ = ? 度'],
+  ['θ₁ = ?', 'θ₁ = ?'],
+  ['θ₂ = ?', 'θ₂ = ?']
+]);
+
+const labelZh = new Map([
+  ['Angle A', '角 A'],
+  ['Angle B', '角 B'],
+  ['Angle C', '角 C'],
+  ['number of triangles', '三角形个数'],
+  ['standard angle', '标准角'],
+  ['quadrant', '象限'],
+  ['reference angle', '参考角'],
+  ['coterminal angle', '同终边角'],
+  ['sin 300', 'sin 300'],
+  ['sin theta', 'sin θ'],
+  ['cos theta', 'cos θ'],
+  ['tan theta', 'tan θ'],
+  ['theta', 'θ'],
+  ['theta 1', 'θ₁'],
+  ['theta 2', 'θ₂']
+]);
+
+let languageMode = 'en';
+
+function escapeHtml(value) {
+  const div = document.createElement('div');
+  div.textContent = value;
+  return div.innerHTML;
+}
+
+function contentText(en, zh) {
+  if (languageMode === 'zh') return escapeHtml(zh);
+  if (languageMode === 'both') return `${escapeHtml(en)}<span class="zh">${escapeHtml(zh)}</span>`;
+  return escapeHtml(en);
+}
+
+function normalizeI18nKey(value) {
+  return String(value || '').replace(/\s+/g, ' ').trim();
+}
+
+function setupI18nText() {
+  const walker = document.createTreeWalker(
+    document.body,
+    NodeFilter.SHOW_TEXT,
+    {
+      acceptNode(node) {
+        const parent = node.parentElement;
+        if (!parent || parent.closest('script, style, button, input, textarea, svg, [data-i18n], [data-i18n-text], .score')) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        const key = normalizeI18nKey(node.nodeValue);
+        return zhText.has(key) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    }
+  );
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach((node) => {
+    const original = node.nodeValue;
+    const key = normalizeI18nKey(original);
+    const leading = original.match(/^\s*/)[0];
+    const trailing = original.match(/\s*$/)[0];
+    const span = document.createElement('span');
+    span.dataset.i18nText = key;
+    span.dataset.leading = leading;
+    span.dataset.trailing = trailing;
+    node.replaceWith(span);
+  });
+}
+
+function localLabel(label) {
+  if (languageMode === 'zh') return labelZh.get(label) || label || '答案';
+  if (languageMode === 'both') return `${label || 'answer'} / ${labelZh.get(label) || label || '答案'}`;
+  return label || 'answer';
+}
+
+function buttonLabel(kind) {
+  const labels = {
+    checkThis: { en: 'Check This Question', zh: '检查本题' },
+    showAnswer: { en: 'Show Answer Key', zh: '显示答案' },
+    hideAnswer: { en: 'Hide Answer Key', zh: '隐藏答案' }
+  };
+  return contentText(labels[kind].en, labels[kind].zh);
+}
+
+function updateAnswerButtons() {
+  document.querySelectorAll('.question').forEach((question) => {
+    const answer = question.querySelector('.answer');
+    const answerButton = question.querySelector('.controls .secondary');
+    const checkButton = question.querySelector('.controls button:not(.secondary)');
+    if (checkButton) checkButton.innerHTML = buttonLabel('checkThis');
+    if (answerButton && answer) answerButton.innerHTML = buttonLabel(answer.classList.contains('show') ? 'hideAnswer' : 'showAnswer');
+  });
+}
+
+function setLanguage(mode) {
+  languageMode = mode;
+  document.documentElement.lang = mode === 'en' ? 'en' : 'zh-Hans';
+  document.title = mode === 'en'
+    ? 'Ch. 6 Trigonometry Assignment - Interactive Practice'
+    : '第 6 章三角函数作业 - 互动练习';
+
+  document.querySelectorAll('[data-i18n]').forEach((element) => {
+    const entry = uiText[element.dataset.i18n];
+    if (entry) element.innerHTML = contentText(entry.en, entry.zh);
+  });
+
+  document.querySelectorAll('[data-i18n-text]').forEach((element) => {
+    const en = element.dataset.i18nText;
+    const zh = zhText.get(en);
+    element.innerHTML = `${escapeHtml(element.dataset.leading || '')}${contentText(en, zh)}${escapeHtml(element.dataset.trailing || '')}`;
+  });
+
+  document.querySelectorAll('[placeholder]').forEach((element) => {
+    const en = element.dataset.placeholderEn || element.getAttribute('placeholder');
+    element.dataset.placeholderEn = en;
+    const zh = placeholderText.get(en);
+    if (!zh) return;
+    element.setAttribute('placeholder', languageMode === 'zh' ? zh : en);
+  });
+
+  document.querySelectorAll('.language-controls button').forEach((button) => {
+    button.setAttribute('aria-pressed', String(button.dataset.mode === mode));
+  });
+  updateAnswerButtons();
+  updateScore();
+}
+
+function norm(s){return String(s||'').toLowerCase().replace(/°|degrees|degree|\s/g,'').replace(/−/g,'-').replace(/√/g,'sqrt');}
+function isCorrect(input){
+  const expected=norm(input.dataset.answer); const raw=norm(input.value); if(!raw)return false;
+  const roman={one:'i',two:'ii',three:'iii',four:'iv',q1:'i',q2:'ii',q3:'iii',q4:'iv',quadranti:'i',quadrantii:'ii',quadrantiii:'iii',quadrantiv:'iv'};
+  const val=roman[raw]||raw;
+  if(expected===val)return true;
+  const num=parseFloat(raw.replace(/[^0-9.\-]/g,'')); const exp=parseFloat(expected.replace(/[^0-9.\-]/g,''));
+  if(!Number.isNaN(num)&&!Number.isNaN(exp)) return Math.abs(num-exp)<=0.06;
+  const variants={"-sqrt3/2":["-sqrt(3)/2","-√3/2","-0.866","-0.87"],"sqrt30/6":["sqrt(30)/6","√30/6","sqrt5/sqrt6","√5/√6"],"-sqrt6/6":["-sqrt(6)/6","-√6/6","-1/sqrt6","-1/√6"],"-sqrt5":["-sqrt(5)","-√5"]};
+  return (variants[expected]||[]).map(norm).includes(raw);
+}
+function checkQuestion(btn){
+  const card=btn.closest('.question'); const inputs=[...card.querySelectorAll('input[data-answer]')]; let ok=0; let total=inputs.length; let missing=[];
+  inputs.forEach(inp=>{ if(isCorrect(inp)){ok++; inp.style.borderColor='#16a34a'; inp.style.background='#f0fdf4';} else {inp.style.borderColor='#f97316'; inp.style.background='#fff7ed'; missing.push(inp.dataset.label || 'answer');} });
+  const fb=card.querySelector('.feedback');
+  if(ok===total){
+    fb.className='feedback ok';
+    fb.innerHTML=contentText('Correct! Great work.', '正确！做得好。');
+  } else {
+    fb.className='feedback try';
+    const enMissing = missing.join(', ');
+    const zhMissing = missing.map(localLabel).join('，');
+    fb.innerHTML=contentText(`${ok}/${total} correct. Review: ${enMissing}.`, `${ok}/${total} 正确。请复习：${zhMissing}。`);
+  }
+  updateScore();
+}
+function toggleAnswer(btn){btn.closest('.question').querySelector('.answer').classList.toggle('show');updateAnswerButtons();}
+function showAllAnswers(){document.querySelectorAll('.answer').forEach(a=>a.classList.add('show'));updateAnswerButtons();}
+function hideAllAnswers(){document.querySelectorAll('.answer').forEach(a=>a.classList.remove('show'));updateAnswerButtons();}
+function checkAll(){document.querySelectorAll('.question').forEach(q=>{const btn=q.querySelector('button'); if(btn)checkQuestion(btn);});}
+function updateScore(){const inputs=[...document.querySelectorAll('input[data-answer]')]; const total=inputs.length; const ok=inputs.filter(isCorrect).length; const score=document.getElementById('score'); if(score) score.innerHTML=contentText(`Score: ${ok} / ${total}`, `得分：${ok} / ${total}`);}
+setupI18nText();
+document.querySelectorAll('.language-controls button').forEach(button=>button.addEventListener('click',()=>setLanguage(button.dataset.mode)));
+document.querySelectorAll('input[data-answer]').forEach(i=>i.addEventListener('input',updateScore));
+setLanguage('en');
+</script>
+</body>
+</html>

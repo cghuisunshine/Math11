@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sine Law Practice - Interactive</title>
+  <link rel="icon" href="data:," />
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(','\\)'], ['$', '$']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <style>
+    :root{
+      --orange:#f9ad2b;
+      --gray:#dedede;
+      --green:#b9e86b;
+      --red:#df4b4b;
+      --blue:#245ad1;
+      --ink:#050505;
+      --soft:#f7f7f7;
+      --line:#d9d9d9;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      color:var(--ink);
+      background:white;
+      line-height:1.35;
+    }
+    .page{
+      max-width:1180px;
+      margin:0 auto 48px;
+      padding-bottom:32px;
+      border-bottom:1px solid #eee;
+    }
+    .topbar{
+      height:78px;
+      background:var(--gray);
+      position:relative;
+      margin-bottom:110px;
+    }
+    .language-controls{
+      position:fixed;
+      top:14px;
+      right:14px;
+      z-index:20;
+      display:inline-flex;
+      border:1px solid #bcbcbc;
+      border-radius:9px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .language-controls button{
+      border-radius:0;
+      padding:8px 11px;
+      background:#fff;
+      color:#333;
+      font-size:14px;
+      border-left:1px solid #d0d0d0;
+    }
+    .language-controls button:first-child{border-left:0;}
+    .language-controls button[aria-pressed="true"]{
+      background:#111;
+      color:#fff;
+    }
+    .zh{
+      display:block;
+      margin-top:4px;
+      color:#444;
+    }
+    .badge{
+      position:absolute;
+      left:-34px;
+      top:-34px;
+      width:108px;
+      height:108px;
+      background:var(--orange);
+      border-radius:50%;
+      font-weight:700;
+      font-size:24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding-top:30px;
+      padding-left:22px;
+    }
+    .content{padding:0 65px;}
+    h1{
+      font-size:31px;
+      font-weight:400;
+      text-align:center;
+      margin:0 0 60px;
+    }
+    .question{
+      display:grid;
+      grid-template-columns:70px minmax(260px, 560px);
+      align-items:center;
+      gap:10px;
+      margin:20px 0 14px;
+    }
+    .q-label{
+      font-size:32px;
+      text-align:right;
+      padding-right:8px;
+      font-weight:700;
+    }
+    .practice-card{
+      margin:0 0 34px 125px;
+      max-width:560px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:14px;
+      box-shadow:0 2px 8px rgba(0,0,0,.08);
+    }
+    .answer-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .answer-label{
+      font-family:"Times New Roman", Times, serif;
+      font-size:34px;
+      font-style:italic;
+      min-width:38px;
+    }
+    input.answer-input{
+      width:160px;
+      max-width:100%;
+      padding:10px 12px;
+      border:2px solid #aaa;
+      border-radius:8px;
+      font-size:26px;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+    .hint{
+      font-size:15px;
+      color:#555;
+      margin-top:8px;
+    }
+    button{
+      border:0;
+      border-radius:8px;
+      padding:11px 14px;
+      font-size:16px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .check-btn{background:#e7f8d0;}
+    .show-btn{background:#e8efff;}
+    .clear-btn{background:#f1f1f1;}
+    .feedback{
+      margin-top:12px;
+      min-height:28px;
+      font-size:20px;
+      font-weight:700;
+    }
+    .feedback.correct{color:#377700;}
+    .feedback.wrong{color:var(--red);}
+    .answer-box{
+      display:none;
+      margin-top:10px;
+      background:#f1f1f1;
+      border-left:6px solid var(--green);
+      padding:9px 12px;
+      box-shadow:0 2px 7px rgba(0,0,0,.18);
+      font-family:"Times New Roman", Times, serif;
+      font-style:italic;
+      font-size:32px;
+    }
+    svg{max-width:100%; height:auto; overflow:visible;}
+    .stroke{stroke:#333; stroke-width:4; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+    .thin{stroke:#333; stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+    .txt{font-family:"Times New Roman", Times, serif; font-size:31px; fill:#111; font-style:italic;}
+    .num{font-family:"Times New Roman", Times, serif; font-size:25px; fill:#111;}
+    .angle{font-family:"Times New Roman", Times, serif; font-size:22px; fill:#111;}
+    .section2 .topbar{margin-bottom:125px;}
+    .section2 h1{margin-bottom:55px;}
+    .page2-q{grid-template-columns:70px minmax(260px,500px);}
+    .text-only{
+      max-width:1600px;
+      margin:48px auto;
+      padding:0 55px;
+      font-size:31px;
+    }
+    .line-item{
+      margin:45px 0;
+    }
+    .inline-practice{
+      margin-top:16px;
+      max-width:680px;
+    }
+    .mcq{
+      margin-top:25px;
+      font-size:30px;
+      line-height:1.8;
+    }
+    .mcq .choice{
+      display:block;
+      cursor:pointer;
+      padding:2px 8px;
+      border-radius:8px;
+      width:fit-content;
+    }
+    .mcq .choice:hover{background:#f5f5f5;}
+    .mcq input{transform:scale(1.2); margin-right:10px;}
+    .diagram-row{
+      display:flex;
+      align-items:flex-start;
+      gap:28px;
+      margin-top:15px;
+      margin-left:35px;
+    }
+    .sine-block{
+      margin-top:70px;
+      font-size:31px;
+      line-height:1.7;
+    }
+    .sine-diagram{margin:30px 0 15px 10px;}
+    .wide-card{
+      margin-left:10px;
+      max-width:1400px;
+    }
+    .small-note{
+      font-size:16px;
+      color:#555;
+      margin-top:6px;
+    }
+    @media (max-width:700px){
+      .language-controls{
+        position:sticky;
+        top:0;
+        width:100%;
+        border-left:0;
+        border-right:0;
+        border-radius:0;
+      }
+      .language-controls button{flex:1;}
+      .content{padding:0 18px}
+      .topbar{margin-bottom:48px}
+      h1{font-size:24px; margin-bottom:35px}
+      .question{grid-template-columns:42px 1fr}
+      .q-label{font-size:26px}
+      .practice-card{margin-left:42px}
+      .text-only{padding:0 18px; font-size:24px}
+      input.answer-input{width:140px}
+      .mcq{font-size:24px}
+    }
+    @media print{
+      button,.feedback,.answer-box,.hint,.small-note,.language-controls{display:none!important;}
+      .practice-card{box-shadow:none;border:1px solid #bbb;}
+      input.answer-input{border:0;border-bottom:2px solid #000;border-radius:0;}
+      .topbar{margin-bottom:60px;}
+    }
+  </style>
+</head>
+<body>
+<div class="language-controls" aria-label="Language mode">
+  <button type="button" data-mode="en" aria-pressed="true">En</button>
+  <button type="button" data-mode="both" aria-pressed="false">En + Zh</button>
+  <button type="button" data-mode="zh" aria-pressed="false">Zh</button>
+</div>
+
+<section class="page">
+  <div class="topbar"><div class="badge">1</div></div>
+  <div class="content">
+    <h1 data-i18n="section1Title">In each case, find the length of the indicated side to the nearest tenth.</h1>
+
+    <div class="question">
+      <div class="q-label">a.</div>
+      <svg viewBox="0 0 520 240" aria-label="Triangle ABC with angle A 73 degrees, angle B 41 degrees, AC 8.5 cm, side a is BC">
+        <path class="stroke" d="M70 190 L285 35 L410 190 Z"/>
+        <text class="txt" x="270" y="28">A</text>
+        <text class="txt" x="47" y="200">B</text>
+        <text class="txt" x="416" y="200">C</text>
+        <text class="angle" x="267" y="83">73°</text>
+        <text class="angle" x="89" y="178">41°</text>
+        <text class="num" x="345" y="95">8.5 cm</text>
+        <text class="txt" x="250" y="224">a</text>
+      </svg>
+    </div>
+    <div class="practice-card" data-answer="12.4" data-unit="cm">
+      <div class="answer-row"><span class="answer-label">a =</span><input class="answer-input" placeholder="answer" /> <span>cm</span><button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button></div>
+      <div class="hint" data-i18n="nearestTenthHint">Enter the number only, rounded to the nearest tenth.</div>
+      <div class="feedback"></div><div class="answer-box">\(a=12.4cm\)</div>
+    </div>
+
+    <div class="question">
+      <div class="q-label">b.</div>
+      <svg viewBox="0 0 420 280" aria-label="Triangle ABC with angle A 108 degrees, angle B 24 degrees, side CB 12.9 m, side b is AC">
+        <path class="stroke" d="M120 220 L80 30 L330 220 Z"/>
+        <text class="txt" x="61" y="30">C</text>
+        <text class="txt" x="100" y="257">A</text>
+        <text class="txt" x="336" y="257">B</text>
+        <text class="txt" x="45" y="142">b</text>
+        <text class="angle" x="126" y="205">108°</text>
+        <text class="angle" x="258" y="205">24°</text>
+        <text class="num" x="195" y="120">12.9 m</text>
+      </svg>
+    </div>
+    <div class="practice-card" data-answer="5.5" data-unit="m">
+      <div class="answer-row"><span class="answer-label">b =</span><input class="answer-input" placeholder="answer" /> <span>m</span><button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button></div>
+      <div class="hint" data-i18n="nearestTenthHint">Enter the number only, rounded to the nearest tenth.</div>
+      <div class="feedback"></div><div class="answer-box">\(b=5.5m\)</div>
+    </div>
+  </div>
+</section>
+
+<section class="page" style="max-width:650px;">
+  <div class="content" style="padding-top:20px;">
+    <div class="question" style="grid-template-columns:70px 1fr;">
+      <div class="q-label">c.</div>
+      <svg viewBox="0 0 430 220" aria-label="Triangle PQR with angle P 31 degrees, angle R 80 degrees, side QR 4.7 mm, side r is PQ">
+        <path class="stroke" d="M55 35 L360 35 L230 160 Z"/>
+        <text class="txt" x="35" y="30">P</text>
+        <text class="txt" x="365" y="30">Q</text>
+        <text class="txt" x="220" y="195">R</text>
+        <text class="txt" x="202" y="22">r</text>
+        <text class="angle" x="108" y="65">31°</text>
+        <text class="angle" x="210" y="126">80°</text>
+        <text class="num" x="285" y="123">4.7 mm</text>
+      </svg>
+    </div>
+    <div class="practice-card" data-answer="9.0" data-unit="mm">
+      <div class="answer-row"><span class="answer-label">r =</span><input class="answer-input" placeholder="answer" /> <span>mm</span><button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button></div>
+      <div class="hint" data-i18n="nearestTenthHint">Enter the number only, rounded to the nearest tenth.</div>
+      <div class="feedback"></div><div class="answer-box">\(r=9.0mm\)</div>
+    </div>
+  </div>
+</section>
+
+<section class="page section2">
+  <div class="topbar"><div class="badge">2</div></div>
+  <div class="content">
+    <h1 data-i18n="section2Title">In each case, find the measure of the indicated angle to the nearest degree.</h1>
+
+    <div class="question page2-q">
+      <div class="q-label">a.</div>
+      <svg viewBox="0 0 520 260" aria-label="Triangle ABC with AB 6.3 cm, BC 5.4 cm, angle C 70 degrees, find angle A">
+        <path class="stroke" d="M90 60 L380 60 L240 190 Z"/>
+        <path class="thin" d="M112 70 Q130 86 114 102"/>
+        <text class="txt" x="68" y="65">A</text>
+        <text class="txt" x="386" y="65">B</text>
+        <text class="txt" x="229" y="232">C</text>
+        <text class="num" x="220" y="43">6.3 cm</text>
+        <text class="num" x="295" y="145">5.4 cm</text>
+        <text class="angle" x="217" y="174">70°</text>
+      </svg>
+    </div>
+    <div class="practice-card" data-answer="54" data-unit="°">
+      <div class="answer-row"><span class="answer-label">∠A =</span><input class="answer-input" placeholder="answer" /> <span>°</span><button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button></div>
+      <div class="hint" data-i18n="nearestDegreeHint">Enter the number only, rounded to the nearest degree.</div>
+      <div class="feedback"></div><div class="answer-box">\(∠A=54^\circ\)</div>
+    </div>
+  </div>
+</section>
+
+<section class="page" style="max-width:700px;">
+  <div class="content">
+    <div class="question page2-q">
+      <div class="q-label">b.</div>
+      <svg viewBox="0 0 430 330" aria-label="Triangle PQR with angle P 92 degrees, PR 19.8 m, QR 28.6 m, find angle Q">
+        <path class="stroke" d="M170 90 L315 20 L245 285 Z"/>
+        <text class="txt" x="145" y="95">P</text>
+        <text class="txt" x="315" y="18">Q</text>
+        <text class="txt" x="225" y="320">R</text>
+        <text class="num" x="105" y="205">19.8 m</text>
+        <text class="num" x="282" y="165">28.6 m</text>
+        <text class="angle" x="187" y="125">92°</text>
+        <path class="thin" d="M287 42 Q306 62 294 84"/>
+        <path class="thin" d="M295 35 Q319 61 305 93"/>
+      </svg>
+    </div>
+    <div class="practice-card" data-answer="44" data-unit="°">
+      <div class="answer-row"><span class="answer-label">∠Q =</span><input class="answer-input" placeholder="answer" /> <span>°</span><button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button></div>
+      <div class="hint" data-i18n="nearestDegreeHint">Enter the number only, rounded to the nearest degree.</div>
+      <div class="feedback"></div><div class="answer-box">\(∠Q=44^\circ\)</div>
+    </div>
+
+    <div class="question page2-q">
+      <div class="q-label">c.</div>
+      <svg viewBox="0 0 470 330" aria-label="Triangle STV with ST 169 mm, SV 262 mm, angle T 117 degrees, find angle V">
+        <path class="stroke" d="M95 55 L355 55 L300 275 Z"/>
+        <text class="txt" x="75" y="55">S</text>
+        <text class="txt" x="360" y="55">T</text>
+        <text class="txt" x="290" y="316">V</text>
+        <text class="num" x="205" y="39">169 mm</text>
+        <text class="num" x="120" y="190">262 mm</text>
+        <text class="angle" x="273" y="95">117°</text>
+        <path class="thin" d="M284 244 Q302 239 309 257"/>
+        <path class="thin" d="M277 237 Q306 228 318 260"/>
+      </svg>
+    </div>
+    <div class="practice-card" data-answer="35" data-unit="°">
+      <div class="answer-row"><span class="answer-label">∠V =</span><input class="answer-input" placeholder="answer" /> <span>°</span><button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button></div>
+      <div class="hint" data-i18n="nearestDegreeHint">Enter the number only, rounded to the nearest degree.</div>
+      <div class="feedback"></div><div class="answer-box">\(∠V=35^\circ\)</div>
+    </div>
+  </div>
+</section>
+
+<section class="text-only">
+  <div class="line-item">
+    <span data-i18n="q7Prompt">In \(△ABC\), \(∠A=49^\circ\), \(∠B=57^\circ\), and \(a=8\). Calculate \(b\) to the nearest tenth.</span>
+    <div class="practice-card inline-practice" data-answer="8.9">
+      <div class="answer-row"><span class="answer-label">b =</span><input class="answer-input" placeholder="answer" /><button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button></div>
+      <div class="hint" data-i18n="numberOnlyHint">Enter the number only.</div>
+      <div class="feedback"></div><div class="answer-box">\(b=8.9\)</div>
+    </div>
+  </div>
+
+  <div class="line-item">
+    <span data-i18n="q8Prompt">In \(△LMN\), \(∠LNM=114^\circ\), \(LM=123mm\), and \(MN=88mm\). Calculate \(∠LMN\), to the nearest degree.</span>
+    <div class="diagram-row">
+      <svg viewBox="0 0 520 150" style="max-width:460px;" aria-label="Triangle LMN with angle LNM 114 degrees, LM 123 mm, MN 88 mm">
+        <path class="stroke" d="M30 65 L350 35 L420 95 Z"/>
+        <text class="txt" x="10" y="73">L</text>
+        <text class="txt" x="344" y="25">N</text>
+        <text class="txt" x="420" y="118">M</text>
+        <text class="num" x="150" y="105">123 mm</text>
+        <text class="num" x="410" y="58">88 mm</text>
+        <text class="angle" x="332" y="64">114°</text>
+        <path class="thin" d="M385 92 Q396 75 418 82"/>
+      </svg>
+    </div>
+    <div class="practice-card inline-practice" data-answer="25" data-unit="°">
+      <div class="answer-row"><span class="answer-label">∠LMN =</span><input class="answer-input" placeholder="answer" /> <span>°</span><button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button></div>
+      <div class="hint" data-i18n="numberOnlyHint">Enter the number only.</div>
+      <div class="feedback"></div><div class="answer-box">\(∠LMN=25^\circ\)</div>
+    </div>
+  </div>
+
+  <div class="line-item">
+    <span data-i18n="q9Prompt">In triangle \(PQR\), \(∠P=20^\circ\), \(∠R=150^\circ\), and \(QR=6m\). The length of \(PQ\) is</span>
+    <div class="mcq practice-card inline-practice" data-answer="B">
+      <label class="choice"><input type="radio" name="q9" value="A"><span data-i18n="q9A">A. 4.1 m</span></label>
+      <label class="choice"><input type="radio" name="q9" value="B"><span data-i18n="q9B">B. 8.8 m</span></label>
+      <label class="choice"><input type="radio" name="q9" value="C"><span data-i18n="q9C">C. 15.2 m</span></label>
+      <label class="choice"><input type="radio" name="q9" value="D"><span data-i18n="q9D">D. 17.3 m</span></label>
+      <div class="answer-row"><button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button></div>
+      <div class="feedback"></div><div class="answer-box" data-i18n="q9Answer">B. 8.8 m</div>
+    </div>
+  </div>
+
+  <div class="line-item">
+    <span data-i18n="q10Prompt">In \(△ABC\), \(∠A=30^\circ\), \(BC=10\) units and \(AC=15\) units. If \(∠B\) is acute-angled, then \(∠C\) is</span>
+    <div class="mcq practice-card inline-practice" data-answer="C">
+      <label class="choice"><input type="radio" name="q10" value="A"><span data-i18n="q10A">A. 19.4°</span></label>
+      <label class="choice"><input type="radio" name="q10" value="B"><span data-i18n="q10B">B. 48.6°</span></label>
+      <label class="choice"><input type="radio" name="q10" value="C"><span data-i18n="q10C">C. 101.4°</span></label>
+      <label class="choice"><input type="radio" name="q10" value="D"><span data-i18n="q10D">D. 130.6°</span></label>
+      <div class="answer-row"><button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button></div>
+      <div class="feedback"></div><div class="answer-box" data-i18n="q10Answer">C. 101.4°</div>
+    </div>
+  </div>
+
+  <div class="sine-block">
+    <span data-i18n="q11Prompt">Determine if the following triangle can be solved using the Sine law. If so, assume the angle \(x\) is an acute angle and solve the triangle. If not, explain why the Sine law can't be used.</span>
+    <div class="sine-diagram">
+      <svg viewBox="0 0 840 315" style="max-width:840px;" aria-label="Triangle with base 8.689, angles 43 and 56 degrees, side y and side 6">
+        <path class="stroke" d="M35 245 L515 35 L760 245 Z"/>
+        <path d="M35 245 A80 80 0 0 1 107 211 L35 245" fill="#f4c68d" stroke="#d1964f" stroke-width="2"/>
+        <path d="M515 35 A95 95 0 0 1 587 99 A105 105 0 0 1 444 78 Z" fill="#f4c68d" stroke="#d1964f" stroke-width="2"/>
+        <path d="M760 245 A86 86 0 0 0 697 186 L760 245" fill="#f4c68d" stroke="#d1964f" stroke-width="2"/>
+        <text class="num" x="150" y="230" style="font-size:42px;">43°</text>
+        <text class="num" x="590" y="210" style="font-size:42px;">56°</text>
+        <text class="txt" x="505" y="93" style="font-size:58px;">x</text>
+        <text class="txt" x="260" y="110" style="font-size:54px; fill:#0d5491;">y</text>
+        <text class="num" x="665" y="110" style="font-size:54px; fill:#0d5491;">6</text>
+        <text class="num" x="375" y="298" style="font-size:46px;">8.689</text>
+      </svg>
+    </div>
+    <div class="practice-card inline-practice" data-answer-x="81" data-answer-y="7.29">
+      <div class="answer-row"><span class="answer-label">x =</span><input class="answer-input input-x" placeholder="x" /> <span>°</span><span class="answer-label">y =</span><input class="answer-input input-y" placeholder="y" /><button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button></div>
+      <div class="hint" data-i18n="xyHint">Enter numbers only. x is in degrees.</div>
+      <div class="feedback"></div><div class="answer-box">\(x=81^\circ,\ y=7.29\)</div>
+    </div>
+  </div>
+
+  <div class="sine-block">
+    <span data-i18n="q12Prompt">Determine if the following triangle can be solved using Sine law. If so, solve the triangle. If not, explain why the Sine law can't be used.</span>
+    <div class="sine-diagram">
+      <svg viewBox="0 0 840 315" style="max-width:840px;" aria-label="Triangle with sides 7 and 6 and included angle 32 degrees">
+        <path class="stroke" d="M35 245 L520 35 L760 245 Z"/>
+        <path d="M35 245 A82 82 0 0 1 108 211 L35 245" fill="#f4c68d" stroke="#d1964f" stroke-width="2"/>
+        <path d="M520 35 A95 95 0 0 1 590 98 A95 95 0 0 1 450 78 Z" fill="#f4c68d" stroke="#d1964f" stroke-width="2"/>
+        <path d="M760 245 A86 86 0 0 0 697 186 L760 245" fill="#f4c68d" stroke="#d1964f" stroke-width="2"/>
+        <text class="num" x="265" y="105" style="font-size:54px; fill:#0d5491;">7</text>
+        <text class="num" x="670" y="115" style="font-size:54px; fill:#0d5491;">6</text>
+        <text class="num" x="482" y="92" style="font-size:54px;">32°</text>
+      </svg>
+    </div>
+    <div class="practice-card wide-card" data-text-answer="side opposite to the angle 32 is unknown">
+      <div class="answer-row" style="align-items:flex-start;">
+        <textarea class="answer-input text-input" placeholder="Explain here" style="width:100%; min-height:90px; font-size:22px; font-family:Arial, Helvetica, sans-serif;"></textarea>
+        <button class="check-btn">Check</button><button class="show-btn">Show Answer</button><button class="clear-btn">Clear</button>
+      </div>
+      <div class="small-note" data-i18n="explainNote">Your explanation should say that Sine Law cannot be used because the side opposite the \(32^\circ\) angle is unknown.</div>
+      <div class="feedback"></div><div class="answer-box" data-i18n="q12Answer" style="font-family:Arial, Helvetica, sans-serif; font-style:normal; font-size:26px;">This triangle can't be solved by Sine law since the side opposite to the angle \(32^\circ\) is unknown.</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const i18n = {
+    en: {
+      pageTitle: 'Sine Law Practice - Interactive',
+      section1Title: 'In each case, find the length of the indicated side to the nearest tenth.',
+      section2Title: 'In each case, find the measure of the indicated angle to the nearest degree.',
+      nearestTenthHint: 'Enter the number only, rounded to the nearest tenth.',
+      nearestDegreeHint: 'Enter the number only, rounded to the nearest degree.',
+      numberOnlyHint: 'Enter the number only.',
+      xyHint: 'Enter numbers only. x is in degrees.',
+      explainNote: 'Your explanation should say that Sine Law cannot be used because the side opposite the \\(32^\\circ\\) angle is unknown.',
+      q7Prompt: 'In \\(△ABC\\), \\(∠A=49^\\circ\\), \\(∠B=57^\\circ\\), and \\(a=8\\). Calculate \\(b\\) to the nearest tenth.',
+      q8Prompt: 'In \\(△LMN\\), \\(∠LNM=114^\\circ\\), \\(LM=123mm\\), and \\(MN=88mm\\). Calculate \\(∠LMN\\), to the nearest degree.',
+      q9Prompt: 'In triangle \\(PQR\\), \\(∠P=20^\\circ\\), \\(∠R=150^\\circ\\), and \\(QR=6m\\). The length of \\(PQ\\) is',
+      q9A: 'A. 4.1 m',
+      q9B: 'B. 8.8 m',
+      q9C: 'C. 15.2 m',
+      q9D: 'D. 17.3 m',
+      q9Answer: 'B. 8.8 m',
+      q10Prompt: 'In \\(△ABC\\), \\(∠A=30^\\circ\\), \\(BC=10\\) units and \\(AC=15\\) units. If \\(∠B\\) is acute-angled, then \\(∠C\\) is',
+      q10A: 'A. 19.4°',
+      q10B: 'B. 48.6°',
+      q10C: 'C. 101.4°',
+      q10D: 'D. 130.6°',
+      q10Answer: 'C. 101.4°',
+      q11Prompt: 'Determine if the following triangle can be solved using the Sine law. If so, assume the angle \\(x\\) is an acute angle and solve the triangle. If not, explain why the Sine law can\'t be used.',
+      q12Prompt: 'Determine if the following triangle can be solved using Sine law. If so, solve the triangle. If not, explain why the Sine law can\'t be used.',
+      q12Answer: 'This triangle can\'t be solved by Sine law since the side opposite to the angle \\(32^\\circ\\) is unknown.',
+      answerPlaceholder: 'answer',
+      explainPlaceholder: 'Explain here',
+      check: 'Check',
+      showAnswer: 'Show Answer',
+      clear: 'Clear',
+      correct: 'Correct! ✓',
+      wrong: 'Try again.',
+      bothWrong: 'Try again. Check both x and y.',
+      chooseFirst: 'Choose an option first.',
+      goodExplanation: 'Good explanation! ✓',
+      explanationWrong: 'Try again. Include: cannot use Sine Law, opposite side, 32°, unknown.'
+    },
+    zh: {
+      pageTitle: '正弦定理练习 - 互动版',
+      section1Title: '在每一题中，求指定边的长度，精确到十分位。',
+      section2Title: '在每一题中，求指定角的度数，精确到最接近的整数度。',
+      nearestTenthHint: '只输入数字，精确到十分位。',
+      nearestDegreeHint: '只输入数字，精确到最接近的整数度。',
+      numberOnlyHint: '只输入数字。',
+      xyHint: '只输入数字。x 的单位是度。',
+      explainNote: '你的解释应说明：不能使用正弦定理，因为 \\(32^\\circ\\) 角的对边未知。',
+      q7Prompt: '在 \\(△ABC\\) 中，\\(∠A=49^\\circ\\)，\\(∠B=57^\\circ\\)，且 \\(a=8\\)。求 \\(b\\)，精确到十分位。',
+      q8Prompt: '在 \\(△LMN\\) 中，\\(∠LNM=114^\\circ\\)，\\(LM=123mm\\)，且 \\(MN=88mm\\)。求 \\(∠LMN\\)，精确到最接近的整数度。',
+      q9Prompt: '在三角形 \\(PQR\\) 中，\\(∠P=20^\\circ\\)，\\(∠R=150^\\circ\\)，且 \\(QR=6m\\)。\\(PQ\\) 的长度是',
+      q9A: 'A. 4.1 m',
+      q9B: 'B. 8.8 m',
+      q9C: 'C. 15.2 m',
+      q9D: 'D. 17.3 m',
+      q9Answer: 'B. 8.8 m',
+      q10Prompt: '在 \\(△ABC\\) 中，\\(∠A=30^\\circ\\)，\\(BC=10\\) 个单位，\\(AC=15\\) 个单位。如果 \\(∠B\\) 是锐角，则 \\(∠C\\) 是',
+      q10A: 'A. 19.4°',
+      q10B: 'B. 48.6°',
+      q10C: 'C. 101.4°',
+      q10D: 'D. 130.6°',
+      q10Answer: 'C. 101.4°',
+      q11Prompt: '判断下面的三角形是否可以用正弦定理求解。如果可以，假设角 \\(x\\) 是锐角并解这个三角形；如果不可以，说明为什么不能使用正弦定理。',
+      q12Prompt: '判断下面的三角形是否可以用正弦定理求解。如果可以，解这个三角形；如果不可以，说明为什么不能使用正弦定理。',
+      q12Answer: '这个三角形不能用正弦定理求解，因为 \\(32^\\circ\\) 角的对边未知。',
+      answerPlaceholder: '答案',
+      explainPlaceholder: '在这里解释',
+      check: '检查',
+      showAnswer: '显示答案',
+      clear: '清除',
+      correct: '正确！✓',
+      wrong: '再试一次。',
+      bothWrong: '再试一次。检查 x 和 y。',
+      chooseFirst: '请先选择一个选项。',
+      goodExplanation: '解释正确！✓',
+      explanationWrong: '再试一次。请包含：不能使用正弦定理、对边、32°、未知。'
+    }
+  };
+
+  let languageMode = 'en';
+
+  function t(key){
+    if (languageMode === 'zh') return i18n.zh[key];
+    if (languageMode === 'both') return `${i18n.en[key]}<span class="zh">${i18n.zh[key]}</span>`;
+    return i18n.en[key];
+  }
+
+  function label(key){
+    if (languageMode === 'zh') return i18n.zh[key];
+    if (languageMode === 'both') return `${i18n.en[key]} / ${i18n.zh[key]}`;
+    return i18n.en[key];
+  }
+
+  function typesetMath(nodes){
+    if (window.MathJax) MathJax.typesetPromise(nodes);
+  }
+
+  function setLanguage(mode){
+    languageMode = mode;
+    document.documentElement.lang = mode === 'zh' ? 'zh-Hans' : 'en';
+    document.title = mode === 'zh' ? i18n.zh.pageTitle : i18n.en.pageTitle;
+
+    document.querySelectorAll('[data-i18n]').forEach(node => {
+      node.innerHTML = t(node.dataset.i18n);
+    });
+    document.querySelectorAll('input.answer-input:not(.input-x):not(.input-y)').forEach(input => {
+      input.placeholder = label('answerPlaceholder');
+    });
+    document.querySelectorAll('textarea.text-input').forEach(input => {
+      input.placeholder = label('explainPlaceholder');
+    });
+    document.querySelectorAll('.check-btn').forEach(button => { button.textContent = label('check'); });
+    document.querySelectorAll('.show-btn').forEach(button => { button.textContent = label('showAnswer'); });
+    document.querySelectorAll('.clear-btn').forEach(button => { button.textContent = label('clear'); });
+    document.querySelectorAll('.language-controls button').forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.mode === mode));
+    });
+    document.querySelectorAll('.feedback').forEach(fb => {
+      fb.className = 'feedback';
+      fb.textContent = '';
+    });
+    typesetMath([document.body]);
+  }
+
+  function normalizeNumber(value){
+    return String(value).trim().replace(/[^\d.\-]/g, '');
+  }
+  function isClose(user, answer){
+    const u = parseFloat(normalizeNumber(user));
+    const a = parseFloat(answer);
+    if (Number.isNaN(u)) return false;
+    const tolerance = Math.max(0.051, Math.abs(a) * 0.002);
+    return Math.abs(u - a) <= tolerance;
+  }
+  function setFeedback(card, good, message){
+    const fb = card.querySelector('.feedback');
+    fb.className = 'feedback ' + (good ? 'correct' : 'wrong');
+    fb.textContent = message;
+  }
+  function showAnswer(card){
+    const box = card.querySelector('.answer-box');
+    box.style.display = 'block';
+    if (window.MathJax) MathJax.typesetPromise([box]);
+  }
+  document.querySelectorAll('.practice-card').forEach((card, index) => {
+    const check = card.querySelector('.check-btn');
+    const show = card.querySelector('.show-btn');
+    const clear = card.querySelector('.clear-btn');
+
+    check.addEventListener('click', () => {
+      if (card.dataset.answerX) {
+        const x = card.querySelector('.input-x').value;
+        const y = card.querySelector('.input-y').value;
+        const ok = isClose(x, card.dataset.answerX) && isClose(y, card.dataset.answerY);
+        setFeedback(card, ok, ok ? label('correct') : label('bothWrong'));
+        return;
+      }
+
+      if (card.classList.contains('mcq')) {
+        const chosen = card.querySelector('input[type="radio"]:checked');
+        if (!chosen) {
+          setFeedback(card, false, label('chooseFirst'));
+          return;
+        }
+        const ok = chosen.value === card.dataset.answer;
+        setFeedback(card, ok, ok ? label('correct') : label('wrong'));
+        return;
+      }
+
+      if (card.dataset.textAnswer) {
+        const text = (card.querySelector('.text-input').value || '').toLowerCase();
+        const hasCannot = text.includes("can't") || text.includes("cannot") || text.includes("can not") || text.includes('不能') || text.includes('无法') || text.includes('不可以');
+        const hasOpposite = text.includes('opposite') || text.includes('对边');
+        const has32 = text.includes('32');
+        const hasUnknown = text.includes('unknown') || text.includes('not known') || text.includes('未知') || text.includes('不知道') || text.includes('没有给出');
+        const ok = hasCannot && hasOpposite && has32 && hasUnknown;
+        setFeedback(card, ok, ok ? label('goodExplanation') : label('explanationWrong'));
+        return;
+      }
+
+      const input = card.querySelector('.answer-input');
+      const ok = isClose(input.value, card.dataset.answer);
+      setFeedback(card, ok, ok ? label('correct') : label('wrong'));
+    });
+
+    show.addEventListener('click', () => showAnswer(card));
+
+    clear.addEventListener('click', () => {
+      card.querySelectorAll('input.answer-input, textarea').forEach(i => i.value = '');
+      card.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+      const fb = card.querySelector('.feedback');
+      fb.className = 'feedback';
+      fb.textContent = '';
+      const box = card.querySelector('.answer-box');
+      box.style.display = 'none';
+    });
+  });
+
+  document.querySelectorAll('.language-controls button').forEach(button => {
+    button.addEventListener('click', () => setLanguage(button.dataset.mode));
+  });
+
+  setLanguage('en');
+</script>
+
+</body>
+</html>

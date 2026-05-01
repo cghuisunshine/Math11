@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lesson 1 - Trigonometry Review</title>
+  <link rel="icon" href="data:," />
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --ink: #111827;
+      --muted: #6b7280;
+      --line: #d1d5db;
+      --accent: #f9a825;
+      --blue: #2563eb;
+      --green: #16a34a;
+      --red: #dc2626;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      padding: 22px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; }
+    h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.35rem); }
+    .subtitle { margin: 6px 0 0; color: var(--muted); }
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .language-controls {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .language-controls button {
+      border-radius: 0;
+      padding: 8px 11px;
+      background: #fff;
+      color: #374151;
+      font-size: .92rem;
+      border-left: 1px solid var(--line);
+    }
+    .language-controls button:first-child { border-left: 0; }
+    .language-controls button[aria-pressed="true"] {
+      background: var(--ink);
+      color: #fff;
+    }
+    main { padding: 20px 14px 60px; }
+    .question-card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+      padding: 26px 22px 22px;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+    .qnum {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 64px;
+      height: 64px;
+      background: #ffb22a;
+      border-bottom-right-radius: 64px;
+      font-weight: 800;
+      font-size: 1.15rem;
+      padding: 12px 0 0 16px;
+    }
+    .question-content { padding-top: 34px; font-size: clamp(1.12rem, 3.2vw, 1.55rem); }
+    .prompt { margin: 0 0 22px; font-weight: 500; }
+    .zh {
+      display: block;
+      margin-top: 4px;
+      color: #374151;
+    }
+    ol.options {
+      list-style: none;
+      padding-left: 0;
+      margin: 0 0 22px;
+    }
+    .options li { margin: 16px 0; }
+    .answer-row {
+      display: grid;
+      grid-template-columns: minmax(160px, 320px) auto;
+      gap: 10px;
+      align-items: center;
+      margin-top: 18px;
+    }
+    input[type="text"] {
+      width: 100%;
+      font-size: 1.1rem;
+      padding: 12px 14px;
+      border: 2px solid #93c5fd;
+      border-radius: 10px;
+      outline: none;
+      background: #fff;
+    }
+    input[type="text"]:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .check { background: var(--blue); color: white; }
+    .reveal { background: #e5e7eb; color: #111827; }
+    .actions { display:flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .feedback {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      display: none;
+      font-size: 1rem;
+    }
+    .feedback.good { display:block; background:#dcfce7; color:#14532d; border:1px solid #86efac; }
+    .feedback.bad { display:block; background:#fee2e2; color:#7f1d1d; border:1px solid #fca5a5; }
+    .feedback.show { display:block; background:#eff6ff; color:#1e3a8a; border:1px solid #93c5fd; }
+    .triangle-box { margin: 8px 0 12px; }
+    svg { max-width: 320px; width: 90%; height: auto; }
+    .work-space {
+      margin-top: 18px;
+      min-height: 58px;
+      border: 1px dashed #cbd5e1;
+      border-radius: 12px;
+      background: #fafafa;
+      padding: 10px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    .print-note { color: var(--muted); font-size: .95rem; margin-top: 8px; }
+    @media (max-width: 620px) {
+      .top-row { align-items: stretch; }
+      .language-controls { width: 100%; }
+      .language-controls button { flex: 1; }
+      .answer-row { grid-template-columns: 1fr; }
+      .question-card { padding: 22px 16px 18px; border-radius: 14px; }
+      .qnum { width: 52px; height: 52px; border-bottom-right-radius: 52px; padding-left: 13px; }
+      .question-content { padding-top: 30px; }
+    }
+    @media print {
+      header { position: static; }
+      body { background: #fff; }
+      main { padding: 0; }
+      .question-card { box-shadow: none; page-break-inside: avoid; margin: 14px 0; }
+      .language-controls { display: none; }
+      .answer-row, .actions, .feedback { display: none !important; }
+      .work-space { min-height: 90px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="top-row">
+        <h1 id="page-title">Lesson 1 - Trigonometry Review</h1>
+        <div class="language-controls" aria-label="Language mode">
+          <button type="button" data-mode="en" aria-pressed="true">En</button>
+          <button type="button" data-mode="both" aria-pressed="false">En + Zh</button>
+          <button type="button" data-mode="zh" aria-pressed="false">Zh</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="quiz"></main>
+
+  <script>
+    const labels = {
+      en: {
+        title: 'Lesson 1 - Trigonometry Review',
+        workSpace: 'Work space',
+        placeholder: 'Type your answer',
+        check: 'Check',
+        reveal: 'Reveal answer',
+        correct: 'Correct.',
+        incorrect: 'Not quite. Try again, or reveal the answer.',
+        answer: 'Answer:',
+        diagramLabel: 'Right triangle with left side 6 and hypotenuse 10'
+      },
+      zh: {
+        title: '第 1 课 - 三角函数复习',
+        workSpace: '草稿区',
+        placeholder: '输入你的答案',
+        check: '检查',
+        reveal: '显示答案',
+        correct: '正确。',
+        incorrect: '还不对。再试一次，或显示答案。',
+        answer: '答案：',
+        diagramLabel: '直角三角形：左边长为 6，斜边长为 10'
+      }
+    };
+
+    const questions = [
+      {
+        n: 1,
+        type: 'mc',
+        prompt: {
+          en: 'The Pythagorean Theorem applies to',
+          zh: '勾股定理适用于'
+        },
+        options: [
+          { en: 'a) all triangles', zh: 'a) 所有三角形' },
+          { en: 'b) isosceles triangles', zh: 'b) 等腰三角形' },
+          { en: 'c) equilateral triangles', zh: 'c) 等边三角形' },
+          { en: 'd) right triangles', zh: 'd) 直角三角形' }
+        ],
+        answers: ['d', '(d)', 'right triangles', 'right triangle', '直角三角形', '直角三角形。'],
+        model: { en: '(d) right triangles', zh: '(d) 直角三角形' }
+      },
+      {
+        n: 2,
+        type: 'mc',
+        prompt: {
+          en: 'The Pythagorean Theorem is written as:',
+          zh: '勾股定理写作：'
+        },
+        options: [
+          { en: 'a) a + b = C', zh: 'a) a + b = C' },
+          { en: 'b) a² + b² = c', zh: 'b) a² + b² = c' },
+          { en: 'c) a² + b² = c²', zh: 'c) a² + b² = c²' },
+          { en: 'd) a² - b² = c²', zh: 'd) a² - b² = c²' }
+        ],
+        answers: ['c', '(c)', 'a^2+b^2=c^2', 'a²+b²=c²', 'a2+b2=c2'],
+        model: { en: '(c) a² + b² = c²', zh: '(c) a² + b² = c²' }
+      },
+      {
+        n: 3,
+        type: 'mc',
+        prompt: {
+          en: 'The longest side of a right triangle is called the:',
+          zh: '直角三角形中最长的边叫作：'
+        },
+        options: [
+          { en: 'a) hypotenuse', zh: 'a) 斜边' },
+          { en: 'b) pythagoras', zh: 'b) 毕达哥拉斯' },
+          { en: 'c) diagonal', zh: 'c) 对角线' },
+          { en: 'd) leg', zh: 'd) 直角边' }
+        ],
+        answers: ['a', '(a)', 'hypotenuse', '斜边'],
+        model: { en: '(a) hypotenuse', zh: '(a) 斜边' }
+      },
+      {
+        n: 4,
+        type: 'short',
+        prompt: {
+          en: 'Find the missing side of this triangle.',
+          zh: '求这个三角形缺失的边长。'
+        },
+        diagram: true,
+        answers: ['8'],
+        model: { en: '8', zh: '8' }
+      },
+      {
+        n: 5,
+        type: 'mc',
+        prompt: {
+          en: 'A right triangle has legs with lengths A = 5 and B = 12. Find the hypotenuse C',
+          zh: '一个直角三角形的两条直角边为 A = 5 和 B = 12。求斜边 C'
+        },
+        options: [
+          { en: 'a) 20', zh: 'a) 20' },
+          { en: 'b) 10', zh: 'b) 10' },
+          { en: 'c) 25', zh: 'c) 25' },
+          { en: 'd) 13', zh: 'd) 13' }
+        ],
+        answers: ['d', '(d)', '13'],
+        model: { en: '(d) 13', zh: '(d) 13' }
+      },
+      {
+        n: 6,
+        type: 'short',
+        prompt: {
+          en: 'Use the Pythagorean Theorem to determine if this triangle has a 90° angle:<br><br>triangle with sides (17, 15, 8)',
+          zh: '用勾股定理判断这个三角形是否有 90° 角：<br><br>三边为 (17, 15, 8)'
+        },
+        answers: ['right triangle', 'right', 'yes', 'yes, right triangle', '直角三角形', '是', '有'],
+        model: { en: 'Right Triangle.', zh: '直角三角形。' }
+      },
+      {
+        n: 7,
+        type: 'short',
+        prompt: {
+          en: 'Use the Pythagorean Theorem to determine if this triangle has a 90° angle:<br><br>triangle with sides (7, 10, 15)',
+          zh: '用勾股定理判断这个三角形是否有 90° 角：<br><br>三边为 (7, 10, 15)'
+        },
+        answers: ['not a right triangle', 'not right', 'no', 'not a right triangle.', '不是直角三角形', '不是', '没有'],
+        model: { en: 'Not a right triangle.', zh: '不是直角三角形。' }
+      }
+    ];
+
+    let languageMode = 'en';
+
+    function normalize(s) {
+      return String(s).toLowerCase().replace(/\s+/g, '').replace(/[.,。]/g, '').replace(/²/g, '^2');
+    }
+
+    function textFor(value) {
+      if (typeof value === 'string') return value;
+      if (languageMode === 'zh') return value.zh;
+      if (languageMode === 'both') return `${value.en}<span class="zh">${value.zh}</span>`;
+      return value.en;
+    }
+
+    function labelFor(key) {
+      if (languageMode === 'zh') return labels.zh[key];
+      if (languageMode === 'both') return `${labels.en[key]} / ${labels.zh[key]}`;
+      return labels.en[key];
+    }
+
+    function setLanguage(mode) {
+      languageMode = mode;
+      document.documentElement.lang = mode === 'zh' ? 'zh-Hans' : 'en';
+      document.getElementById('page-title').innerHTML = textFor({
+        en: labels.en.title,
+        zh: labels.zh.title
+      });
+      document.querySelectorAll('.language-controls button').forEach(button => {
+        button.setAttribute('aria-pressed', String(button.dataset.mode === mode));
+      });
+      render();
+    }
+
+    function makeDiagram() {
+      return `
+        <div class="triangle-box" aria-label="${labelFor('diagramLabel')}">
+          <svg viewBox="0 0 340 150" role="img">
+            <line x1="55" y1="120" x2="55" y2="25" stroke="#111" stroke-width="4" />
+            <line x1="55" y1="120" x2="295" y2="120" stroke="#111" stroke-width="4" />
+            <line x1="55" y1="25" x2="295" y2="120" stroke="#111" stroke-width="4" />
+            <text x="24" y="80" font-size="32" font-weight="700">6</text>
+            <text x="150" y="54" font-size="32" font-weight="700">10</text>
+          </svg>
+        </div>`;
+    }
+
+    function render() {
+      const quiz = document.getElementById('quiz');
+      const values = {};
+      questions.forEach(q => {
+        const input = document.getElementById(`a${q.n}`);
+        if (input) values[q.n] = input.value;
+      });
+      quiz.innerHTML = questions.map(q => `
+        <section class="question-card" id="q${q.n}">
+          <div class="qnum">${q.n}</div>
+          <div class="question-content">
+            <p class="prompt">${textFor(q.prompt)}</p>
+            ${q.diagram ? makeDiagram() : ''}
+            ${q.options ? `<ol class="options">${q.options.map(o => `<li>${textFor(o)}</li>`).join('')}</ol>` : ''}
+            <div class="work-space">${labelFor('workSpace')}</div>
+            <div class="answer-row">
+              <input id="a${q.n}" type="text" autocomplete="off" placeholder="${labelFor('placeholder')}" />
+              <button class="check" onclick="checkAnswer(${q.n})">${labelFor('check')}</button>
+            </div>
+            <div class="actions">
+              <button class="reveal" onclick="revealAnswer(${q.n})">${labelFor('reveal')}</button>
+            </div>
+            <div class="feedback" id="f${q.n}"></div>
+          </div>
+        </section>
+      `).join('');
+      questions.forEach(q => {
+        const input = document.getElementById(`a${q.n}`);
+        if (input && values[q.n]) input.value = values[q.n];
+      });
+    }
+
+    function checkAnswer(n) {
+      const q = questions.find(x => x.n === n);
+      const user = document.getElementById(`a${n}`).value;
+      const ok = q.answers.map(normalize).includes(normalize(user));
+      const f = document.getElementById(`f${n}`);
+      f.className = 'feedback ' + (ok ? 'good' : 'bad');
+      f.innerHTML = ok ? labelFor('correct') : labelFor('incorrect');
+    }
+
+    function revealAnswer(n) {
+      const q = questions.find(x => x.n === n);
+      const f = document.getElementById(`f${n}`);
+      f.className = 'feedback show';
+      f.innerHTML = `<strong>${labelFor('answer')}</strong> ${textFor(q.model)}`;
+    }
+
+    document.querySelectorAll('.language-controls button').forEach(button => {
+      button.addEventListener('click', () => setLanguage(button.dataset.mode));
+    });
+
+    setLanguage('en');
+  </script>
+</body>
+</html>

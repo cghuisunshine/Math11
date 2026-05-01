@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trigonometry Review: Angles, Arc Length, Functions, Graphs, Identities, and Equations</title>
+  <link rel="icon" href="data:," />
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #5b677a;
+      --line: #d8e0eb;
+      --blue: #2563eb;
+      --blue-soft: #eaf1ff;
+      --green: #0f766e;
+      --green-soft: #e6fffb;
+      --orange: #b45309;
+      --orange-soft: #fff7ed;
+      --purple: #6d28d9;
+      --purple-soft: #f3e8ff;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 260px);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px 56px;
+    }
+
+    header {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.15;
+      color: #0f172a;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0;
+    }
+
+    .language-controls {
+      display: inline-flex;
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .language-controls button {
+      border: 0;
+      border-left: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      padding: 9px 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .language-controls button:first-child { border-left: 0; }
+    .language-controls button[aria-pressed="true"] {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .zh {
+      display: block;
+      margin-top: 4px;
+      color: inherit;
+      opacity: .9;
+    }
+
+    nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px;
+      margin: 22px 0;
+    }
+
+    nav a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    nav a:hover {
+      background: var(--blue-soft);
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      margin: 18px 0;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(1.35rem, 2.5vw, 2rem);
+      color: #0f172a;
+      border-bottom: 3px solid var(--blue-soft);
+      padding-bottom: 10px;
+    }
+
+    h3 {
+      margin: 18px 0 8px;
+      color: #111827;
+      font-size: 1.16rem;
+    }
+
+    ul, ol {
+      margin-top: 8px;
+      padding-left: 24px;
+    }
+
+    li {
+      margin: 7px 0;
+    }
+
+    .box {
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin: 14px 0;
+      border: 1px solid var(--line);
+    }
+
+    .concepts {
+      background: var(--blue-soft);
+      border-color: #c7d7fe;
+    }
+
+    .formula {
+      background: var(--green-soft);
+      border-color: #a7f3d0;
+    }
+
+    .example {
+      background: var(--orange-soft);
+      border-color: #fed7aa;
+    }
+
+    .strategy {
+      background: var(--purple-soft);
+      border-color: #ddd6fe;
+    }
+
+    .tag {
+      display: inline-block;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 4px 10px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .concepts .tag { color: #1d4ed8; background: #dbeafe; }
+    .formula .tag { color: var(--green); background: #ccfbf1; }
+    .example .tag { color: var(--orange); background: #ffedd5; }
+    .strategy .tag { color: var(--purple); background: #ede9fe; }
+
+    .math {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 1.15rem;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(148,163,184,0.45);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin: 8px 0;
+      overflow-x: auto;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eff6ff;
+    }
+
+    .video {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: var(--blue);
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    footer {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    @media print {
+      body { background: white; }
+      .page { max-width: none; padding: 0; }
+      header, section { box-shadow: none; break-inside: avoid; }
+      nav, .language-controls { display: none; }
+      a { color: black; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1 data-i18n="title">Trigonometry Review</h1>
+      <p class="subtitle" data-i18n="subtitle">Angles, arc length, trigonometric functions, graphs, identities, and equations.</p>
+      <div class="language-controls" aria-label="Language mode">
+        <button type="button" data-mode="en" aria-pressed="true">En</button>
+        <button type="button" data-mode="both" aria-pressed="false">En + Zh</button>
+        <button type="button" data-mode="zh" aria-pressed="false">Zh</button>
+      </div>
+    </header>
+
+    <nav aria-label="Table of contents">
+      <a href="#angles">1. Angles and Their Measures</a>
+      <a href="#arc-length">2. Arc Length</a>
+      <a href="#trig-functions">3. Trigonometric Functions</a>
+      <a href="#graphs">4. Graphing Trigonometric Functions</a>
+      <a href="#identities">5. Trigonometric Identities</a>
+      <a href="#equations">6. Solving Trigonometric Equations</a>
+    </nav>
+
+    <section id="angles">
+      <h2>1. Angles and Their Measures</h2>
+
+      <div class="box concepts">
+        <span class="tag">Concepts</span>
+        <ul>
+          <li><strong>Standard Position:</strong> An angle is in standard position when its vertex is at the origin and its initial side lies along the positive x-axis.</li>
+          <li><strong>Angle Rotation:</strong> The measure of an angle is determined by the amount and direction of rotation from the initial to the terminal side. A counterclockwise rotation results in a positive angle, while a clockwise rotation yields a negative angle.</li>
+          <li><strong>Degree Measure:</strong> A full rotation is 360 degrees (360&deg;). One degree (1&deg;) is 1/360 of a complete rotation.</li>
+          <li><strong>Radian Measure:</strong> A radian is another unit for measuring angles, where one full rotation is 2&pi; radians. This relationship is derived from the unit circle, where the circumference is 2&pi;.</li>
+          <li><strong>Coterminal Angles:</strong> These are angles in standard position that share the same initial and terminal sides.</li>
+        </ul>
+      </div>
+
+      <div class="box formula">
+        <span class="tag">Formulas</span>
+        <ul>
+          <li><strong>Finding Coterminal Angles:</strong> To find angles that are coterminal with an angle &theta;, you can add or subtract multiples of 360&deg;.</li>
+          <li><strong>Degree to Radian Conversion:</strong> Multiply the degree measure by <span class="math">&pi;/180&deg;</span>.</li>
+          <li><strong>Radian to Degree Conversion:</strong> Multiply the radian measure by <span class="math">180&deg;/&pi;</span>.</li>
+        </ul>
+      </div>
+
+      <div class="box example">
+        <span class="tag">Examples</span>
+        <ul>
+          <li><strong>Finding Coterminal Angles:</strong> To find two positive and two negative angles coterminal with 465&deg;:
+            <ul>
+              <li>465&deg; - 360&deg; = 105&deg; positive</li>
+              <li>465&deg; + 360&deg; = 825&deg; positive</li>
+              <li>465&deg; - 2 &times; 360&deg; = -255&deg; negative</li>
+              <li>465&deg; - 3 &times; 360&deg; = -615&deg; negative</li>
+            </ul>
+          </li>
+          <li><strong>Converting Degrees to Radians:</strong> To convert 240&deg; to radians:
+            <div class="math">240&deg; &times; (&pi;/180&deg;) = 4&pi;/3 radians</div>
+          </li>
+          <li><strong>Converting Radians to Degrees:</strong> To convert 7&pi;/5 radians to degrees:
+            <div class="math">(7&pi;/5) &times; (180&deg;/&pi;) = 252&deg;</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="arc-length">
+      <h2>2. Arc Length</h2>
+
+      <div class="box concepts">
+        <span class="tag">Concept</span>
+        <p>The length of a circular arc <strong>s</strong> is directly proportional to the radius <strong>r</strong> and the central angle <strong>&theta;</strong>. For the formula to work, the angle must be measured in radians.</p>
+      </div>
+
+      <div class="box formula">
+        <span class="tag">Formula</span>
+        <div class="math">s = r&theta;</div>
+        <ul>
+          <li><strong>s</strong> = arc length</li>
+          <li><strong>r</strong> = radius</li>
+          <li><strong>&theta;</strong> = central angle in radians</li>
+        </ul>
+      </div>
+
+      <div class="box example">
+        <span class="tag">Example</span>
+        <p><strong>Determine the arc length of a circle with a radius of 5 cm and a central angle of 60&deg;.</strong></p>
+        <ol>
+          <li>First, convert the angle to radians:
+            <div class="math">60&deg; &times; (&pi;/180&deg;) = &pi;/3 radians</div>
+          </li>
+          <li>Use the arc length formula:
+            <div class="math">s = r&theta; = 5 &times; (&pi;/3) = 5&pi;/3 &asymp; 5.24 cm</div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="trig-functions">
+      <h2>3. Trigonometric Functions</h2>
+
+      <div class="box concepts">
+        <span class="tag">Concepts</span>
+        <ul>
+          <li><strong>Coordinate Plane Definition:</strong> For an angle &theta; in standard position with a point P(x, y) on its terminal side, the six trigonometric functions are defined as ratios of x, y, and r, where <span class="math">r = &radic;(x<sup>2</sup> + y<sup>2</sup>)</span>.</li>
+          <li><strong>Signs of Functions:</strong> The quadrant in which the terminal side of the angle lies determines whether the trigonometric functions are positive or negative. The value of r is always positive.
+            <ul>
+              <li>sin&theta; and csc&theta; are positive where y is positive: Quadrants I and II.</li>
+              <li>cos&theta; and sec&theta; are positive where x is positive: Quadrants I and IV.</li>
+              <li>tan&theta; and cot&theta; are positive where x and y have the same sign: Quadrants I and III.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="box formula">
+        <span class="tag">Formulas</span>
+        <div class="grid-2">
+          <div class="math">sin&theta; = y/r</div>
+          <div class="math">cos&theta; = x/r</div>
+          <div class="math">tan&theta; = y/x</div>
+          <div class="math">csc&theta; = r/y</div>
+          <div class="math">sec&theta; = r/x</div>
+          <div class="math">cot&theta; = x/y</div>
+        </div>
+      </div>
+
+      <div class="box example">
+        <span class="tag">Example</span>
+        <p><strong>Given the point (2, -1) on the terminal side of angle &theta;, find the value of all six trigonometric functions.</strong></p>
+        <ol>
+          <li>First, find r:
+            <div class="math">r = &radic;((2)<sup>2</sup> + (-1)<sup>2</sup>) = &radic;5</div>
+          </li>
+          <li>Use the formulas with x = 2, y = -1, and r = &radic;5:</li>
+        </ol>
+        <table>
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>sin&theta;</td><td>-1/&radic;5</td></tr>
+            <tr><td>cos&theta;</td><td>2/&radic;5</td></tr>
+            <tr><td>tan&theta;</td><td>-1/2</td></tr>
+            <tr><td>csc&theta;</td><td>-&radic;5</td></tr>
+            <tr><td>sec&theta;</td><td>&radic;5/2</td></tr>
+            <tr><td>cot&theta;</td><td>-2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="graphs">
+      <h2>4. Graphing Trigonometric Functions</h2>
+
+      <div class="box concepts">
+        <span class="tag">Concepts</span>
+        <ul>
+          <li><strong>Periodic Function:</strong> A function is periodic if it repeats its values at regular intervals. The length of the shortest repeating interval is the period.</li>
+          <li><strong>Amplitude:</strong> For a periodic function, the amplitude is half the distance between its maximum and minimum values.</li>
+          <li><strong>Phase Shift:</strong> This is the horizontal shift of the graph.</li>
+          <li><strong>Vertical Displacement:</strong> This is the vertical shift of the graph.</li>
+        </ul>
+      </div>
+
+      <div class="box formula">
+        <span class="tag">Formula</span>
+        <p>For functions of the form:</p>
+        <div class="math">f(x) = a sin(b(x - c)) + d</div>
+        <div class="math">f(x) = a cos(b(x - c)) + d</div>
+        <ul>
+          <li><strong>Amplitude:</strong> |a|</li>
+          <li><strong>Period:</strong> 2&pi;/|b| for sine and cosine, or &pi;/|b| for tangent</li>
+          <li><strong>Phase Shift:</strong> c, shift right if c &gt; 0, left if c &lt; 0</li>
+          <li><strong>Vertical Displacement:</strong> d, shift up if d &gt; 0, down if d &lt; 0</li>
+        </ul>
+      </div>
+
+      <div class="box example">
+        <span class="tag">Example</span>
+        <p><strong>Find the transformations for y = -3 cos((&pi;/4)x + &pi;/2) + 1.</strong></p>
+        <ol>
+          <li>Rewrite the function to isolate the phase shift:
+            <div class="math">y = -3 cos((&pi;/4)(x + 2)) + 1</div>
+          </li>
+          <li>Identify the parameters:
+            <div class="math">a = -3, b = &pi;/4, c = -2, d = 1</div>
+            <ul>
+              <li><strong>Amplitude:</strong> |a| = |-3| = 3</li>
+              <li><strong>Period:</strong> 2&pi;/b = 2&pi;/(&pi;/4) = 8</li>
+              <li><strong>Phase Shift:</strong> c = -2, which is a shift left by 2 units</li>
+              <li><strong>Vertical Displacement:</strong> d = 1, which is an upward shift of 1 unit</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="identities">
+      <h2>5. Trigonometric Identities</h2>
+
+      <div class="box concepts">
+        <span class="tag">Concepts</span>
+        <ul>
+          <li><strong>Identity vs. Equation:</strong> An identity is an equation that is true for all allowable values of the variable, whereas a conditional equation is true only for specific values.</li>
+          <li><strong>Verifying Identities:</strong> To prove an identity, you typically work with the more complicated side of the equation and use fundamental identities and algebraic rules to transform it until it is identical to the other side.</li>
+        </ul>
+      </div>
+
+      <div class="box formula">
+        <span class="tag">Formulas: Fundamental Identities</span>
+        <h3>Reciprocal Identities</h3>
+        <div class="grid-2">
+          <div class="math">csc&theta; = 1/sin&theta;</div>
+          <div class="math">sec&theta; = 1/cos&theta;</div>
+          <div class="math">cot&theta; = 1/tan&theta;</div>
+        </div>
+
+        <h3>Quotient Identities</h3>
+        <div class="grid-2">
+          <div class="math">tan&theta; = sin&theta;/cos&theta;</div>
+          <div class="math">cot&theta; = cos&theta;/sin&theta;</div>
+        </div>
+
+        <h3>Pythagorean Identities</h3>
+        <div class="grid-2">
+          <div class="math">sin<sup>2</sup>&theta; + cos<sup>2</sup>&theta; = 1</div>
+          <div class="math">1 + tan<sup>2</sup>&theta; = sec<sup>2</sup>&theta;</div>
+          <div class="math">1 + cot<sup>2</sup>&theta; = csc<sup>2</sup>&theta;</div>
+        </div>
+
+        <h3>Sum and Difference Identities</h3>
+        <div class="grid-2">
+          <div class="math">cos(A &plusmn; B) = cosAcosB ∓ sinAsinB</div>
+          <div class="math">sin(A &plusmn; B) = sinAcosB &plusmn; cosAsinB</div>
+        </div>
+
+        <h3>Double-Angle Formulas</h3>
+        <div class="grid-2">
+          <div class="math">sin(2A) = 2sinAcosA</div>
+          <div class="math">cos(2A) = cos<sup>2</sup>A - sin<sup>2</sup>A</div>
+          <div class="math">cos(2A) = 2cos<sup>2</sup>A - 1</div>
+          <div class="math">cos(2A) = 1 - 2sin<sup>2</sup>A</div>
+        </div>
+      </div>
+
+      <div class="box example">
+        <span class="tag">Example</span>
+        <p><strong>Prove the identity: (sec<sup>2</sup>x - 1)cot<sup>2</sup>x = 1.</strong></p>
+        <ol>
+          <li>Left Side:
+            <div class="math">(sec<sup>2</sup>x - 1)cot<sup>2</sup>x</div>
+          </li>
+          <li>Substitute using Pythagorean Identity:
+            <div class="math">sec<sup>2</sup>x - 1 = tan<sup>2</sup>x</div>
+            <div class="math">= tan<sup>2</sup>x &times; cot<sup>2</sup>x</div>
+          </li>
+          <li>Substitute using Reciprocal Identity:
+            <div class="math">cot<sup>2</sup>x = 1/tan<sup>2</sup>x</div>
+            <div class="math">= tan<sup>2</sup>x &times; (1/tan<sup>2</sup>x)</div>
+          </li>
+          <li>Simplify:
+            <div class="math">= 1</div>
+            <p>The identity is proven.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="equations">
+      <h2>6. Solving Trigonometric Equations</h2>
+
+      <div class="box concepts">
+        <span class="tag">Concept</span>
+        <p>Solving a trigonometric equation involves finding the specific values of the variable that make the equation true. Solutions can be conditional, within a specific interval like 0 &le; x &lt; 2&pi;, or in a general form that includes all possible solutions.</p>
+      </div>
+
+      <div class="box strategy">
+        <span class="tag">Process / Strategy</span>
+        <ol>
+          <li>Use algebraic techniques to isolate the trigonometric function.</li>
+          <li>Use inverse trigonometric functions or knowledge of special angles to find a reference angle.</li>
+          <li>Determine the quadrants where solutions lie based on the sign, positive or negative, of the function.</li>
+          <li>Find all solutions within the given interval and, if required, write the general solution by adding integer multiples of the function's period.</li>
+        </ol>
+      </div>
+
+      <div class="box example">
+        <span class="tag">Example</span>
+        <p><strong>Solve 2sinx - 1 = 0 for 0 &le; x &lt; 2&pi;.</strong></p>
+        <ol>
+          <li>Isolate:
+            <div class="math">2sinx = 1</div>
+            <div class="math">sinx = 1/2</div>
+          </li>
+          <li>Reference Angle: From special angles, the reference angle is:
+            <div class="math">x = &pi;/6</div>
+          </li>
+          <li>Quadrants: Since sinx is positive, solutions are in Quadrants I and II.
+            <ul>
+              <li>Quadrant I solution:
+                <div class="math">x = &pi;/6</div>
+              </li>
+              <li>Quadrant II solution:
+                <div class="math">x = &pi; - &pi;/6 = 5&pi;/6</div>
+              </li>
+            </ul>
+          </li>
+          <li>Final Solutions:
+            <div class="math">x = &pi;/6, 5&pi;/6</div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <footer>
+      <p>Trigonometry review page created from provided lesson content.</p>
+    </footer>
+  </div>
+  <script>
+    const uiText = {
+      title: {
+        en: 'Trigonometry Review',
+        zh: '三角函数复习'
+      },
+      subtitle: {
+        en: 'Angles, arc length, trigonometric functions, graphs, identities, and equations.',
+        zh: '角、弧长、三角函数、图像、恒等式与方程。'
+      }
+    };
+
+    const zhText = new Map([
+      ['1. Angles and Their Measures', '1. 角及其度量'],
+      ['2. Arc Length', '2. 弧长'],
+      ['3. Trigonometric Functions', '3. 三角函数'],
+      ['4. Graphing Trigonometric Functions', '4. 三角函数图像'],
+      ['5. Trigonometric Identities', '5. 三角恒等式'],
+      ['6. Solving Trigonometric Equations', '6. 解三角方程'],
+      ['Concepts', '概念'],
+      ['Concept', '概念'],
+      ['Formulas', '公式'],
+      ['Formula', '公式'],
+      ['Examples', '例题'],
+      ['Example', '例题'],
+      ['Process / Strategy', '过程 / 策略'],
+      ['Standard Position:', '标准位置：'],
+      ['An angle is in standard position when its vertex is at the origin and its initial side lies along the positive x-axis.', '当角的顶点在原点，始边沿 x 轴正方向时，这个角处于标准位置。'],
+      ['Angle Rotation:', '角的旋转：'],
+      ['The measure of an angle is determined by the amount and direction of rotation from the initial to the terminal side. A counterclockwise rotation results in a positive angle, while a clockwise rotation yields a negative angle.', '角的大小由始边旋转到终边的旋转量和方向决定。逆时针旋转得到正角，顺时针旋转得到负角。'],
+      ['Degree Measure:', '角度制：'],
+      ['A full rotation is 360 degrees (360°). One degree (1°) is 1/360 of a complete rotation.', '一整圈是 360 度（360°）。1 度（1°）是一整圈的 1/360。'],
+      ['Radian Measure:', '弧度制：'],
+      ['A radian is another unit for measuring angles, where one full rotation is 2π radians. This relationship is derived from the unit circle, where the circumference is 2π.', '弧度是另一种度量角的单位，一整圈是 2π 弧度。这个关系来自单位圆，因为单位圆周长是 2π。'],
+      ['Coterminal Angles:', '同终边角：'],
+      ['These are angles in standard position that share the same initial and terminal sides.', '同终边角是在标准位置中始边和终边都相同的角。'],
+      ['Finding Coterminal Angles:', '求同终边角：'],
+      ['To find angles that are coterminal with an angle θ, you can add or subtract multiples of 360°.', '要找与角 θ 同终边的角，可以加上或减去 360° 的整数倍。'],
+      ['Degree to Radian Conversion:', '角度转弧度：'],
+      ['Multiply the degree measure by', '将角度数乘以'],
+      ['Radian to Degree Conversion:', '弧度转角度：'],
+      ['Multiply the radian measure by', '将弧度数乘以'],
+      ['To find two positive and two negative angles coterminal with 465°:', '求两个正的和两个负的、与 465° 同终边的角：'],
+      ['465° - 360° = 105° positive', '465° - 360° = 105°，正角'],
+      ['465° + 360° = 825° positive', '465° + 360° = 825°，正角'],
+      ['465° - 2 × 360° = -255° negative', '465° - 2 × 360° = -255°，负角'],
+      ['465° - 3 × 360° = -615° negative', '465° - 3 × 360° = -615°，负角'],
+      ['Converting Degrees to Radians:', '角度转弧度：'],
+      ['To convert 240° to radians:', '将 240° 转为弧度：'],
+      ['Converting Radians to Degrees:', '弧度转角度：'],
+      ['To convert 7π/5 radians to degrees:', '将 7π/5 弧度转为角度：'],
+      ['The length of a circular arc', '圆弧的长度'],
+      ['is directly proportional to the radius', '与半径'],
+      ['and the central angle', '和圆心角'],
+      ['. For the formula to work, the angle must be measured in radians.', '成正比。使用公式时，角必须用弧度表示。'],
+      ['= arc length', '= 弧长'],
+      ['= radius', '= 半径'],
+      ['= central angle in radians', '= 圆心角（弧度）'],
+      ['Determine the arc length of a circle with a radius of 5 cm and a central angle of 60°.', '求半径为 5 cm、圆心角为 60° 的圆的弧长。'],
+      ['First, convert the angle to radians:', '先把角转为弧度：'],
+      ['Use the arc length formula:', '使用弧长公式：'],
+      ['Coordinate Plane Definition:', '坐标平面定义：'],
+      ['For an angle θ in standard position with a point P(x, y) on its terminal side, the six trigonometric functions are defined as ratios of x, y, and r, where', '对于标准位置中的角 θ，若终边上一点为 P(x, y)，六个三角函数由 x、y 和 r 的比值定义，其中'],
+      ['Signs of Functions:', '函数符号：'],
+      ['The quadrant in which the terminal side of the angle lies determines whether the trigonometric functions are positive or negative. The value of r is always positive.', '角的终边所在象限决定三角函数值为正还是为负。r 的值始终为正。'],
+      ['sinθ and cscθ are positive where y is positive: Quadrants I and II.', '当 y 为正时，sinθ 和 cscθ 为正：第一、第二象限。'],
+      ['cosθ and secθ are positive where x is positive: Quadrants I and IV.', '当 x 为正时，cosθ 和 secθ 为正：第一、第四象限。'],
+      ['tanθ and cotθ are positive where x and y have the same sign: Quadrants I and III.', '当 x 和 y 同号时，tanθ 和 cotθ 为正：第一、第三象限。'],
+      ['Given the point (2, -1) on the terminal side of angle θ, find the value of all six trigonometric functions.', '已知点 (2, -1) 在角 θ 的终边上，求六个三角函数值。'],
+      ['First, find r:', '先求 r：'],
+      ['Use the formulas with x = 2, y = -1, and r = √5:', '用 x = 2、y = -1、r = √5 代入公式：'],
+      ['Function', '函数'],
+      ['Value', '数值'],
+      ['Periodic Function:', '周期函数：'],
+      ['A function is periodic if it repeats its values at regular intervals. The length of the shortest repeating interval is the period.', '如果函数值按固定间隔重复，这个函数就是周期函数。最短重复区间的长度叫周期。'],
+      ['Amplitude:', '振幅：'],
+      ['For a periodic function, the amplitude is half the distance between its maximum and minimum values.', '对于周期函数，振幅是最大值与最小值距离的一半。'],
+      ['Phase Shift:', '相位平移：'],
+      ['This is the horizontal shift of the graph.', '这是图像的水平平移。'],
+      ['Vertical Displacement:', '垂直位移：'],
+      ['This is the vertical shift of the graph.', '这是图像的竖直平移。'],
+      ['For functions of the form:', '对于如下形式的函数：'],
+      ['Period:', '周期：'],
+      ['2π/|b| for sine and cosine, or π/|b| for tangent', '正弦和余弦为 2π/|b|，正切为 π/|b|'],
+      ['c, shift right if c > 0, left if c < 0', 'c；若 c > 0 向右平移，若 c < 0 向左平移'],
+      ['d, shift up if d > 0, down if d < 0', 'd；若 d > 0 向上平移，若 d < 0 向下平移'],
+      ['Find the transformations for y = -3 cos((π/4)x + π/2) + 1.', '求 y = -3 cos((π/4)x + π/2) + 1 的图像变换。'],
+      ['Rewrite the function to isolate the phase shift:', '重写函数以分离相位平移：'],
+      ['Identify the parameters:', '识别参数：'],
+      ['|a| = |-3| = 3', '|a| = |-3| = 3'],
+      ['2π/b = 2π/(π/4) = 8', '2π/b = 2π/(π/4) = 8'],
+      ['c = -2, which is a shift left by 2 units', 'c = -2，表示向左平移 2 个单位'],
+      ['d = 1, which is an upward shift of 1 unit', 'd = 1，表示向上平移 1 个单位'],
+      ['Identity vs. Equation:', '恒等式与方程：'],
+      ['An identity is an equation that is true for all allowable values of the variable, whereas a conditional equation is true only for specific values.', '恒等式是在变量所有允许取值下都成立的等式；条件方程只在某些特定值下成立。'],
+      ['Verifying Identities:', '证明恒等式：'],
+      ['To prove an identity, you typically work with the more complicated side of the equation and use fundamental identities and algebraic rules to transform it until it is identical to the other side.', '证明恒等式时，通常从较复杂的一边入手，利用基本恒等式和代数规则变形，直到它与另一边完全相同。'],
+      ['Formulas: Fundamental Identities', '公式：基本恒等式'],
+      ['Reciprocal Identities', '倒数恒等式'],
+      ['Quotient Identities', '商数恒等式'],
+      ['Pythagorean Identities', '勾股恒等式'],
+      ['Sum and Difference Identities', '和差角恒等式'],
+      ['Double-Angle Formulas', '二倍角公式'],
+      ['Prove the identity: (sec', '证明恒等式：(sec'],
+      ['Left Side:', '左边：'],
+      ['Substitute using Pythagorean Identity:', '代入勾股恒等式：'],
+      ['Substitute using Reciprocal Identity:', '代入倒数恒等式：'],
+      ['Simplify:', '化简：'],
+      ['The identity is proven.', '恒等式得证。'],
+      ['Solving a trigonometric equation involves finding the specific values of the variable that make the equation true. Solutions can be conditional, within a specific interval like 0 ≤ x < 2π, or in a general form that includes all possible solutions.', '解三角方程就是找出使方程成立的变量值。解可以是在指定区间内的条件解，例如 0 ≤ x < 2π，也可以写成包含所有可能解的通解形式。'],
+      ['Use algebraic techniques to isolate the trigonometric function.', '用代数方法先把三角函数项单独分离出来。'],
+      ['Use inverse trigonometric functions or knowledge of special angles to find a reference angle.', '用反三角函数或特殊角知识求参考角。'],
+      ['Determine the quadrants where solutions lie based on the sign, positive or negative, of the function.', '根据函数值的正负判断解所在的象限。'],
+      ['Find all solutions within the given interval and, if required, write the general solution by adding integer multiples of the function\'s period.', '找出给定区间内的所有解；若需要通解，则加上函数周期的整数倍。'],
+      ['Solve 2sinx - 1 = 0 for 0 ≤ x < 2π.', '在 0 ≤ x < 2π 内解 2sinx - 1 = 0。'],
+      ['Isolate:', '分离变量：'],
+      ['Reference Angle: From special angles, the reference angle is:', '参考角：由特殊角可知，参考角为：'],
+      ['Quadrants: Since sinx is positive, solutions are in Quadrants I and II.', '象限：因为 sinx 为正，所以解在第一、第二象限。'],
+      ['Quadrant I solution:', '第一象限解：'],
+      ['Quadrant II solution:', '第二象限解：'],
+      ['Final Solutions:', '最终解：'],
+      ['Trigonometry review page created from provided lesson content.', '三角函数复习页，根据提供的课程内容制作。']
+    ]);
+
+    let languageMode = 'en';
+
+    function escapeHtml(value) {
+      const div = document.createElement('div');
+      div.textContent = value;
+      return div.innerHTML;
+    }
+
+    function localizedText(en, zh) {
+      if (languageMode === 'zh') {
+        return escapeHtml(zh);
+      }
+      if (languageMode === 'both') {
+        return `${escapeHtml(en)}<span class="zh">${escapeHtml(zh)}</span>`;
+      }
+      return escapeHtml(en);
+    }
+
+    function setupI18nText() {
+      const walker = document.createTreeWalker(
+        document.querySelector('.page'),
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode(node) {
+            const parent = node.parentElement;
+            if (!parent || parent.closest('script, style, [data-i18n], [data-i18n-text]')) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            const key = node.nodeValue.replace(/\s+/g, ' ').trim();
+            return zhText.has(key) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+          }
+        }
+      );
+
+      const nodes = [];
+      while (walker.nextNode()) {
+        nodes.push(walker.currentNode);
+      }
+
+      nodes.forEach((node) => {
+        const original = node.nodeValue;
+        const key = original.replace(/\s+/g, ' ').trim();
+        const leading = original.match(/^\s*/)[0];
+        const trailing = original.match(/\s*$/)[0];
+        const span = document.createElement('span');
+        span.dataset.i18nText = key;
+        span.dataset.leading = leading;
+        span.dataset.trailing = trailing;
+        node.replaceWith(span);
+      });
+    }
+
+    function setLanguage(mode) {
+      languageMode = mode;
+      document.documentElement.lang = mode === 'en' ? 'en' : 'zh-Hans';
+      document.title = mode === 'en'
+        ? 'Trigonometry Review: Angles, Arc Length, Functions, Graphs, Identities, and Equations'
+        : '三角函数复习：角、弧长、函数、图像、恒等式与方程';
+
+      document.querySelectorAll('[data-i18n]').forEach((element) => {
+        const entry = uiText[element.dataset.i18n];
+        if (entry) {
+          element.innerHTML = localizedText(entry.en, entry.zh);
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-text]').forEach((element) => {
+        const en = element.dataset.i18nText;
+        const zh = zhText.get(en);
+        const leading = element.dataset.leading || '';
+        const trailing = element.dataset.trailing || '';
+        element.innerHTML = `${escapeHtml(leading)}${localizedText(en, zh)}${escapeHtml(trailing)}`;
+      });
+
+      document.querySelectorAll('.language-controls button').forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.mode === mode));
+      });
+    }
+
+    setupI18nText();
+    document.querySelectorAll('.language-controls button').forEach((button) => {
+      button.addEventListener('click', () => setLanguage(button.dataset.mode));
+    });
+    setLanguage('en');
+  </script>
+</body>
+</html>

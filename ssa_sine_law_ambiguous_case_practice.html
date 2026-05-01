@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SSA Triangle and Ambiguous Case of the Sine Law Practice</title>
+<link rel="icon" href="data:," />
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  :root{ --accent:#ffb22b; --green:#cffa73; --ink:#111; --soft:#f7f7f7; --line:#ddd; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial, Helvetica, sans-serif;color:var(--ink);background:#fff;line-height:1.55;font-size:22px}
+  header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid #ddd;padding:14px 18px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+  header h1{font-size:24px;margin:0 0 8px}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  button{border:0;border-radius:10px;background:#222;color:white;padding:10px 14px;font-size:16px;cursor:pointer}
+  button.secondary{background:#666}.score{font-size:16px;font-weight:bold;margin-left:auto}
+  .language-controls{display:inline-flex;border:1px solid #bbb;border-radius:9px;overflow:hidden;background:#fff}
+  .language-controls button{border-radius:0;background:#fff;color:#222;border-left:1px solid #ddd;padding:9px 11px}
+  .language-controls button:first-child{border-left:0}
+  .language-controls button[aria-pressed="true"]{background:#111;color:#fff}
+  .zh{display:block;margin-top:4px;color:#444}
+  .choices b + [data-i18n-text]::before{content:" "}
+  main{max-width:1050px;margin:0 auto;padding:18px}
+  .card{position:relative;margin:24px 0 34px;background:white;border:1px solid #ddd;box-shadow:0 3px 10px rgba(0,0,0,.08);padding:72px 7.5% 42px;overflow:hidden}
+  .card:before{content:attr(data-num);position:absolute;left:-1px;top:-1px;width:72px;height:72px;background:var(--accent);border-bottom-right-radius:72px;display:flex;align-items:flex-start;justify-content:flex-start;padding:10px 0 0 18px;font-weight:bold;font-size:22px;color:#000}
+  .greybar{position:absolute;top:0;left:0;right:0;height:70px;background:#ddd;z-index:0}.card>*{position:relative;z-index:1}
+  .qtext{font-size:27px;margin:18px 0 24px}.part{margin:28px 0 38px}.indent{margin-left:46px}.choices{margin-left:12px}.choices div{margin:10px 0}.math{font-family:Georgia, 'Times New Roman', serif;font-size:1.15em}
+  .answer-row{display:inline-flex;align-items:center;vertical-align:middle;margin:8px 6px;max-width:100%}
+  input.answer, textarea.answer{font:inherit;border:2px solid #ddd;background:#f2f2f2;box-shadow:0 3px 8px rgba(0,0,0,.18);padding:9px 12px;border-left:5px solid var(--green);min-width:190px;max-width:100%}
+  textarea.answer{width:100%;min-height:92px;display:block}.checkmark{display:none;border:5px solid #d9fb88;color:#b9ee56;background:#f8f8f8;font-weight:bold;font-size:30px;min-width:56px;align-self:stretch;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.18)}
+  .ok .checkmark{display:flex}.bad input,.bad textarea{border-color:#ff8989}.feedback{display:none;font-size:17px;margin:4px 0 0 6px;color:#a33}.bad + .feedback{display:block}.reveal{background:#efefef;color:#111;border:1px solid #bbb;margin-left:6px}.small{font-size:18px}.diagram-box{background:#fff;border:1px solid #e5e5e5;box-shadow:0 3px 10px rgba(0,0,0,.2);padding:10px;margin:18px 0 36px;overflow-x:auto}.two-diagrams{display:flex;gap:30px;justify-content:space-around;align-items:center;min-width:850px}.diagram svg{width:410px;height:180px}.single svg{width:min(760px,100%);height:330px}.shadow-answer{background:#f2f2f2;border-left:5px solid var(--green);box-shadow:0 3px 8px rgba(0,0,0,.18);padding:9px 12px;display:inline-block}.wide{min-width:100%}.workbox{height:110px;border:1px dashed #bbb;margin-top:12px;background:linear-gradient(#fff,#fff)}
+  @media(max-width:700px){body{font-size:18px}.card{padding:70px 18px 32px}.qtext{font-size:22px}.indent{margin-left:12px}input.answer{min-width:130px;width:100%}.answer-row{display:flex}.score{width:100%;margin-left:0}.diagram svg{width:360px}.two-diagrams{min-width:760px}.language-controls{width:100%}.language-controls button{flex:1}}
+  @media print{header{display:none}.card{break-inside:avoid;box-shadow:none;margin:0 0 20px}.answer,.checkmark,.reveal{display:none!important}.workbox{height:130px}}
+</style>
+</head>
+<body>
+<header>
+  <h1 data-i18n="pageTitle">SSA Triangle and Ambiguous Case of the Sine Law — Practice</h1>
+  <div class="controls">
+    <div class="language-controls" aria-label="Language mode">
+      <button type="button" data-mode="en" aria-pressed="true">En</button>
+      <button type="button" data-mode="both" aria-pressed="false">En + Zh</button>
+      <button type="button" data-mode="zh" aria-pressed="false">Zh</button>
+    </div>
+    <button onclick="checkAll()" data-i18n="checkAll">Check All</button>
+    <button class="secondary" onclick="showAll()" data-i18n="showAll">Show All Answers</button>
+    <button class="secondary" onclick="resetAll()" data-i18n="reset">Reset</button>
+    <span class="score" id="score" data-score-state="empty">Score: —</span>
+  </div>
+</header>
+<main>
+
+<section class="card" data-num="1"><div class="greybar"></div>
+  <div class="qtext">How many different triangles can a Side-Side-Angle (SSA) triangle have?</div>
+  <div class="choices">
+    <div><b>A.</b> Exactly 1 unique triangle.</div>
+    <div><b>B.</b> Exactly 2 different triangles.</div>
+    <div><b>C.</b> At least 2 different triangles.</div>
+    <div><b>D.</b> At most 2 different triangles. <span class="answer-row"><input class="answer" data-answer="D" placeholder="Answer"><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  </div>
+</section>
+
+<section class="card" data-num="2"><div class="greybar"></div>
+  <div class="qtext">Consider the triangle \(\triangle ABC\) with \(\angle A = 58^\circ, a=50, b=30.\)</div>
+  <div class="part indent">a. How many triangles are possible? <span class="answer-row"><input class="answer" data-answer="1" placeholder="Answer"><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  <div class="part indent">b. If this triangle is solvable, solve the triangle. If this triangle is not solvable, change the \(a\) value so that the triangle is solvable.
+    <div class="answer-row"><textarea class="answer" data-answer="∠A = 58°; ∠B ≈ 30.59°; ∠C ≈ 91.4°; a = 50; b = 30; c = 59" placeholder="Type your solution here"></textarea><span class="checkmark">✓</span></div><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+  </div>
+</section>
+
+<section class="card" data-num="3"><div class="greybar"></div>
+  <div class="qtext">Consider the triangle \(\triangle ABC\) with \(\angle A = 89^\circ, a=80, b=80.\)</div>
+  <div class="part indent">a. How many triangles are possible? <span class="answer-row"><input class="answer" data-answer="1" placeholder="Answer"><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  <div class="part indent">b. If the triangle is solvable, solve the triangle. If this triangle is not solvable, change the \(a\) value so that the triangle is solvable.
+    <div class="answer-row"><textarea class="answer" data-answer="∠A = 89°; ∠B = 89°; ∠C = 2°; a = 80; b = 80; c ≈ 2.8" placeholder="Type your solution here"></textarea><span class="checkmark">✓</span></div><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+  </div>
+</section>
+
+<section class="card" data-num="4"><div class="greybar"></div>
+  <div class="qtext">Consider the triangle \(\triangle ABC\) with \(\angle A = 45^\circ, a=1, b=2.\)</div>
+  <div class="part indent">a. How many triangles are possible? <span class="answer-row"><input class="answer" data-answer="This triangle is not solvable." placeholder="Answer"><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  <div class="part indent">b. If this triangle is solvable, solve the triangle. If this triangle is not solvable, change the \(a\) value so that the triangle is solvable. (Note: You don't have to solve the entire triangle just give a valid reason why your triangle is solvable.)
+    <div class="answer-row"><textarea class="answer" data-answer="Choose a = 2. Then, both a and b have the same length. In other words, this triangle is an isosceles triangle and it is solvable by the result in the previous question." placeholder="Type your solution here"></textarea><span class="checkmark">✓</span></div><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+  </div>
+</section>
+
+<section class="card" data-num="5"><div class="greybar"></div>
+  <div class="qtext">Without using the sine law, determine in which of the following there is exactly one solution to the problem, i.e. there is only one triangle which can be constructed from the given information.</div>
+  <div class="part indent">a. Calculate \(\angle C\) in \(\triangle ABC\) where \(\angle B = 29^\circ, c=8.2cm,\) and \(b=6.7cm\)
+    <div class="answer-row wide"><textarea class="answer" data-answer="side opposite given angle is less than side opposite required angle - not exactly one solution" placeholder="Type your reason here"></textarea><span class="checkmark">✓</span></div><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+  </div>
+  <div class="part indent">b. Calculate \(\angle TSV\) in \(\triangle STV\) where \(ST=18in, TV=14in,\) and \(\angle SVT = 36^\circ\)
+    <div class="answer-row wide"><textarea class="answer" data-answer="side opposite given angle is greater than side opposite required angle - exactly one solution" placeholder="Type your reason here"></textarea><span class="checkmark">✓</span></div><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+  </div>
+</section>
+
+<section class="card" data-num="6"><div class="greybar"></div>
+  <div class="qtext">Find all possible measures of \(\angle C\) in the following triangles.</div>
+  <div class="part indent">a. \(\triangle ABC\) where \(\angle A = 31^\circ, a=4.5cm,\) and \(c=4.9cm\)<br>
+    <span class="answer-row"><input class="answer" data-answer="∠C = 34°, 146°" placeholder="∠C ="><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+  </div>
+  <div class="part indent">b. \(\triangle ABC\) where \(\angle A = 61^\circ, a=7.5cm,\) and \(c=5.8cm\)<br>
+    <span class="answer-row"><input class="answer" data-answer="∠C = 43°" placeholder="∠C ="><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+  </div>
+  <div class="part">c. Calculate \(\angle ABC\) in \(\triangle ABC\) where<br>\(\angle ACB = 51^\circ, AB=3.9mm,\) and \(AC=4.9mm\)
+    <div class="answer-row wide"><textarea class="answer" data-answer="side opposite given angle is less than side opposite required angle - not exactly one solution" placeholder="Type your reason here"></textarea><span class="checkmark">✓</span></div><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+  </div>
+</section>
+
+<section class="card" data-num="7"><div class="greybar"></div>
+  <div class="qtext">In triangle PQR, \(\angle P = 30^\circ, QR=5cm,\) and \(PR=7.5cm.\)<br>The measure of \(\angle PQR\) is</div>
+  <div class="choices">
+    <div><b>A.</b> \(19.4^\circ\)</div><div><b>B.</b> \(19.4^\circ, 161.6^\circ\)</div><div><b>C.</b> \(48.6^\circ\)</div><div><b>D.</b> \(48.6^\circ, 131.4^\circ\)</div>
+    <span class="answer-row"><input class="answer" data-answer="D. 48.6°, 131.4°" placeholder="Answer"><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+  </div>
+</section>
+
+<section class="card" data-num="8"><div class="greybar"></div>
+  <div class="qtext">If \(\triangle LMN\), and \(LMN = 42^\circ, LN=32mm\) and \(LM=42mm\). Calculate all possible measures of \(\angle MLN\) to the nearest degree.
+    <span class="answer-row"><input class="answer" data-answer="∠MLN = 77°, 19°" placeholder="∠MLN ="><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+  </div>
+</section>
+
+<section class="card" data-num="9"><div class="greybar"></div>
+  <div class="qtext">In each case, determine all possible measures of the indicated angle.</div>
+  <div class="part indent">a. \(\triangle DNA\) where \(\angle N=35^\circ, d=4.1cm\) and \(n=2.1cm.\)<br>Determine \(\angle D\). <span class="answer-row"><input class="answer" data-answer="no solution" placeholder="Answer"><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  <div class="part indent">b. \(\triangle EFG\) where \(\angle GEF=53^\circ, EF=7.2cm\) and \(GF=6.5cm\). Determine \(\angle GFE\).<br>
+    <span class="answer-row"><input class="answer" data-answer="∠GFE = 65°, 9°" placeholder="∠GFE ="><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+  </div>
+</section>
+
+<section class="card" data-num="10"><div class="greybar"></div>
+  <div class="qtext">Consider the SSA triangle given below:</div>
+  <div class="single diagram"><svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg">
+ <line x1="90" y1="265" x2="685" y2="265" stroke="#111" stroke-width="4"/>
+ <line x1="90" y1="265" x2="430" y2="80" stroke="#111" stroke-width="4"/>
+ <line x1="430" y1="80" x2="685" y2="265" stroke="#111" stroke-width="4"/>
+ <line x1="430" y1="80" x2="430" y2="265" stroke="#111" stroke-width="4" stroke-dasharray="14 14"/>
+ <path d="M110 265 A70 70 0 0 1 172 232 L172 265 Z" fill="#ffc078" stroke="#111" stroke-width="2"/>
+ <text x="52" y="283" font-size="54" font-family="Georgia">A</text><text x="707" y="282" font-size="54" font-family="Georgia">B</text><text x="414" y="55" font-size="60" font-family="Georgia">C</text>
+ <text x="250" y="155" font-size="44" font-family="Georgia">b</text><text x="560" y="170" font-size="44" font-family="Georgia">a</text><text x="456" y="205" font-size="44" font-family="Georgia">h</text><text x="197" y="248" font-size="42" font-family="Georgia">θ</text>
+</svg></div>
+  <div class="qtext small">Decide if the following statements are true (T) or false (F). Circle the correct one.</div>
+  <div class="part indent">a. If \(\angle A = \theta\) and the sides \(a, b\) are known, this triangle is a right triangle if and only if \(h &lt; a\). (T/F) <span class="answer-row"><input class="answer" data-answer="F" placeholder="T/F"><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  <div class="part indent">b. Suppose \(\angle A = \theta\) and the sides \(a,b\) are known. This triangle is solvable if \(b\sin\theta &lt; a\). (T/F) <span class="answer-row"><input class="answer" data-answer="T" placeholder="T/F"><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+</section>
+
+<section class="card" data-num="11"><div class="greybar"></div>
+  <div class="qtext">Suppose \(\angle A=37^\circ, a=5, b=8.\) Then, we may draw the following triangles:</div>
+  <div class="diagram-box"><div class="two-diagrams">
+<div class="diagram"><svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+ <defs><marker id="dot" markerWidth="4" markerHeight="4" refX="2" refY="2"><circle cx="2" cy="2" r="2" fill="#111"/></marker></defs>
+ <line x1="45" y1="140" x2="380" y2="140" stroke="#111" stroke-width="2"/>
+ <line x1="45" y1="140" x2="250" y2="35" stroke="#111" stroke-width="2"/>
+ <line x1="250" y1="35" x2="360" y2="140" stroke="#111" stroke-width="2"/>
+ <line x1="250" y1="35" x2="250" y2="140" stroke="#111" stroke-width="2" stroke-dasharray="7 7"/>
+ <path d="M58 140 A38 38 0 0 1 92 122 L92 140 Z" fill="#ffc078" stroke="#111"/>
+ <path d="M336 140 A35 35 0 0 0 360 111 L360 140 Z" fill="#ffc078" stroke="#111"/>
+ <text x="25" y="150" font-size="24" font-family="Georgia">A</text><text x="368" y="152" font-size="24" font-family="Georgia">B</text><text x="244" y="26" font-size="24" font-family="Georgia">C</text>
+ <text x="98" y="130" font-size="20" font-family="Georgia">37°</text><text x="172" y="80" font-size="20" font-family="Georgia">8</text><text x="318" y="82" font-size="20" font-family="Georgia">5</text><text x="264" y="92" font-size="22" font-family="Georgia">h</text><text x="306" y="126" font-size="22" font-family="Georgia">θ₁</text>
+ </svg></div>
+<div class="diagram"><svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+ <line x1="40" y1="140" x2="365" y2="140" stroke="#111" stroke-width="2"/>
+ <line x1="40" y1="140" x2="340" y2="35" stroke="#111" stroke-width="2"/>
+ <line x1="190" y1="140" x2="340" y2="35" stroke="#111" stroke-width="2"/>
+ <line x1="340" y1="35" x2="340" y2="140" stroke="#111" stroke-width="2" stroke-dasharray="7 7"/>
+ <line x1="190" y1="140" x2="340" y2="140" stroke="#111" stroke-width="2" stroke-dasharray="7 7"/>
+ <path d="M52 140 A35 35 0 0 1 84 128 L84 140 Z" fill="#ffc078" stroke="#111"/>
+ <path d="M165 140 A35 35 0 0 0 198 105 L198 140 Z" fill="#ffc078" stroke="#111"/>
+ <text x="22" y="150" font-size="24" font-family="Georgia">A</text><text x="184" y="153" font-size="24" font-family="Georgia">B</text><text x="334" y="26" font-size="24" font-family="Georgia">C</text>
+ <text x="88" y="132" font-size="20" font-family="Georgia">37°</text><text x="180" y="86" font-size="20" font-family="Georgia">8</text><text x="236" y="82" font-size="20" font-family="Georgia">5</text><text x="356" y="96" font-size="22" font-family="Georgia">h</text><text x="157" y="121" font-size="22" font-family="Georgia">θ₂</text>
+ </svg></div></div></div>
+  <div class="part indent">a. Although the two triangles are given above, we are not quite sure how many triangles are possible. Decide how many triangles are possible and justify your answer. <span class="answer-row"><input class="answer" data-answer="2 triangles are possible." placeholder="Answer"><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  <div class="part indent">b. If this triangle is solvable, find \(\theta_1\). <span class="answer-row"><input class="answer" data-answer="θ1 = 74.3°" placeholder="θ1 ="><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  <div class="part indent">c. Find \(\theta_2\) using the answer \(\theta_1\) in part (b). <span class="answer-row"><input class="answer" data-answer="θ2 = 105.7°" placeholder="θ2 ="><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+</section>
+
+<section class="card" data-num="12"><div class="greybar"></div>
+  <div class="qtext">Suppose \(\angle A=27^\circ, a=80, b=100.\) Then, we may draw the following triangles:</div>
+  <div class="diagram-box"><div class="two-diagrams">
+<div class="diagram"><svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+ <defs><marker id="dot" markerWidth="4" markerHeight="4" refX="2" refY="2"><circle cx="2" cy="2" r="2" fill="#111"/></marker></defs>
+ <line x1="45" y1="140" x2="380" y2="140" stroke="#111" stroke-width="2"/>
+ <line x1="45" y1="140" x2="250" y2="35" stroke="#111" stroke-width="2"/>
+ <line x1="250" y1="35" x2="360" y2="140" stroke="#111" stroke-width="2"/>
+ <line x1="250" y1="35" x2="250" y2="140" stroke="#111" stroke-width="2" stroke-dasharray="7 7"/>
+ <path d="M58 140 A38 38 0 0 1 92 122 L92 140 Z" fill="#ffc078" stroke="#111"/>
+ <path d="M336 140 A35 35 0 0 0 360 111 L360 140 Z" fill="#ffc078" stroke="#111"/>
+ <text x="25" y="150" font-size="24" font-family="Georgia">A</text><text x="368" y="152" font-size="24" font-family="Georgia">B</text><text x="244" y="26" font-size="24" font-family="Georgia">C</text>
+ <text x="98" y="130" font-size="20" font-family="Georgia">27°</text><text x="172" y="80" font-size="20" font-family="Georgia">100</text><text x="318" y="82" font-size="20" font-family="Georgia">80</text><text x="264" y="92" font-size="22" font-family="Georgia">h</text><text x="306" y="126" font-size="22" font-family="Georgia">θ₁</text>
+ </svg></div>
+<div class="diagram"><svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+ <line x1="40" y1="140" x2="365" y2="140" stroke="#111" stroke-width="2"/>
+ <line x1="40" y1="140" x2="340" y2="35" stroke="#111" stroke-width="2"/>
+ <line x1="190" y1="140" x2="340" y2="35" stroke="#111" stroke-width="2"/>
+ <line x1="340" y1="35" x2="340" y2="140" stroke="#111" stroke-width="2" stroke-dasharray="7 7"/>
+ <line x1="190" y1="140" x2="340" y2="140" stroke="#111" stroke-width="2" stroke-dasharray="7 7"/>
+ <path d="M52 140 A35 35 0 0 1 84 128 L84 140 Z" fill="#ffc078" stroke="#111"/>
+ <path d="M165 140 A35 35 0 0 0 198 105 L198 140 Z" fill="#ffc078" stroke="#111"/>
+ <text x="22" y="150" font-size="24" font-family="Georgia">A</text><text x="184" y="153" font-size="24" font-family="Georgia">B</text><text x="334" y="26" font-size="24" font-family="Georgia">C</text>
+ <text x="88" y="132" font-size="20" font-family="Georgia">27°</text><text x="180" y="86" font-size="20" font-family="Georgia">100</text><text x="236" y="82" font-size="20" font-family="Georgia">80</text><text x="356" y="96" font-size="22" font-family="Georgia">h</text><text x="157" y="121" font-size="22" font-family="Georgia">θ₂</text>
+ </svg></div></div></div>
+  <div class="part indent">a. Although the two triangles are given above, we are not quite sure how many triangles are possible. Decide how many triangles are possible and justify your answer. <span class="answer-row"><input class="answer" data-answer="2 triangles are possible." placeholder="Answer"><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  <div class="part indent">b. If this triangle is solvable, find \(\theta_1\). <span class="answer-row"><input class="answer" data-answer="θ1 ≈ 34.6°" placeholder="θ1 ="><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  <div class="part indent">c. Find \(\theta_2\) using the answer \(\theta_1\) in part (b). <span class="answer-row"><input class="answer" data-answer="θ2 ≈ 145.4°" placeholder="θ2 ="><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+</section>
+
+<section class="card" data-num="13"><div class="greybar"></div>
+  <div class="qtext">Suppose \(\angle A=30^\circ, a=5, b=10.\) Then, we may draw the following triangles:</div>
+  <div class="diagram-box"><div class="two-diagrams">
+<div class="diagram"><svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+ <defs><marker id="dot" markerWidth="4" markerHeight="4" refX="2" refY="2"><circle cx="2" cy="2" r="2" fill="#111"/></marker></defs>
+ <line x1="45" y1="140" x2="380" y2="140" stroke="#111" stroke-width="2"/>
+ <line x1="45" y1="140" x2="250" y2="35" stroke="#111" stroke-width="2"/>
+ <line x1="250" y1="35" x2="360" y2="140" stroke="#111" stroke-width="2"/>
+ <line x1="250" y1="35" x2="250" y2="140" stroke="#111" stroke-width="2" stroke-dasharray="7 7"/>
+ <path d="M58 140 A38 38 0 0 1 92 122 L92 140 Z" fill="#ffc078" stroke="#111"/>
+ <path d="M336 140 A35 35 0 0 0 360 111 L360 140 Z" fill="#ffc078" stroke="#111"/>
+ <text x="25" y="150" font-size="24" font-family="Georgia">A</text><text x="368" y="152" font-size="24" font-family="Georgia">B</text><text x="244" y="26" font-size="24" font-family="Georgia">C</text>
+ <text x="98" y="130" font-size="20" font-family="Georgia">30°</text><text x="172" y="80" font-size="20" font-family="Georgia">10</text><text x="318" y="82" font-size="20" font-family="Georgia">5</text><text x="264" y="92" font-size="22" font-family="Georgia">h</text><text x="306" y="126" font-size="22" font-family="Georgia">θ₁</text>
+ </svg></div>
+<div class="diagram"><svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+ <line x1="40" y1="140" x2="365" y2="140" stroke="#111" stroke-width="2"/>
+ <line x1="40" y1="140" x2="340" y2="35" stroke="#111" stroke-width="2"/>
+ <line x1="190" y1="140" x2="340" y2="35" stroke="#111" stroke-width="2"/>
+ <line x1="340" y1="35" x2="340" y2="140" stroke="#111" stroke-width="2" stroke-dasharray="7 7"/>
+ <line x1="190" y1="140" x2="340" y2="140" stroke="#111" stroke-width="2" stroke-dasharray="7 7"/>
+ <path d="M52 140 A35 35 0 0 1 84 128 L84 140 Z" fill="#ffc078" stroke="#111"/>
+ <path d="M165 140 A35 35 0 0 0 198 105 L198 140 Z" fill="#ffc078" stroke="#111"/>
+ <text x="22" y="150" font-size="24" font-family="Georgia">A</text><text x="184" y="153" font-size="24" font-family="Georgia">B</text><text x="334" y="26" font-size="24" font-family="Georgia">C</text>
+ <text x="88" y="132" font-size="20" font-family="Georgia">30°</text><text x="180" y="86" font-size="20" font-family="Georgia">10</text><text x="236" y="82" font-size="20" font-family="Georgia">5</text><text x="356" y="96" font-size="22" font-family="Georgia">h</text><text x="157" y="121" font-size="22" font-family="Georgia">θ₂</text>
+ </svg></div></div></div>
+  <div class="part indent">a. Although the two triangles are given above, we are not quite sure how many triangles are possible. Decide how many triangles are possible and justify your answer.<br><span class="answer-row"><input class="answer" data-answer="1 right triangle is possible." placeholder="Answer"><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  <div class="part indent">b. If this triangle is solvable, find \(\theta_1\). <span class="answer-row"><input class="answer" data-answer="θ1 ≈ 90°" placeholder="θ1 ="><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+  <div class="part indent">c. Find \(\theta_2\) using the answer \(\theta_1\) in part (b). <span class="answer-row"><input class="answer" data-answer="θ2 = 90°" placeholder="θ2 ="><span class="checkmark">✓</span></span><button class="reveal" onclick="showAnswer(this)">Show answer</button></div>
+</section>
+
+<section class="card" data-num="14"><div class="greybar"></div>
+  <div class="qtext">Explain what is meant by the ambiguous case of the sine law. Describe situations in which a sine law problem may have no solution, one solution, or two solutions.</div>
+  <div class="answer-row wide"><textarea class="answer" data-answer="The ambiguous case of the sine law occurs when the given information allows two different triangles to be constructed leading to two different solutions to the problem." placeholder="Type your explanation here"></textarea><span class="checkmark">✓</span></div><button class="reveal" onclick="showAnswer(this)">Show answer</button>
+</section>
+
+</main>
+<script>
+const ui = {
+  en: {
+    pageTitle: 'SSA Triangle and Ambiguous Case of the Sine Law — Practice',
+    checkAll: 'Check All',
+    showAll: 'Show All Answers',
+    reset: 'Reset',
+    scoreEmpty: 'Score: —',
+    score: 'Score:',
+    allShown: 'All answers shown',
+    answer: 'Answer',
+    solution: 'Type your solution here',
+    reason: 'Type your reason here',
+    explanation: 'Type your explanation here',
+    showAnswer: 'Show answer'
+  },
+  zh: {
+    pageTitle: 'SSA 三角形与正弦定理的歧义情况 — 练习',
+    checkAll: '全部检查',
+    showAll: '显示所有答案',
+    reset: '重置',
+    scoreEmpty: '得分：—',
+    score: '得分：',
+    allShown: '已显示所有答案',
+    answer: '答案',
+    solution: '在这里输入你的解答',
+    reason: '在这里输入你的理由',
+    explanation: '在这里输入你的解释',
+    showAnswer: '显示答案'
+  }
+};
+
+const zhText = new Map(Object.entries({
+  'How many different triangles can a Side-Side-Angle (SSA) triangle have?': '边-边-角（SSA）三角形可能有多少个不同的三角形？',
+  'Exactly 1 unique triangle.': '恰好 1 个唯一的三角形。',
+  'Exactly 2 different triangles.': '恰好 2 个不同的三角形。',
+  'At least 2 different triangles.': '至少 2 个不同的三角形。',
+  'At most 2 different triangles.': '最多 2 个不同的三角形。',
+  'Consider the triangle \\(\\triangle ABC\\) with \\(\\angle A = 58^\\circ, a=50, b=30.\\)': '考虑三角形 \\(\\triangle ABC\\)，其中 \\(\\angle A = 58^\\circ, a=50, b=30.\\)',
+  'Consider the triangle \\(\\triangle ABC\\) with \\(\\angle A = 89^\\circ, a=80, b=80.\\)': '考虑三角形 \\(\\triangle ABC\\)，其中 \\(\\angle A = 89^\\circ, a=80, b=80.\\)',
+  'Consider the triangle \\(\\triangle ABC\\) with \\(\\angle A = 45^\\circ, a=1, b=2.\\)': '考虑三角形 \\(\\triangle ABC\\)，其中 \\(\\angle A = 45^\\circ, a=1, b=2.\\)',
+  'a. How many triangles are possible?': 'a. 可能有多少个三角形？',
+  'b. If this triangle is solvable, solve the triangle. If this triangle is not solvable, change the \\(a\\) value so that the triangle is solvable.': 'b. 如果这个三角形可解，请解这个三角形。如果不可解，请改变 \\(a\\) 的值，使这个三角形可解。',
+  'b. If the triangle is solvable, solve the triangle. If this triangle is not solvable, change the \\(a\\) value so that the triangle is solvable.': 'b. 如果这个三角形可解，请解这个三角形。如果不可解，请改变 \\(a\\) 的值，使这个三角形可解。',
+  "b. If this triangle is solvable, solve the triangle. If this triangle is not solvable, change the \\(a\\) value so that the triangle is solvable. (Note: You don't have to solve the entire triangle just give a valid reason why your triangle is solvable.)": 'b. 如果这个三角形可解，请解这个三角形。如果不可解，请改变 \\(a\\) 的值，使这个三角形可解。（注意：不需要解完整个三角形，只需给出它可解的有效理由。）',
+  'Without using the sine law, determine in which of the following there is exactly one solution to the problem, i.e. there is only one triangle which can be constructed from the given information.': '不使用正弦定理，判断下列哪些问题恰好只有一个解，也就是根据给定信息只能构造出一个三角形。',
+  'a. Calculate \\(\\angle C\\) in \\(\\triangle ABC\\) where \\(\\angle B = 29^\\circ, c=8.2cm,\\) and \\(b=6.7cm\\)': 'a. 在 \\(\\triangle ABC\\) 中，\\(\\angle B = 29^\\circ, c=8.2cm,\\)，且 \\(b=6.7cm\\)，求 \\(\\angle C\\)。',
+  'b. Calculate \\(\\angle TSV\\) in \\(\\triangle STV\\) where \\(ST=18in, TV=14in,\\) and \\(\\angle SVT = 36^\\circ\\)': 'b. 在 \\(\\triangle STV\\) 中，\\(ST=18in, TV=14in,\\)，且 \\(\\angle SVT = 36^\\circ\\)，求 \\(\\angle TSV\\)。',
+  'Find all possible measures of \\(\\angle C\\) in the following triangles.': '求下列三角形中 \\(\\angle C\\) 的所有可能度数。',
+  'a. \\(\\triangle ABC\\) where \\(\\angle A = 31^\\circ, a=4.5cm,\\) and \\(c=4.9cm\\)': 'a. \\(\\triangle ABC\\)，其中 \\(\\angle A = 31^\\circ, a=4.5cm,\\)，且 \\(c=4.9cm\\)。',
+  'b. \\(\\triangle ABC\\) where \\(\\angle A = 61^\\circ, a=7.5cm,\\) and \\(c=5.8cm\\)': 'b. \\(\\triangle ABC\\)，其中 \\(\\angle A = 61^\\circ, a=7.5cm,\\)，且 \\(c=5.8cm\\)。',
+  'c. Calculate \\(\\angle ABC\\) in \\(\\triangle ABC\\) where': 'c. 在 \\(\\triangle ABC\\) 中求 \\(\\angle ABC\\)，其中',
+  '\\(\\angle ACB = 51^\\circ, AB=3.9mm,\\) and \\(AC=4.9mm\\)': '\\(\\angle ACB = 51^\\circ, AB=3.9mm,\\)，且 \\(AC=4.9mm\\)。',
+  'In triangle PQR, \\(\\angle P = 30^\\circ, QR=5cm,\\) and \\(PR=7.5cm.\\)': '在三角形 PQR 中，\\(\\angle P = 30^\\circ, QR=5cm,\\)，且 \\(PR=7.5cm\\)。',
+  'The measure of \\(\\angle PQR\\) is': '\\(\\angle PQR\\) 的度数是',
+  'If \\(\\triangle LMN\\), and \\(LMN = 42^\\circ, LN=32mm\\) and \\(LM=42mm\\). Calculate all possible measures of \\(\\angle MLN\\) to the nearest degree.': '在 \\(\\triangle LMN\\) 中，\\(LMN = 42^\\circ, LN=32mm\\)，且 \\(LM=42mm\\)。求 \\(\\angle MLN\\) 的所有可能度数，精确到最接近的整数度。',
+  'In each case, determine all possible measures of the indicated angle.': '在每一题中，求指定角的所有可能度数。',
+  'a. \\(\\triangle DNA\\) where \\(\\angle N=35^\\circ, d=4.1cm\\) and \\(n=2.1cm.\\)': 'a. \\(\\triangle DNA\\)，其中 \\(\\angle N=35^\\circ, d=4.1cm\\)，且 \\(n=2.1cm.\\)',
+  'Determine \\(\\angle D\\).': '求 \\(\\angle D\\)。',
+  'b. \\(\\triangle EFG\\) where \\(\\angle GEF=53^\\circ, EF=7.2cm\\) and \\(GF=6.5cm\\). Determine \\(\\angle GFE\\).': 'b. \\(\\triangle EFG\\)，其中 \\(\\angle GEF=53^\\circ, EF=7.2cm\\)，且 \\(GF=6.5cm\\)。求 \\(\\angle GFE\\)。',
+  'Consider the SSA triangle given below:': '考虑下面给出的 SSA 三角形：',
+  'Decide if the following statements are true (T) or false (F). Circle the correct one.': '判断下列说法是真（T）还是假（F）。圈出正确答案。',
+  'a. If \\(\\angle A = \\theta\\) and the sides \\(a, b\\) are known, this triangle is a right triangle if and only if \\(h < a\\). (T/F)': 'a. 如果 \\(\\angle A = \\theta\\)，且边 \\(a, b\\) 已知，那么当且仅当 \\(h < a\\) 时，这个三角形是直角三角形。（T/F）',
+  'b. Suppose \\(\\angle A = \\theta\\) and the sides \\(a,b\\) are known. This triangle is solvable if \\(b\\sin\\theta < a\\). (T/F)': 'b. 假设 \\(\\angle A = \\theta\\)，且边 \\(a,b\\) 已知。如果 \\(b\\sin\\theta < a\\)，这个三角形可解。（T/F）',
+  'Suppose \\(\\angle A=37^\\circ, a=5, b=8.\\) Then, we may draw the following triangles:': '假设 \\(\\angle A=37^\\circ, a=5, b=8.\\) 那么，我们可以画出下列三角形：',
+  'Suppose \\(\\angle A=27^\\circ, a=80, b=100.\\) Then, we may draw the following triangles:': '假设 \\(\\angle A=27^\\circ, a=80, b=100.\\) 那么，我们可以画出下列三角形：',
+  'Suppose \\(\\angle A=30^\\circ, a=5, b=10.\\) Then, we may draw the following triangles:': '假设 \\(\\angle A=30^\\circ, a=5, b=10.\\) 那么，我们可以画出下列三角形：',
+  'a. Although the two triangles are given above, we are not quite sure how many triangles are possible. Decide how many triangles are possible and justify your answer.': 'a. 虽然上面给出了两个三角形，但我们还不能确定到底有多少个三角形可能。判断可能有多少个三角形，并说明理由。',
+  'a. Although the two triangles are given above, we are not quite sure how many triangles are possible. Decide how many triangles are possible and justify your answer.': 'a. 虽然上面给出了两个三角形，但我们还不能确定到底有多少个三角形可能。判断可能有多少个三角形，并说明理由。',
+  'a. Although the two triangles are given above, we are not quite sure how many triangles are possible. Decide how many triangles are possible and justify your answer.': 'a. 虽然上面给出了两个三角形，但我们还不能确定到底有多少个三角形可能。判断可能有多少个三角形，并说明理由。',
+  'a. Although the two triangles are given above, we are not quite sure how many triangles are possible. Decide how many triangles are possible and justify your answer.': 'a. 虽然上面给出了两个三角形，但我们还不能确定到底有多少个三角形可能。判断可能有多少个三角形，并说明理由。',
+  'b. If this triangle is solvable, find \\(\\theta_1\\).': 'b. 如果这个三角形可解，求 \\(\\theta_1\\)。',
+  'c. Find \\(\\theta_2\\) using the answer \\(\\theta_1\\) in part (b).': 'c. 使用 (b) 中的 \\(\\theta_1\\) 求 \\(\\theta_2\\)。',
+  'Explain what is meant by the ambiguous case of the sine law. Describe situations in which a sine law problem may have no solution, one solution, or two solutions.': '解释正弦定理的“歧义情况”是什么意思。描述正弦定理问题可能没有解、一个解或两个解的情形。'
+}));
+
+const zhAnswers = new Map(Object.entries({
+  'This triangle is not solvable.': '这个三角形不可解。',
+  'Choose a = 2. Then, both a and b have the same length. In other words, this triangle is an isosceles triangle and it is solvable by the result in the previous question.': '选择 a = 2。这样 a 和 b 长度相同。换句话说，这个三角形是等腰三角形，并且根据上一题的结论可解。',
+  'side opposite given angle is less than side opposite required angle - not exactly one solution': '已知角的对边小于所求角的对边 - 不一定恰好一个解',
+  'side opposite given angle is greater than side opposite required angle - exactly one solution': '已知角的对边大于所求角的对边 - 恰好一个解',
+  'no solution': '无解',
+  '2 triangles are possible.': '可能有 2 个三角形。',
+  '1 right triangle is possible.': '可能有 1 个直角三角形。',
+  'The ambiguous case of the sine law occurs when the given information allows two different triangles to be constructed leading to two different solutions to the problem.': '正弦定理的歧义情况是指：给定信息可以构造出两个不同的三角形，因此问题有两个不同的解。'
+}));
+
+let languageMode = 'en';
+
+function uiText(key){
+  if(languageMode === 'zh') return ui.zh[key];
+  if(languageMode === 'both' && key === 'score') return 'Score / 得分：';
+  if(languageMode === 'both') return `${ui.en[key]} / ${ui.zh[key]}`;
+  return ui.en[key];
+}
+
+function contentText(en, zh){
+  if(languageMode === 'zh') return zh;
+  if(languageMode === 'both') return `${en}<span class="zh">${zh}</span>`;
+  return en;
+}
+
+function setupI18nText(){
+  const walker = document.createTreeWalker(document.querySelector('main'), NodeFilter.SHOW_TEXT, {
+    acceptNode(node){
+      const text = node.textContent.replace(/\s+/g, ' ').trim();
+      if(!text || !zhText.has(text)) return NodeFilter.FILTER_REJECT;
+      if(node.parentElement?.closest('script,style,.answer-row')) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const en = node.textContent.replace(/\s+/g, ' ').trim();
+    const span = document.createElement('span');
+    span.dataset.i18nText = en;
+    span.innerHTML = en;
+    node.replaceWith(span);
+  });
+}
+
+function answerFor(input){
+  const en = input.dataset.answer || '';
+  const zh = zhAnswers.get(en);
+  if(languageMode === 'zh' && zh) return zh;
+  if(languageMode === 'both' && zh) return `${en} / ${zh}`;
+  return en;
+}
+
+function setLanguage(mode){
+  languageMode = mode;
+  document.documentElement.lang = mode === 'zh' ? 'zh-Hans' : 'en';
+  document.title = mode === 'zh' ? ui.zh.pageTitle : ui.en.pageTitle;
+  document.querySelectorAll('[data-i18n]').forEach(node => {
+    const key = node.dataset.i18n;
+    node.innerHTML = key === 'pageTitle' ? contentText(ui.en[key], ui.zh[key]) : uiText(key);
+  });
+  document.querySelectorAll('[data-i18n-text]').forEach(node => {
+    const en = node.dataset.i18nText;
+    node.innerHTML = contentText(en, zhText.get(en));
+  });
+  document.querySelectorAll('.reveal').forEach(button => { button.textContent = uiText('showAnswer'); });
+  document.querySelectorAll('input.answer').forEach(input => {
+    if(!input.dataset.placeholderRole && (input.placeholder === 'Answer' || input.placeholder === '答案')) input.dataset.placeholderRole = 'answer';
+    if(input.dataset.placeholderRole === 'answer') input.placeholder = uiText('answer');
+  });
+  document.querySelectorAll('textarea.answer').forEach(input => {
+    if(!input.dataset.placeholderRole){
+      const original = input.getAttribute('placeholder') || '';
+      if(original.includes('solution') || original.includes('解答')) input.dataset.placeholderRole = 'solution';
+      else if(original.includes('reason') || original.includes('理由')) input.dataset.placeholderRole = 'reason';
+      else if(original.includes('explanation') || original.includes('解释')) input.dataset.placeholderRole = 'explanation';
+    }
+    const original = input.getAttribute('placeholder') || '';
+    if(input.dataset.placeholderRole === 'solution') input.placeholder = uiText('solution');
+    else if(input.dataset.placeholderRole === 'reason') input.placeholder = uiText('reason');
+    else if(input.dataset.placeholderRole === 'explanation') input.placeholder = uiText('explanation');
+  });
+  document.querySelectorAll('.language-controls button').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.mode === mode));
+  });
+  const score = document.getElementById('score');
+  if(score.dataset.scoreState === 'empty'){
+    score.textContent = uiText('scoreEmpty');
+  } else if(score.dataset.scoreState === 'shown'){
+    score.textContent = uiText('allShown');
+  } else if(score.dataset.scoreState === 'score'){
+    score.textContent = `${uiText('score')} ${score.dataset.ok || 0} / ${score.dataset.total || document.querySelectorAll('.answer').length}`;
+  }
+  if(window.MathJax) MathJax.typesetPromise([document.body]);
+}
+
+function norm(s){return (s||'').toLowerCase().replace(/≈/g,'=').replace(/∠/g,'angle').replace(/θ/g,'theta').replace(/°/g,'').replace(/\s+/g,' ').replace(/[.,;:]/g,'').trim();}
+function isCorrect(input){const ans=input.dataset.answer||'';const zh=zhAnswers.get(ans)||'';const v=input.value||''; if(!v.trim()) return false; const nv=norm(v), na=norm(ans), nz=norm(zh); if(nv===na || na.includes(nv) || nv.includes(na) || (nz && (nv===nz || nz.includes(nv) || nv.includes(nz)))) return true; const numsA=(ans.match(/\d+(?:\.\d+)?/g)||[]).join('|'); const numsV=(v.match(/\d+(?:\.\d+)?/g)||[]).join('|'); if(numsA && numsA===numsV) return true; return false;}
+function checkOne(input){const row=input.closest('.answer-row'); row.classList.remove('ok','bad'); if(isCorrect(input)) row.classList.add('ok'); else row.classList.add('bad');}
+function checkAll(){const inputs=[...document.querySelectorAll('.answer')]; let ok=0; inputs.forEach(i=>{checkOne(i); if(isCorrect(i)) ok++;}); const score=document.getElementById('score'); score.dataset.scoreState='score'; score.dataset.ok=ok; score.dataset.total=inputs.length; score.textContent=`${uiText('score')} ${ok} / ${inputs.length}`;}
+function showAnswer(btn){const area=btn.previousElementSibling; const input=area?.querySelector?.('.answer') || btn.parentElement.querySelector('.answer'); if(input){input.value=answerFor(input); checkOne(input); if(window.MathJax) MathJax.typesetPromise();}}
+function showAll(){document.querySelectorAll('.answer').forEach(i=>{i.value=answerFor(i);checkOne(i)}); const score=document.getElementById('score'); score.dataset.scoreState='shown'; score.textContent=uiText('allShown'); if(window.MathJax) MathJax.typesetPromise();}
+function resetAll(){document.querySelectorAll('.answer').forEach(i=>{i.value=''; const r=i.closest('.answer-row'); r.classList.remove('ok','bad')}); const score=document.getElementById('score'); score.dataset.scoreState='empty'; score.textContent=uiText('scoreEmpty');}
+document.addEventListener('input',e=>{if(e.target.classList.contains('answer')){e.target.closest('.answer-row').classList.remove('ok','bad')}})
+document.querySelectorAll('.language-controls button').forEach(button => {
+  button.addEventListener('click', () => setLanguage(button.dataset.mode));
+});
+setupI18nText();
+setLanguage('en');
+</script>
+</body>
+</html>

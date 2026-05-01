@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trigonometry Practice — Sine Law, Cosine Law, Bearings, 3D</title>
+<link rel="icon" href="data:," />
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  :root{
+    --orange:#f9ad28;
+    --gray:#e6e6e6;
+    --ink:#111;
+    --muted:#666;
+    --ok:#b7e66b;
+    --bad:#f26b6b;
+    --blue:#2b74b8;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    color:var(--ink);
+    background:#f7f7f7;
+    line-height:1.65;
+  }
+  header{
+    position:sticky;top:0;z-index:10;
+    background:white;border-bottom:1px solid #ddd;
+    padding:14px 20px;
+  }
+  header h1{font-size:24px;margin:0}
+  header p{margin:2px 0 0;color:#555}
+  .toolbar{
+    display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;
+  }
+  .language-controls{
+    display:inline-flex;
+    border:1px solid #bbb;
+    border-radius:9px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .language-controls button{
+    border-radius:0;
+    background:#fff;
+    color:#222;
+    border-left:1px solid #ddd;
+    padding:10px 12px;
+  }
+  .language-controls button:first-child{border-left:0}
+  .language-controls button[aria-pressed="true"]{background:#111;color:#fff}
+  .zh{display:block;margin-top:4px;color:#444}
+  button{
+    border:0;border-radius:10px;padding:10px 14px;
+    font-weight:700;cursor:pointer;background:#222;color:white;
+  }
+  button.secondary{background:#ececec;color:#111}
+  button.answer-btn{background:#2e6fbe}
+  button.check-btn{background:#228b4d}
+  main{max-width:1120px;margin:0 auto;padding:18px}
+  .card{
+    position:relative;
+    background:white;
+    margin:0 0 24px;
+    border-radius:14px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    overflow:hidden;
+  }
+  .bar{height:70px;background:#ddd;position:relative}
+  .num{
+    position:absolute;left:-2px;top:-2px;
+    width:72px;height:72px;border-radius:0 0 72px 0;
+    background:var(--orange);font-weight:800;font-size:24px;
+    padding:12px 0 0 16px;
+  }
+  .content{padding:34px 8.5% 42px;font-size:31px}
+  .content.small{font-size:28px}
+  .choices{margin-top:18px;line-height:1.8}
+  .workline{margin:18px 0 8px}
+  .answer-row{
+    display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+    margin-top:16px;
+  }
+  input.answer{
+    font-size:28px;
+    padding:9px 12px;
+    min-width:220px;
+    max-width:100%;
+    border:3px solid #d8f39b;
+    border-left-width:6px;
+    border-radius:2px;
+    background:#f5f5f5;
+    box-shadow:0 2px 8px rgba(0,0,0,.18);
+  }
+  input.answer.correct{border-color:var(--ok);background:#f8fff2}
+  input.answer.wrong{border-color:var(--bad);background:#fff6f6}
+  .feedback{font-size:22px;font-weight:700;min-height:32px}
+  .model{
+    display:none;
+    margin-top:14px;
+    padding:14px 16px;
+    background:#f1f7ff;
+    border-left:6px solid #5aa1f2;
+    border-radius:8px;
+    font-size:24px;
+  }
+  .diagram{
+    margin:14px 0 18px;
+    max-width:520px;
+  }
+  svg{max-width:100%;height:auto}
+  .diagram-label{fill:#1663ad;font-weight:700;font-style:italic}
+  .dim{fill:#a05a14;font-weight:700}
+  .thin{stroke:#444;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .dash{stroke-dasharray:7 7}
+  .thick{stroke:#111;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .shade{fill:rgba(0,0,0,.18);stroke:#222;stroke-width:3}
+  .note{color:#555;font-size:20px;margin-top:6px}
+  @media print{
+    header,.answer-row button,.feedback,.model{display:none!important}
+    body{background:white}
+    .card{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}
+    input.answer{border:0;border-bottom:2px solid #111;background:white;box-shadow:none}
+  }
+  @media(max-width:760px){
+    .content{font-size:23px;padding:26px 6% 34px}
+    .content.small{font-size:22px}
+    input.answer{font-size:22px;min-width:170px}
+    .model{font-size:20px}
+    .language-controls{width:100%}
+    .language-controls button{flex:1}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 data-i18n="title">Trigonometry Practice</h1>
+  <p data-i18n="subtitle">Sine Law, Cosine Law, Bearings, Applications, and 3D Problems</p>
+  <div class="toolbar">
+    <div class="language-controls" aria-label="Language mode">
+      <button type="button" data-mode="en" aria-pressed="true">En</button>
+      <button type="button" data-mode="both" aria-pressed="false">En + Zh</button>
+      <button type="button" data-mode="zh" aria-pressed="false">Zh</button>
+    </div>
+    <button onclick="checkAll()" data-i18n="checkAll">Check all</button>
+    <button class="secondary" onclick="showAll()" data-i18n="showAll">Show all answers</button>
+    <button class="secondary" onclick="resetAll()" data-i18n="reset">Reset</button>
+    <button class="secondary" onclick="window.print()" data-i18n="print">Print</button>
+  </div>
+</header>
+
+<main>
+
+<section class="card" data-answers="x=12.6cm|12.6cm|12.6 cm|x = 12.6 cm">
+  <div class="bar"><div class="num">1</div></div>
+  <div class="content">
+    <p>In each case, find the length of the indicated side to the nearest 0.1 cm.</p>
+    <p>a.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 430 190">
+        <polygon points="70,140 250,45 360,130" class="thin"/>
+        <text x="118" y="70" class="dim" font-size="24">20 cm</text>
+        <text x="225" y="78" font-size="28" font-style="italic">x</text>
+        <text x="186" y="168" class="dim" font-size="24">25 cm</text>
+        <path d="M125 137 A55 55 0 0 1 160 110" class="thin" stroke-width="2"/>
+        <text x="135" y="126" class="dim" font-size="20">30°</text>
+      </svg>
+    </div>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(x=12.6\text{ cm}\). Use the Cosine Law: \(x^2=20^2+25^2-2(20)(25)\cos30^\circ\).</div>
+
+    <p>b.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 360 360">
+        <polygon points="180,320 135,55 235,48" class="thin"/>
+        <text x="62" y="150" class="dim" font-size="24">16.1 cm</text>
+        <text x="245" y="150" class="dim" font-size="24">15.9 cm</text>
+        <text x="181" y="37" font-size="28" font-style="italic">x</text>
+        <path d="M165 250 A35 35 0 0 1 200 250" class="thin" stroke-width="2"/>
+        <text x="170" y="244" class="dim" font-size="22">15°</text>
+      </svg>
+    </div>
+    <div class="answer-row"><input class="answer" data-answers="x=4.2cm|4.2cm|4.2 cm|x = 4.2 cm" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(x=4.2\text{ cm}\). Use the Cosine Law with sides \(16.1\), \(15.9\), and included angle \(15^\circ\).</div>
+
+    <p>c.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 430 160">
+        <polygon points="70,32 185,100 370,105" class="thin"/>
+        <line x1="70" y1="32" x2="370" y2="105" class="thin"/>
+        <text x="84" y="82" class="dim" font-size="22">18.7 cm</text>
+        <text x="220" y="132" class="dim" font-size="22">20.4 cm</text>
+        <text x="245" y="54" font-size="28" font-style="italic">x</text>
+        <text x="174" y="88" font-size="20">140°</text>
+      </svg>
+    </div>
+    <div class="answer-row"><input class="answer" data-answers="x=36.7cm|36.7cm|36.7 cm|x = 36.7 cm" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(x=36.7\text{ cm}\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="a=28|28|a = 28">
+  <div class="bar"><div class="num">2</div></div>
+  <div class="content">
+    <p>In \(\triangle ABC\), \(\angle A=49^\circ\), \(b=24\), and \(c=37\). Calculate \(a\) to the nearest whole number.</p>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(a=28\). Use \(a^2=b^2+c^2-2bc\cos A\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="∠ABC=79°, ∠BAC=68.5°, ∠ACB=32.5°, AC=8.2cm, BC=7.8cm, AB=4.5cm|ABC 79 BAC 68.5 ACB 32.5 AC 8.2 BC 7.8 AB 4.5|79 68.5 32.5 8.2 7.8 4.5">
+  <div class="bar"><div class="num">3</div></div>
+  <div class="content">
+    <p>Solve triangle \(ABC\) in which \(AB=4.5cm\), \(BC=7.8cm\) and \(\angle ABC=79^\circ\). Round sides to the nearest tenth of a cm and angles to the nearest tenth of a degree.</p>
+    <div class="answer-row"><input class="answer" style="min-width:80%" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(\angle ABC=79^\circ,\ \angle BAC=68.5^\circ,\ \angle ACB=32.5^\circ\). \(AC=8.2cm,\ BC=7.8cm,\ AB=4.5cm\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="17.5m|17.5 m|17.5">
+  <div class="bar"><div class="num">4</div></div>
+  <div class="content small">
+    <div class="diagram">
+      <svg viewBox="0 0 420 280">
+        <line x1="40" y1="230" x2="300" y2="150" class="thin"/>
+        <line x1="40" y1="230" x2="305" y2="40" class="thin"/>
+        <line x1="300" y1="150" x2="305" y2="40" class="thin"/>
+        <line x1="40" y1="250" x2="330" y2="250" class="thin dash" stroke-width="2"/>
+        <text x="25" y="230" class="diagram-label" font-size="26">A</text>
+        <text x="308" y="160" class="diagram-label" font-size="26">B</text>
+        <text x="310" y="45" class="diagram-label" font-size="26">C</text>
+      </svg>
+    </div>
+    <p>In the diagram, \(AB\) represents part of a road constructed on the incline of a hill. \(BC\) represents a telephone pole \(7.5m\) tall at the side of the road. A guide wire attached to the top of the pole is joined to the ground at \(A\). If \(AB=11.4m\) and \(\angle ABC=135^\circ\), determine the length of the guide wire to the nearest \(0.1m\).</p>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(17.5\text{ m}\). The guide wire is \(AC\); use the Cosine Law with \(AB=11.4\), \(BC=7.5\), and \(\angle ABC=135^\circ\).</div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="bar"><div class="num">5</div></div>
+  <div class="content small">
+    <p>In each case, find the measure of the indicated angle to the nearest degree.</p>
+    <p>a.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 380 260">
+        <polygon points="180,220 110,45 250,45" class="thin"/>
+        <text x="175" y="244" class="diagram-label" font-size="26">A</text>
+        <text x="92" y="45" class="diagram-label" font-size="26">B</text>
+        <text x="260" y="45" class="diagram-label" font-size="26">C</text>
+        <text x="175" y="130" font-size="26" font-style="italic">x°</text>
+        <text x="166" y="33" class="dim" font-size="24">7 m</text>
+        <text x="78" y="132" class="dim" font-size="24">10 m</text>
+        <line x1="137" y1="110" x2="148" y2="105" class="thick"/>
+        <line x1="228" y1="105" x2="238" y2="112" class="thick"/>
+      </svg>
+    </div>
+    <div class="answer-row"><input class="answer" data-answers="x°=41°|x=41°|41°|41" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(x^\circ=41^\circ\).</div>
+    <p>b.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 410 300">
+        <polygon points="85,240 260,30 235,240" class="thin"/>
+        <text x="70" y="255" class="diagram-label" font-size="25">X</text>
+        <text x="238" y="258" class="diagram-label" font-size="25">Y</text>
+        <text x="262" y="26" class="diagram-label" font-size="25">Z</text>
+        <text x="154" y="130" class="dim" font-size="22">6.2 m</text>
+        <text x="245" y="145" class="dim" font-size="22">4.3 m</text>
+        <text x="125" y="268" class="dim" font-size="22">3.7 m</text>
+        <text x="240" y="87" font-size="23" font-style="italic">z°</text>
+      </svg>
+    </div>
+    <div class="answer-row"><input class="answer" data-answers="z°=36°|z=36°|36°|36" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(z^\circ=36^\circ\).</div>
+    <p>c.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 360 210">
+        <polygon points="135,35 135,160 310,160" class="thin"/>
+        <text x="125" y="25" class="diagram-label" font-size="25">A</text>
+        <text x="124" y="178" class="diagram-label" font-size="25">B</text>
+        <text x="312" y="166" class="diagram-label" font-size="25">C</text>
+        <text x="75" y="96" class="dim" font-size="22">17 cm</text>
+        <text x="212" y="150" class="dim" font-size="22">15 cm</text>
+        <text x="230" y="83" class="dim" font-size="22">23 cm</text>
+        <text x="145" y="118" font-size="24" font-style="italic">b°</text>
+      </svg>
+    </div>
+    <div class="answer-row"><input class="answer" data-answers="b°=92°|b=92°|92°|92" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(b^\circ=92^\circ\).</div>
+    <p>d.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 440 170">
+        <polygon points="65,45 185,112 380,68" class="thin"/>
+        <text x="48" y="42" class="diagram-label" font-size="25">D</text>
+        <text x="180" y="138" class="diagram-label" font-size="25">E</text>
+        <text x="386" y="70" class="diagram-label" font-size="25">F</text>
+        <text x="82" y="100" class="dim" font-size="22">95 cm</text>
+        <text x="192" y="122" class="dim" font-size="22">116 cm</text>
+        <text x="192" y="48" class="dim" font-size="22">197 cm</text>
+        <text x="170" y="92" font-size="24" font-style="italic">x°</text>
+      </svg>
+    </div>
+    <div class="answer-row"><input class="answer" data-answers="x°=138°|x=138°|138°|138" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(x^\circ=138^\circ\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="C|C. 10√3|10√3|10sqrt3|10√3 cm">
+  <div class="bar"><div class="num">6</div></div>
+  <div class="content">
+    <div class="diagram">
+      <svg viewBox="0 0 480 230">
+        <polygon points="80,175 245,35 420,175" class="thin"/>
+        <text x="244" y="25" class="diagram-label" font-size="25">A</text>
+        <text x="62" y="185" class="diagram-label" font-size="25">B</text>
+        <text x="425" y="185" class="diagram-label" font-size="25">C</text>
+        <text x="121" y="88" class="dim" font-size="23">10 cm</text>
+        <line x1="157" y1="105" x2="171" y2="116" class="thick"/>
+        <line x1="330" y1="110" x2="345" y2="99" class="thick"/>
+        <text x="105" y="162" class="dim" font-size="22">30°</text>
+      </svg>
+    </div>
+    <p>The length of \(BC\) in cm is</p>
+    <div class="choices">
+      A. \(5\sqrt3\)<br>
+      B. \(10\)<br>
+      C. \(10\sqrt3\)<br>
+      D. \(20\)
+    </div>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: C. \(10\sqrt3\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="40°|40">
+  <div class="bar"><div class="num">7</div></div>
+  <div class="content small">
+    <p>Anwar and Ingrid have three trees in their garden. The trees form a triangle as shown in the diagram. Determine the smallest angle between the trees.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 420 360">
+        <polygon points="120,55 315,155 188,310" fill="none" stroke="#111" stroke-width="6" stroke-dasharray="8 4"/>
+        <text x="180" y="118" class="dim" font-size="25">15.1 m</text>
+        <text x="72" y="190" class="dim" font-size="25">19.3 m</text>
+        <text x="256" y="250" class="dim" font-size="25">12.3 m</text>
+        <text x="105" y="47" font-size="44">🌲</text>
+        <text x="300" y="147" font-size="44">🌲</text>
+        <text x="170" y="302" font-size="44">🌲</text>
+      </svg>
+    </div>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(40^\circ\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="60 km at 39°|60km at 39°|60 at 39|60 km 39°|60 km, 39°">
+  <div class="bar"><div class="num">8</div></div>
+  <div class="content small">
+    <p>At 12 noon a ship observes a lighthouse at a distance of 15 km in a direction of \(N50^\circ E\). It sails at 15 km/h in a direction \(S35^\circ W\). Find the distance and direction of the lighthouse from the ship at 3 pm. Answer to the nearest whole number.</p>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(60\text{ km at }39^\circ\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="16.3cm|16.3 cm|16.3">
+  <div class="bar"><div class="num">9</div></div>
+  <div class="content small">
+    <div class="diagram">
+      <svg viewBox="0 0 520 230">
+        <ellipse cx="260" cy="86" rx="155" ry="32" fill="none" stroke="#111" stroke-width="3"/>
+        <path d="M105 85 Q260 215 415 85" fill="none" stroke="#111" stroke-width="4"/>
+        <line x1="70" y1="22" x2="235" y2="180" class="thick"/>
+        <line x1="450" y1="22" x2="285" y2="180" class="thick"/>
+        <line x1="105" y1="85" x2="415" y2="85" class="thin"/>
+        <text x="92" y="90" class="diagram-label" font-size="25">S</text>
+        <text x="422" y="90" class="diagram-label" font-size="25">T</text>
+        <text x="238" y="165" class="dim" font-size="23">105°</text>
+      </svg>
+    </div>
+    <p>The diagram shows a glass bowl with two chop-sticks resting on the rim at points \(S\) and \(T\). The length of the parts of the chop-sticks inside the bowl are 9 cm and 11.5 cm respectively. The length of \(\overline{ST}\), to the nearest tenth of a cm, is ____.</p>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(16.3\text{ cm}\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="102m|102 m|102">
+  <div class="bar"><div class="num">10</div></div>
+  <div class="content small">
+    <p>Two spruce trees are 100m apart. From the point on the ground halfway between the trees the angles of elevation to the tops of the trees are \(21^\circ\) and \(39^\circ\). Determine the distance, to the nearest metre, between the tops of the two trees.</p>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(102\text{ m}\).</div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="bar"><div class="num">11</div></div>
+  <div class="content small">
+    <p>The solid in the diagram was formed by removing a corner from a cube of side 24 cm. The length of \(EB\) is 6 cm.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 520 470">
+        <polygon points="250,25 400,135 400,300 250,410 100,300 100,135" fill="none" stroke="#555" stroke-width="4"/>
+        <polyline points="100,135 250,240 400,135" class="thin"/>
+        <polyline points="100,300 250,240 400,300" class="thin dash" stroke-width="2"/>
+        <line x1="250" y1="25" x2="250" y2="240" class="thin dash" stroke-width="2"/>
+        <polygon points="100,135 400,135 250,330" fill="rgba(0,0,0,.25)" stroke="#111" stroke-width="4"/>
+        <line x1="250" y1="410" x2="250" y2="330" class="thin"/>
+        <text x="255" y="23" class="diagram-label" font-size="26">S</text>
+        <text x="77" y="142" class="diagram-label" font-size="26">P</text>
+        <text x="405" y="142" class="diagram-label" font-size="26">R</text>
+        <text x="70" y="309" class="diagram-label" font-size="26">A</text>
+        <text x="405" y="309" class="diagram-label" font-size="26">C</text>
+        <text x="252" y="435" class="diagram-label" font-size="26">B</text>
+        <text x="255" y="335" class="diagram-label" font-size="26">E</text>
+        <text x="167" y="230" font-size="34">≋</text>
+        <text x="330" y="230" font-size="34">≋</text>
+      </svg>
+    </div>
+    <p>a. Calculate, to the nearest tenth, the lengths of \(PE\) and \(PR\).</p>
+    <div class="answer-row"><input class="answer" data-answers="PR=33.9cm, PE=30.0cm|PR = 33.9cm, PE = 30.0cm|33.9 30.0|PE=30.0cm PR=33.9cm" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(PR=33.9cm,\ PE=30.0cm\).</div>
+    <p>b. Calculate the measure of \(\angle PER\) to the nearest degree.</p>
+    <div class="answer-row"><input class="answer" data-answers="∠PER=69°|PER=69°|69°|69" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(\angle PER=69^\circ\).</div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="bar"><div class="num">12</div></div>
+  <div class="content small">
+    <p>A ship is steaming at 16km/h on a course of \(78^\circ\), illustrated by the dotted line in the diagram. \(L\) represents the position of a lighthouse. At 0800 hours the ship is at \(P\), which is on a bearing of \(314^\circ\) from \(L\), and one hour later it is at \(Q\), which is due north of \(L\).</p>
+    <div class="diagram">
+      <svg viewBox="0 0 520 280">
+        <line x1="110" y1="230" x2="110" y2="70" class="thick"/>
+        <line x1="350" y1="230" x2="350" y2="70" class="thick"/>
+        <line x1="110" y1="175" x2="350" y2="118" stroke="#555" stroke-width="4" stroke-dasharray="4 10"/>
+        <line x1="110" y1="175" x2="350" y2="230" class="thin"/>
+        <text x="92" y="65" class="diagram-label" font-size="26">N</text>
+        <text x="332" y="65" class="diagram-label" font-size="26">N</text>
+        <text x="78" y="183" class="diagram-label" font-size="26">P</text>
+        <text x="363" y="128" class="diagram-label" font-size="26">Q</text>
+        <text x="365" y="235" class="diagram-label" font-size="26">L</text>
+        <text x="120" y="145" class="dim" font-size="23">78°</text>
+        <polygon points="110,70 100,90 120,90" fill="#111"/>
+        <polygon points="350,70 340,90 360,90" fill="#111"/>
+      </svg>
+    </div>
+    <p>a. Determine the measures of \(\angle PLQ\) and \(\angle LPQ\).</p>
+    <div class="answer-row"><input class="answer" data-answers="56°|56" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(56^\circ\).</div>
+    <p>b. Calculate the distance \(PL\), to the nearest kilometre.</p>
+    <div class="answer-row"><input class="answer" data-answers="22km|22 km|22" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(22km\).</div>
+    <p>c. At what time, to the nearest minute, is the ship nearest to the lighthouse?</p>
+    <div class="answer-row"><input class="answer" data-answers="At 0846|0846|8:46|8:46 am|08:46" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: At 0846.</div>
+  </div>
+</section>
+
+<section class="card" data-answers="A|A. SOHCAHTOA|SOHCAHTOA">
+  <div class="bar"><div class="num">13</div></div>
+  <div class="content small">
+    <p>Yachts in a race have to sail a triangular course. First they sail in a direction of \(S45^\circ E\) for 8 km. They change direction and sail on a course of \(N45^\circ E\). The last part of the course is to return to the start by sailing due West. How far was the second part of the course? The most appropriate method for solving this problem is</p>
+    <div class="choices">A. SOHCAHTOA<br>B. the Sine Law<br>C. the Cosine Law<br>D. the problem cannot be solved without further information</div>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: A. SOHCAHTOA.</div>
+  </div>
+</section>
+
+<section class="card" data-answers="B|B. the Sine Law|the Sine Law|Sine Law">
+  <div class="bar"><div class="num">14</div></div>
+  <div class="content small">
+    <p>In \(\triangle ABC\), \(BA=9cm\), \(AC=13cm\) and \(\angle ABC=113^\circ\). Calculate the measure of \(\angle BCA\). The most appropriate method for solving this problem is</p>
+    <div class="choices">A. SOHCAHTOA<br>B. the Sine Law<br>C. the Cosine Law<br>D. the problem cannot be solved without further information.</div>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: B. the Sine Law.</div>
+  </div>
+</section>
+
+<section class="card" data-answers="D|D. the problem cannot be solved without further information.|the problem cannot be solved without further information">
+  <div class="bar"><div class="num">15</div></div>
+  <div class="content small">
+    <p>A pilot leaves base flying on a bearing of \(340^\circ\). After 30 minutes he changes course to \(108^\circ\) and flies in this direction until he is due north of base. How far does he have to fly South to return to base? The most appropriate method for solving this problem is</p>
+    <div class="choices">A. SOHCAHTOA<br>B. the Sine Law<br>C. the Cosine Law<br>D. the problem cannot be solved without further information.</div>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: D. the problem cannot be solved without further information.</div>
+  </div>
+</section>
+
+<section class="card" data-answers="71km|71 km|71">
+  <div class="bar"><div class="num">16</div></div>
+  <div class="content small">
+    <p>Two aircraft X and Y leave an airport at the same time. X flies on a course of \(70^\circ\) at 720 km/h, and Y flies on a course of \(350^\circ\) at 600km/h. To the nearest kilometre, the distance between the aircraft after 5 minutes is ____.</p>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(71\text{ km}\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="7.2cm|7.2 cm|7.2">
+  <div class="bar"><div class="num">17</div></div>
+  <div class="content small">
+    <p>In \(\triangle ABC\), \(\angle BAC=60^\circ\), \(AB=6cm\), and \(AC=8cm\).</p>
+    <div class="diagram">
+      <svg viewBox="0 0 360 210">
+        <polygon points="70,160 160,35 305,160" class="thin"/>
+        <text x="55" y="172" class="diagram-label" font-size="24">A</text>
+        <text x="153" y="28" class="diagram-label" font-size="24">B</text>
+        <text x="310" y="168" class="diagram-label" font-size="24">C</text>
+        <text x="64" y="88" class="dim" font-size="22">6 cm</text>
+        <text x="140" y="186" class="dim" font-size="22">8 cm</text>
+        <text x="100" y="145" class="dim" font-size="20">60°</text>
+      </svg>
+    </div>
+    <p>The length of \(BC\), to the nearest tenth of a cm, is _____.</p>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(7.2\text{ cm}\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="0.75">
+  <div class="bar"><div class="num">18</div></div>
+  <div class="content small">
+    <p>In \(\triangle ABC\), \(\angle BAC=60^\circ\), \(AB=6cm\), and \(AC=8cm\).</p>
+    <div class="diagram">
+      <svg viewBox="0 0 360 210">
+        <polygon points="70,160 160,35 305,160" class="thin"/>
+        <text x="55" y="172" class="diagram-label" font-size="24">A</text>
+        <text x="153" y="28" class="diagram-label" font-size="24">B</text>
+        <text x="310" y="168" class="diagram-label" font-size="24">C</text>
+        <text x="64" y="88" class="dim" font-size="22">6 cm</text>
+        <text x="140" y="186" class="dim" font-size="22">8 cm</text>
+        <text x="100" y="145" class="dim" font-size="20">60°</text>
+      </svg>
+    </div>
+    <p>The ratio \(\dfrac{\sin C}{\sin B}\), to the nearest hundredth, is ____.</p>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(0.75\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="150°|150">
+  <div class="bar"><div class="num">19</div></div>
+  <div class="content small">
+    <p>The minute hand of a clock is 12 cm long and the hour hand is 10 cm long. To the nearest degree, the angle between these hands at 5 o'clock is _____.</p>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(150^\circ\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="45°|45">
+  <div class="bar"><div class="num">20</div></div>
+  <div class="content small">
+    <p>The minute hand of a clock is 12 cm long and the hour hand is 10 cm long. To the nearest degree, the angle between these hands at 7:30 pm is _____.</p>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(45^\circ\).</div>
+  </div>
+</section>
+
+<section class="card" data-answers="17.5cm|17.5 cm|17.5">
+  <div class="bar"><div class="num">21</div></div>
+  <div class="content small">
+    <p>The minute hand of a clock is 12 cm long and the hour hand is 10 cm long. To the nearest 0.1 cm, the distance between the tips of the hands at 9:30 pm is _____.</p>
+    <div class="answer-row"><input class="answer" placeholder="Type answer"><button class="check-btn" onclick="checkOne(this)">Check</button><button class="answer-btn" onclick="showOne(this)">Show answer</button><span class="feedback"></span></div>
+    <div class="model">Answer: \(17.5cm\).</div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const ui = {
+  en: {
+    title: 'Trigonometry Practice',
+    subtitle: 'Sine Law, Cosine Law, Bearings, Applications, and 3D Problems',
+    checkAll: 'Check all',
+    showAll: 'Show all answers',
+    reset: 'Reset',
+    print: 'Print',
+    check: 'Check',
+    showAnswer: 'Show answer',
+    typeAnswer: 'Type answer',
+    correct: '✓ Correct',
+    tryAgain: 'Try again',
+    answer: 'Answer:'
+  },
+  zh: {
+    title: '三角函数练习',
+    subtitle: '正弦定理、余弦定理、方位角、应用题与 3D 问题',
+    checkAll: '全部检查',
+    showAll: '显示所有答案',
+    reset: '重置',
+    print: '打印',
+    check: '检查',
+    showAnswer: '显示答案',
+    typeAnswer: '输入答案',
+    correct: '✓ 正确',
+    tryAgain: '再试一次',
+    answer: '答案：'
+  }
+};
+
+const zhText = new Map(Object.entries({
+  'In each case, find the length of the indicated side to the nearest 0.1 cm.': '在每一题中，求指定边的长度，精确到 0.1 cm。',
+  'In \\(\\triangle ABC\\), \\(\\angle A=49^\\circ\\), \\(b=24\\), and \\(c=37\\). Calculate \\(a\\) to the nearest whole number.': '在 \\(\\triangle ABC\\) 中，\\(\\angle A=49^\\circ\\)，\\(b=24\\)，且 \\(c=37\\)。求 \\(a\\)，精确到最接近的整数。',
+  'Solve triangle \\(ABC\\) in which \\(AB=4.5cm\\), \\(BC=7.8cm\\) and \\(\\angle ABC=79^\\circ\\). Round sides to the nearest tenth of a cm and angles to the nearest tenth of a degree.': '解三角形 \\(ABC\\)，其中 \\(AB=4.5cm\\)，\\(BC=7.8cm\\)，且 \\(\\angle ABC=79^\\circ\\)。边长精确到 0.1 cm，角度精确到 0.1°。',
+  'In the diagram, \\(AB\\) represents part of a road constructed on the incline of a hill. \\(BC\\) represents a telephone pole \\(7.5m\\) tall at the side of the road. A guide wire attached to the top of the pole is joined to the ground at \\(A\\). If \\(AB=11.4m\\) and \\(\\angle ABC=135^\\circ\\), determine the length of the guide wire to the nearest \\(0.1m\\).': '图中，\\(AB\\) 表示建在山坡斜面上的一段道路。\\(BC\\) 表示路旁一根高 \\(7.5m\\) 的电线杆。一根拉线从电线杆顶端连接到地面点 \\(A\\)。若 \\(AB=11.4m\\)，且 \\(\\angle ABC=135^\\circ\\)，求拉线长度，精确到 \\(0.1m\\)。',
+  'In each case, find the measure of the indicated angle to the nearest degree.': '在每一题中，求指定角的度数，精确到最接近的整数度。',
+  'The length of \\(BC\\) in cm is': '\\(BC\\) 的长度（cm）是',
+  'Anwar and Ingrid have three trees in their garden. The trees form a triangle as shown in the diagram. Determine the smallest angle between the trees.': 'Anwar 和 Ingrid 的花园里有三棵树。如图所示，这三棵树形成一个三角形。求树之间的最小夹角。',
+  'At 12 noon a ship observes a lighthouse at a distance of 15 km in a direction of \\(N50^\\circ E\\). It sails at 15 km/h in a direction \\(S35^\\circ W\\). Find the distance and direction of the lighthouse from the ship at 3 pm. Answer to the nearest whole number.': '中午 12 点，一艘船观察到一座灯塔，距离为 15 km，方向为 \\(N50^\\circ E\\)。船以 15 km/h 的速度沿 \\(S35^\\circ W\\) 方向航行。求下午 3 点时灯塔相对于船的距离和方向，答案精确到最接近的整数。',
+  'The diagram shows a glass bowl with two chop-sticks resting on the rim at points \\(S\\) and \\(T\\). The length of the parts of the chop-sticks inside the bowl are 9 cm and 11.5 cm respectively. The length of \\(\\overline{ST}\\), to the nearest tenth of a cm, is ____.': '图中一个玻璃碗有两根筷子分别搭在碗沿的点 \\(S\\) 和 \\(T\\)。筷子在碗内的部分分别长 9 cm 和 11.5 cm。求 \\(\\overline{ST}\\) 的长度，精确到 0.1 cm。',
+  'Two spruce trees are 100m apart. From the point on the ground halfway between the trees the angles of elevation to the tops of the trees are \\(21^\\circ\\) and \\(39^\\circ\\). Determine the distance, to the nearest metre, between the tops of the two trees.': '两棵云杉相距 100m。从两棵树正中间的地面点观察，两棵树顶的仰角分别为 \\(21^\\circ\\) 和 \\(39^\\circ\\)。求两棵树顶之间的距离，精确到最接近的米。',
+  'The solid in the diagram was formed by removing a corner from a cube of side 24 cm. The length of \\(EB\\) is 6 cm.': '图中的立体由一个边长 24 cm 的立方体切去一个角形成。\\(EB\\) 的长度为 6 cm。',
+  'a. Calculate, to the nearest tenth, the lengths of \\(PE\\) and \\(PR\\).': 'a. 求 \\(PE\\) 和 \\(PR\\) 的长度，精确到十分位。',
+  'b. Calculate the measure of \\(\\angle PER\\) to the nearest degree.': 'b. 求 \\(\\angle PER\\) 的度数，精确到最接近的整数度。',
+  'A ship is steaming at 16km/h on a course of \\(78^\\circ\\), illustrated by the dotted line in the diagram. \\(L\\) represents the position of a lighthouse. At 0800 hours the ship is at \\(P\\), which is on a bearing of \\(314^\\circ\\) from \\(L\\), and one hour later it is at \\(Q\\), which is due north of \\(L\\).': '一艘船以 16km/h 的速度沿 \\(78^\\circ\\) 航向航行，如图中虚线所示。\\(L\\) 表示灯塔位置。08:00 时船在 \\(P\\)，从 \\(L\\) 看其方位角为 \\(314^\\circ\\)；一小时后船在 \\(Q\\)，位于 \\(L\\) 的正北方。',
+  'a. Determine the measures of \\(\\angle PLQ\\) and \\(\\angle LPQ\\).': 'a. 求 \\(\\angle PLQ\\) 和 \\(\\angle LPQ\\) 的度数。',
+  'b. Calculate the distance \\(PL\\), to the nearest kilometre.': 'b. 求距离 \\(PL\\)，精确到最接近的千米。',
+  'c. At what time, to the nearest minute, is the ship nearest to the lighthouse?': 'c. 船在什么时间最接近灯塔？精确到最接近的分钟。',
+  'Yachts in a race have to sail a triangular course. First they sail in a direction of \\(S45^\\circ E\\) for 8 km. They change direction and sail on a course of \\(N45^\\circ E\\). The last part of the course is to return to the start by sailing due West. How far was the second part of the course? The most appropriate method for solving this problem is': '帆船比赛需要沿三角形航线航行。首先沿 \\(S45^\\circ E\\) 方向航行 8 km，然后改变方向沿 \\(N45^\\circ E\\) 航行。最后一段航线是向正西返回起点。第二段航程有多长？解决这个问题最合适的方法是',
+  'In \\(\\triangle ABC\\), \\(BA=9cm\\), \\(AC=13cm\\) and \\(\\angle ABC=113^\\circ\\). Calculate the measure of \\(\\angle BCA\\). The most appropriate method for solving this problem is': '在 \\(\\triangle ABC\\) 中，\\(BA=9cm\\)，\\(AC=13cm\\)，且 \\(\\angle ABC=113^\\circ\\)。求 \\(\\angle BCA\\) 的度数。解决这个问题最合适的方法是',
+  'A pilot leaves base flying on a bearing of \\(340^\\circ\\). After 30 minutes he changes course to \\(108^\\circ\\) and flies in this direction until he is due north of base. How far does he have to fly South to return to base? The most appropriate method for solving this problem is': '一名飞行员从基地出发，沿 \\(340^\\circ\\) 方位角飞行。30 分钟后，他改为 \\(108^\\circ\\) 航向，并沿该方向飞到基地正北方。为了返回基地，他需要向南飞多远？解决这个问题最合适的方法是',
+  'Two aircraft X and Y leave an airport at the same time. X flies on a course of \\(70^\\circ\\) at 720 km/h, and Y flies on a course of \\(350^\\circ\\) at 600km/h. To the nearest kilometre, the distance between the aircraft after 5 minutes is ____.': '两架飞机 X 和 Y 同时离开机场。X 以 720 km/h 沿 \\(70^\\circ\\) 航向飞行，Y 以 600km/h 沿 \\(350^\\circ\\) 航向飞行。5 分钟后两架飞机之间的距离，精确到最接近的千米，是 ____。',
+  'In \\(\\triangle ABC\\), \\(\\angle BAC=60^\\circ\\), \\(AB=6cm\\), and \\(AC=8cm\\).': '在 \\(\\triangle ABC\\) 中，\\(\\angle BAC=60^\\circ\\)，\\(AB=6cm\\)，且 \\(AC=8cm\\)。',
+  'The length of \\(BC\\), to the nearest tenth of a cm, is _____.': '\\(BC\\) 的长度，精确到 0.1 cm，是 _____。',
+  'The ratio \\(\\dfrac{\\sin C}{\\sin B}\\), to the nearest hundredth, is ____.': '比值 \\(\\dfrac{\\sin C}{\\sin B}\\)，精确到百分位，是 ____。',
+  "The minute hand of a clock is 12 cm long and the hour hand is 10 cm long. To the nearest degree, the angle between these hands at 5 o'clock is _____.": '钟表的分针长 12 cm，时针长 10 cm。5 点时两针之间的夹角，精确到最接近的整数度，是 _____。',
+  'The minute hand of a clock is 12 cm long and the hour hand is 10 cm long. To the nearest degree, the angle between these hands at 7:30 pm is _____.': '钟表的分针长 12 cm，时针长 10 cm。晚上 7:30 时两针之间的夹角，精确到最接近的整数度，是 _____。',
+  'The minute hand of a clock is 12 cm long and the hour hand is 10 cm long. To the nearest 0.1 cm, the distance between the tips of the hands at 9:30 pm is _____.': '钟表的分针长 12 cm，时针长 10 cm。晚上 9:30 时两针尖端之间的距离，精确到 0.1 cm，是 _____。',
+  'A. SOHCAHTOA': 'A. SOHCAHTOA',
+  'B. the Sine Law': 'B. 正弦定理',
+  'C. the Cosine Law': 'C. 余弦定理',
+  'D. the problem cannot be solved without further information': 'D. 信息不足，无法求解',
+  'D. the problem cannot be solved without further information.': 'D. 信息不足，无法求解。',
+  'Answer: \\(x=12.6\\text{ cm}\\). Use the Cosine Law: \\(x^2=20^2+25^2-2(20)(25)\\cos30^\\circ\\).': '答案：\\(x=12.6\\text{ cm}\\)。使用余弦定理：\\(x^2=20^2+25^2-2(20)(25)\\cos30^\\circ\\)。',
+  'Answer: \\(x=4.2\\text{ cm}\\). Use the Cosine Law with sides \\(16.1\\), \\(15.9\\), and included angle \\(15^\\circ\\).': '答案：\\(x=4.2\\text{ cm}\\)。使用余弦定理，已知两边 \\(16.1\\)、\\(15.9\\) 及夹角 \\(15^\\circ\\)。',
+  'Answer: \\(x=36.7\\text{ cm}\\).': '答案：\\(x=36.7\\text{ cm}\\)。',
+  'Answer: \\(a=28\\). Use \\(a^2=b^2+c^2-2bc\\cos A\\).': '答案：\\(a=28\\)。使用 \\(a^2=b^2+c^2-2bc\\cos A\\)。',
+  'Answer: \\(\\angle ABC=79^\\circ,\\ \\angle BAC=68.5^\\circ,\\ \\angle ACB=32.5^\\circ\\). \\(AC=8.2cm,\\ BC=7.8cm,\\ AB=4.5cm\\).': '答案：\\(\\angle ABC=79^\\circ,\\ \\angle BAC=68.5^\\circ,\\ \\angle ACB=32.5^\\circ\\)。\\(AC=8.2cm,\\ BC=7.8cm,\\ AB=4.5cm\\)。',
+  'Answer: \\(17.5\\text{ m}\\). The guide wire is \\(AC\\); use the Cosine Law with \\(AB=11.4\\), \\(BC=7.5\\), and \\(\\angle ABC=135^\\circ\\).': '答案：\\(17.5\\text{ m}\\)。拉线是 \\(AC\\)；使用余弦定理，\\(AB=11.4\\)，\\(BC=7.5\\)，且 \\(\\angle ABC=135^\\circ\\)。',
+  'Answer: \\(x^\\circ=41^\\circ\\).': '答案：\\(x^\\circ=41^\\circ\\)。',
+  'Answer: \\(z^\\circ=36^\\circ\\).': '答案：\\(z^\\circ=36^\\circ\\)。',
+  'Answer: \\(b^\\circ=92^\\circ\\).': '答案：\\(b^\\circ=92^\\circ\\)。',
+  'Answer: \\(x^\\circ=138^\\circ\\).': '答案：\\(x^\\circ=138^\\circ\\)。',
+  'Answer: C. \\(10\\sqrt3\\).': '答案：C. \\(10\\sqrt3\\)。',
+  'Answer: \\(40^\\circ\\).': '答案：\\(40^\\circ\\)。',
+  'Answer: \\(60\\text{ km at }39^\\circ\\).': '答案：\\(60\\text{ km，方向 }39^\\circ\\)。',
+  'Answer: \\(16.3\\text{ cm}\\).': '答案：\\(16.3\\text{ cm}\\)。',
+  'Answer: \\(102\\text{ m}\\).': '答案：\\(102\\text{ m}\\)。',
+  'Answer: \\(PR=33.9cm,\\ PE=30.0cm\\).': '答案：\\(PR=33.9cm,\\ PE=30.0cm\\)。',
+  'Answer: \\(\\angle PER=69^\\circ\\).': '答案：\\(\\angle PER=69^\\circ\\)。',
+  'Answer: \\(56^\\circ\\).': '答案：\\(56^\\circ\\)。',
+  'Answer: \\(22km\\).': '答案：\\(22km\\)。',
+  'Answer: At 0846.': '答案：08:46。',
+  'Answer: A. SOHCAHTOA.': '答案：A. SOHCAHTOA。',
+  'Answer: B. the Sine Law.': '答案：B. 正弦定理。',
+  'Answer: D. the problem cannot be solved without further information.': '答案：D. 信息不足，无法求解。',
+  'Answer: \\(71\\text{ km}\\).': '答案：\\(71\\text{ km}\\)。',
+  'Answer: \\(7.2\\text{ cm}\\).': '答案：\\(7.2\\text{ cm}\\)。',
+  'Answer: \\(0.75\\).': '答案：\\(0.75\\)。',
+  'Answer: \\(150^\\circ\\).': '答案：\\(150^\\circ\\)。',
+  'Answer: \\(45^\\circ\\).': '答案：\\(45^\\circ\\)。',
+  'Answer: \\(17.5cm\\).': '答案：\\(17.5cm\\)。'
+}));
+
+let languageMode = 'en';
+
+function uiText(key){
+  if(languageMode === 'zh') return ui.zh[key];
+  if(languageMode === 'both') return `${ui.en[key]} / ${ui.zh[key]}`;
+  return ui.en[key];
+}
+
+function contentText(en, zh){
+  if(languageMode === 'zh') return zh;
+  if(languageMode === 'both') return `${en}<span class="zh">${zh}</span>`;
+  return en;
+}
+
+function setupI18nText(){
+  const walker = document.createTreeWalker(document.querySelector('main'), NodeFilter.SHOW_TEXT, {
+    acceptNode(node){
+      const text = node.textContent.replace(/\s+/g, ' ').trim();
+      if(!text || !zhText.has(text)) return NodeFilter.FILTER_REJECT;
+      if(node.parentElement?.closest('script,style,svg,.answer-row')) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const en = node.textContent.replace(/\s+/g, ' ').trim();
+    const span = document.createElement('span');
+    span.dataset.i18nText = en;
+    span.innerHTML = en;
+    node.replaceWith(span);
+  });
+}
+
+function setLanguage(mode){
+  languageMode = mode;
+  document.documentElement.lang = mode === 'zh' ? 'zh-Hans' : 'en';
+  document.title = mode === 'zh' ? ui.zh.title : ui.en.title;
+  document.querySelectorAll('[data-i18n]').forEach(node => {
+    const key = node.dataset.i18n;
+    node.innerHTML = key === 'title' || key === 'subtitle' ? contentText(ui.en[key], ui.zh[key]) : uiText(key);
+  });
+  document.querySelectorAll('[data-i18n-text]').forEach(node => {
+    const en = node.dataset.i18nText;
+    node.innerHTML = contentText(en, zhText.get(en));
+  });
+  document.querySelectorAll('input.answer').forEach(input => {
+    input.placeholder = uiText('typeAnswer');
+  });
+  document.querySelectorAll('.check-btn').forEach(button => { button.textContent = uiText('check'); });
+  document.querySelectorAll('.answer-btn').forEach(button => { button.textContent = uiText('showAnswer'); });
+  document.querySelectorAll('.feedback').forEach(fb => {
+    if(fb.textContent.includes('Correct') || fb.textContent.includes('正确')) fb.textContent = uiText('correct');
+    if(fb.textContent.includes('Try') || fb.textContent.includes('再试')) fb.textContent = uiText('tryAgain');
+  });
+  document.querySelectorAll('.language-controls button').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.mode === mode));
+  });
+  if(window.MathJax?.typesetPromise) MathJax.typesetPromise([document.body]);
+}
+
+function normalize(s){
+  return (s || '')
+    .toLowerCase()
+    .replace(/正弦定理/g,'sine law')
+    .replace(/余弦定理/g,'cosine law')
+    .replace(/信息不足，?无法求解/g,'the problem cannot be solved without further information')
+    .replace(/\s+/g,'')
+    .replace(/degrees?/g,'°')
+    .replace(/degree/g,'°')
+    .replace(/centimetres?|centimeters?/g,'cm')
+    .replace(/metres?|meters?/g,'m')
+    .replace(/kilometres?|kilometers?/g,'km')
+    .replace(/thesinelaw|sinelaw/g,'sinelaw')
+    .replace(/thecosinelaw|cosinelaw/g,'cosinelaw')
+    .replace(/sqrt/g,'√')
+    .replace(/[，,]/g,',')
+    .replace(/[。\.]$/,'')
+    .replace(/∠/g,'')
+    .trim();
+}
+function getAnswers(input){
+  const own = input.dataset.answers;
+  const card = input.closest('.card')?.dataset.answers || '';
+  return (own || card).split('|').map(normalize).filter(Boolean);
+}
+function checkInput(input){
+  const val = normalize(input.value);
+  const answers = getAnswers(input);
+  const ok = answers.some(a => val === a || (a.length > 4 && val.includes(a)) || (val.length > 4 && a.includes(val)));
+  input.classList.remove('correct','wrong');
+  input.classList.add(ok ? 'correct' : 'wrong');
+  const fb = input.parentElement.querySelector('.feedback');
+  fb.textContent = ok ? uiText('correct') : uiText('tryAgain');
+  fb.style.color = ok ? '#228b4d' : '#c44242';
+  return ok;
+}
+function checkOne(btn){
+  const input = btn.parentElement.querySelector('input.answer');
+  checkInput(input);
+}
+function showOne(btn){
+  const model = btn.parentElement.nextElementSibling;
+  if(model && model.classList.contains('model')){
+    model.style.display = model.style.display === 'block' ? 'none' : 'block';
+  }
+}
+function checkAll(){
+  document.querySelectorAll('input.answer').forEach(checkInput);
+}
+function showAll(){
+  document.querySelectorAll('.model').forEach(m => m.style.display='block');
+}
+function resetAll(){
+  document.querySelectorAll('input.answer').forEach(i => {
+    i.value=''; i.classList.remove('correct','wrong');
+  });
+  document.querySelectorAll('.feedback').forEach(f => f.textContent='');
+  document.querySelectorAll('.model').forEach(m => m.style.display='none');
+}
+document.querySelectorAll('.language-controls button').forEach(button => {
+  button.addEventListener('click', () => setLanguage(button.dataset.mode));
+});
+setupI18nText();
+setLanguage('en');
+</script>
+</body>
+</html>
