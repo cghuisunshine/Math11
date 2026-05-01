@@ -280,18 +280,29 @@
       <div class="box concepts">
         <span class="tag">Concepts</span>
         <ul>
+          <li><strong>Initial Side:</strong> The starting ray of an angle. In standard position, the initial side lies along the positive x-axis.</li>
+          <li><strong>Terminal Side:</strong> The ending ray of an angle after rotation from the initial side.</li>
           <li><strong>Standard Position:</strong> An angle is in standard position when its vertex is at the origin and its initial side lies along the positive x-axis.</li>
           <li><strong>Angle Rotation:</strong> The measure of an angle is determined by the amount and direction of rotation from the initial to the terminal side. A counterclockwise rotation results in a positive angle, while a clockwise rotation yields a negative angle.</li>
           <li><strong>Degree Measure:</strong> A full rotation is 360 degrees (360&deg;). One degree (1&deg;) is 1/360 of a complete rotation.</li>
           <li><strong>Radian Measure:</strong> A radian is another unit for measuring angles, where one full rotation is 2&pi; radians. This relationship is derived from the unit circle, where the circumference is 2&pi;.</li>
           <li><strong>Coterminal Angles:</strong> These are angles in standard position that share the same initial and terminal sides.</li>
+          <li><strong>Reference Angle:</strong> The acute angle formed between the terminal side of an angle and the x-axis.</li>
         </ul>
       </div>
 
       <div class="box formula">
         <span class="tag">Formulas</span>
         <ul>
-          <li><strong>Finding Coterminal Angles:</strong> To find angles that are coterminal with an angle &theta;, you can add or subtract multiples of 360&deg;.</li>
+          <li><strong>Finding Coterminal Angles:</strong> To find angles that are coterminal with an angle &theta;, add or subtract multiples of 360&deg;. In radians, add or subtract multiples of 2&pi;.</li>
+          <li><strong>Reference Angle Rules:</strong> For an angle &theta; between 0&deg; and 360&deg;:
+            <ul>
+              <li>Quadrant I: reference angle = &theta;</li>
+              <li>Quadrant II: reference angle = 180&deg; - &theta;</li>
+              <li>Quadrant III: reference angle = &theta; - 180&deg;</li>
+              <li>Quadrant IV: reference angle = 360&deg; - &theta;</li>
+            </ul>
+          </li>
           <li><strong>Degree to Radian Conversion:</strong> Multiply the degree measure by <span class="math">&pi;/180&deg;</span>.</li>
           <li><strong>Radian to Degree Conversion:</strong> Multiply the radian measure by <span class="math">180&deg;/&pi;</span>.</li>
         </ul>
@@ -307,6 +318,9 @@
               <li>465&deg; - 2 &times; 360&deg; = -255&deg; negative</li>
               <li>465&deg; - 3 &times; 360&deg; = -615&deg; negative</li>
             </ul>
+          </li>
+          <li><strong>Finding a Reference Angle:</strong> For 240&deg;, the terminal side is in Quadrant III, so the reference angle is:
+            <div class="math">240&deg; - 180&deg; = 60&deg;</div>
           </li>
           <li><strong>Converting Degrees to Radians:</strong> To convert 240&deg; to radians:
             <div class="math">240&deg; &times; (&pi;/180&deg;) = 4&pi;/3 radians</div>
@@ -600,6 +614,10 @@
       ['Examples', '例题'],
       ['Example', '例题'],
       ['Process / Strategy', '过程 / 策略'],
+      ['Initial Side:', '始边：'],
+      ['The starting ray of an angle. In standard position, the initial side lies along the positive x-axis.', '角的起始射线。在标准位置中，始边沿 x 轴正方向。'],
+      ['Terminal Side:', '终边：'],
+      ['The ending ray of an angle after rotation from the initial side.', '从始边旋转后得到的终止射线。'],
       ['Standard Position:', '标准位置：'],
       ['An angle is in standard position when its vertex is at the origin and its initial side lies along the positive x-axis.', '当角的顶点在原点，始边沿 x 轴正方向时，这个角处于标准位置。'],
       ['Angle Rotation:', '角的旋转：'],
@@ -610,8 +628,16 @@
       ['A radian is another unit for measuring angles, where one full rotation is 2π radians. This relationship is derived from the unit circle, where the circumference is 2π.', '弧度是另一种度量角的单位，一整圈是 2π 弧度。这个关系来自单位圆，因为单位圆周长是 2π。'],
       ['Coterminal Angles:', '同终边角：'],
       ['These are angles in standard position that share the same initial and terminal sides.', '同终边角是在标准位置中始边和终边都相同的角。'],
+      ['Reference Angle:', '参考角：'],
+      ['The acute angle formed between the terminal side of an angle and the x-axis.', '角的终边与 x 轴之间形成的锐角。'],
       ['Finding Coterminal Angles:', '求同终边角：'],
-      ['To find angles that are coterminal with an angle θ, you can add or subtract multiples of 360°.', '要找与角 θ 同终边的角，可以加上或减去 360° 的整数倍。'],
+      ['To find angles that are coterminal with an angle θ, add or subtract multiples of 360°. In radians, add or subtract multiples of 2π.', '要找与角 θ 同终边的角，可以加上或减去 360° 的整数倍。用弧度时，加上或减去 2π 的整数倍。'],
+      ['Reference Angle Rules:', '参考角规则：'],
+      ['For an angle θ between 0° and 360°:', '对于 0° 到 360° 之间的角 θ：'],
+      ['Quadrant I: reference angle = θ', '第一象限：参考角 = θ'],
+      ['Quadrant II: reference angle = 180° - θ', '第二象限：参考角 = 180° - θ'],
+      ['Quadrant III: reference angle = θ - 180°', '第三象限：参考角 = θ - 180°'],
+      ['Quadrant IV: reference angle = 360° - θ', '第四象限：参考角 = 360° - θ'],
       ['Degree to Radian Conversion:', '角度转弧度：'],
       ['Multiply the degree measure by', '将角度数乘以'],
       ['Radian to Degree Conversion:', '弧度转角度：'],
@@ -621,6 +647,8 @@
       ['465° + 360° = 825° positive', '465° + 360° = 825°，正角'],
       ['465° - 2 × 360° = -255° negative', '465° - 2 × 360° = -255°，负角'],
       ['465° - 3 × 360° = -615° negative', '465° - 3 × 360° = -615°，负角'],
+      ['Finding a Reference Angle:', '求参考角：'],
+      ['For 240°, the terminal side is in Quadrant III, so the reference angle is:', '对于 240°，终边在第三象限，所以参考角是：'],
       ['Converting Degrees to Radians:', '角度转弧度：'],
       ['To convert 240° to radians:', '将 240° 转为弧度：'],
       ['Converting Radians to Degrees:', '弧度转角度：'],
